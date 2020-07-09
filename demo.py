@@ -1,3 +1,1 @@
-print("demo")
-print("hhii")
-print("hello")
+print("Hello World")
