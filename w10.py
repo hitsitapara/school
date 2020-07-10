@@ -2,7 +2,6 @@ from tkinter import *
 from tkinter import ttk, messagebox
 import sqlite3
 
-
 class Window10(Toplevel):
 
     def backf(self, event=""):
@@ -27,8 +26,15 @@ class Window10(Toplevel):
         self.grab_release()
         self.bgclr1 = "#0080c0"
         self.bgclr2 = "#e7d95a"
+        self.f1 = "Arial Bold"
+        self.f2 = "times new roman"
         self.title("WINDOW10")
         self.config(background=self.bgclr1)
         self.geometry("1350x700+0+0")
+
+        bb = Button(self, text="BACK", bd=5, font=(self.f1, 20), bg=self.bgclr2, command=self.backf)
+        bb.pack()
+
+        self.protocol("WM_DELETE_WINDOW", self.c_w)
 
         self.mainloop()
