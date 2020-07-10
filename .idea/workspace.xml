@@ -19,19 +19,8 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2ab67184-dac8-454d-8984-76e6343e26b6" name="Default Changelist" comment="add new file">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="2ab67184-dac8-454d-8984-76e6343e26b6" name="Default Changelist" comment="add close button">
       <change beforePath="$PROJECT_DIR$/w1.py" beforeDir="false" afterPath="$PROJECT_DIR$/w1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/w10.py" beforeDir="false" afterPath="$PROJECT_DIR$/w10.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/w11.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/w2.py" beforeDir="false" afterPath="$PROJECT_DIR$/w2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/w3.py" beforeDir="false" afterPath="$PROJECT_DIR$/w3.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/w4.py" beforeDir="false" afterPath="$PROJECT_DIR$/w4.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/w5.py" beforeDir="false" afterPath="$PROJECT_DIR$/w5.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/w6.py" beforeDir="false" afterPath="$PROJECT_DIR$/w6.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/w7.py" beforeDir="false" afterPath="$PROJECT_DIR$/w7.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/w8.py" beforeDir="false" afterPath="$PROJECT_DIR$/w8.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/w9.py" beforeDir="false" afterPath="$PROJECT_DIR$/w9.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -216,7 +205,14 @@
       <option name="project" value="LOCAL" />
       <updated>1594382075469</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="add close button">
+      <created>1594384427918</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1594384427918</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -235,7 +231,8 @@
     <MESSAGE value="hit" />
     <MESSAGE value="add new line" />
     <MESSAGE value="add new file" />
-    <option name="LAST_COMMIT_MESSAGE" value="add new file" />
+    <MESSAGE value="add close button" />
+    <option name="LAST_COMMIT_MESSAGE" value="add close button" />
   </component>
   <component name="WindowStateProjectService">
     <state x="137" y="17" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1594270784796">
@@ -246,29 +243,29 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="462" y="104" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1594270783279" />
-    <state width="1344" height="199" key="GridCell.Tab.0.bottom" timestamp="1594384162577">
+    <state width="1344" height="199" key="GridCell.Tab.0.bottom" timestamp="1594384500680">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1344" height="199" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1594384162577" />
-    <state width="1344" height="199" key="GridCell.Tab.0.center" timestamp="1594384162577">
+    <state width="1344" height="199" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1594384500680" />
+    <state width="1344" height="199" key="GridCell.Tab.0.center" timestamp="1594384500678">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1344" height="199" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1594384162577" />
-    <state width="1344" height="199" key="GridCell.Tab.0.left" timestamp="1594384162577">
+    <state width="1344" height="199" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1594384500678" />
+    <state width="1344" height="199" key="GridCell.Tab.0.left" timestamp="1594384500678">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1344" height="199" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1594384162577" />
-    <state width="1344" height="199" key="GridCell.Tab.0.right" timestamp="1594384162577">
+    <state width="1344" height="199" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1594384500678" />
+    <state width="1344" height="199" key="GridCell.Tab.0.right" timestamp="1594384500679">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1344" height="199" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1594384162577" />
+    <state width="1344" height="199" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1594384500679" />
     <state x="184" y="0" key="SettingsEditor" timestamp="1594270369717">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="184" y="0" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1594270369717" />
-    <state x="275" y="95" key="Vcs.Push.Dialog.v2" timestamp="1594382105021">
+    <state x="275" y="95" key="Vcs.Push.Dialog.v2" timestamp="1594384431713">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="275" y="95" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1594382105021" />
+    <state x="275" y="95" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1594384431713" />
   </component>
 </project>

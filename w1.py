@@ -5,6 +5,13 @@ from w2 import  Window2
 
 class Window1():
 
+    def c_w(self, event=""):
+        m = messagebox.askyesno("School Software", "Are you Want to Close Application?", parent=self.root)
+        if m > 0:
+            self.main_root.destroy()
+        else:
+            return
+
     def next(self, event=""):
         root.withdraw()
         obj=Window2(root,self.main_root)
@@ -24,6 +31,8 @@ class Window1():
 
         nb = Button(self.root, text="NEXT", bd=5, font=(self.f1, 20), bg=self.bgclr2, command=self.next)
         nb.pack()
+
+        self.root.protocol("WM_DELETE_WINDOW", self.c_w)
 
         self.root.mainloop()
 
