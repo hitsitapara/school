@@ -19,34 +19,48 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2ab67184-dac8-454d-8984-76e6343e26b6" name="Default Changelist" comment="add close button">
+    <list default="true" id="2ab67184-dac8-454d-8984-76e6343e26b6" name="Default Changelist" comment="add new one line">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/school.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/school.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/w1.py" beforeDir="false" afterPath="$PROJECT_DIR$/w1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/w2.py" beforeDir="false" afterPath="$PROJECT_DIR$/w2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/w3.py" beforeDir="false" afterPath="$PROJECT_DIR$/w3.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/w4.py" beforeDir="false" afterPath="$PROJECT_DIR$/w4.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/w5.py" beforeDir="false" afterPath="$PROJECT_DIR$/w5.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/w6.py" beforeDir="false" afterPath="$PROJECT_DIR$/w6.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/w7.py" beforeDir="false" afterPath="$PROJECT_DIR$/w7.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo.py" beforeDir="false" afterPath="$PROJECT_DIR$/demo.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Python Script" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="10" />
+    <option name="y" value="20" />
+    <option name="width" value="1346" />
+    <option name="height" value="680" />
   </component>
   <component name="ProjectId" id="1eR1x16AfmMIvhVgqBOAfx6RiQQ" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="school" type="b2602c69:ProjectViewProjectNode" />
+              <item name="school" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
   </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -59,7 +73,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/demo.py" />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
-  <component name="RunManager" selected="Python.w1">
+  <component name="RunManager" selected="Python.demo">
     <configuration name="demo" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="school" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -102,74 +116,8 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="w1" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="school" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/w1.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="w2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="school" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/w2.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="w8" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="school" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/w8.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.w1" />
-        <item itemvalue="Python.w2" />
-        <item itemvalue="Python.w8" />
         <item itemvalue="Python.hii" />
       </list>
     </recent_temporary>
@@ -199,28 +147,7 @@
       <option name="project" value="LOCAL" />
       <updated>1594271277902</updated>
     </task>
-    <task id="LOCAL-00003" summary="add new file">
-      <created>1594382075469</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1594382075469</updated>
-    </task>
-    <task id="LOCAL-00004" summary="add close button">
-      <created>1594384427918</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1594384427918</updated>
-    </task>
-    <task id="LOCAL-00005" summary="add close button">
-      <created>1594384511900</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1594384511900</updated>
-    </task>
-    <option name="localTasksCounter" value="6" />
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -233,14 +160,11 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="hit" />
     <MESSAGE value="add new line" />
-    <MESSAGE value="add new file" />
-    <MESSAGE value="add close button" />
-    <option name="LAST_COMMIT_MESSAGE" value="add close button" />
+    <option name="LAST_COMMIT_MESSAGE" value="add new line" />
   </component>
   <component name="WindowStateProjectService">
     <state x="137" y="17" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1594270784796">
@@ -251,33 +175,29 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="462" y="104" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1594270783279" />
-    <state width="1344" height="199" key="GridCell.Tab.0.bottom" timestamp="1594439433143">
+    <state width="672" height="174" key="GridCell.Tab.0.bottom" timestamp="1594282847319">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1344" height="199" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1594439433143" />
-    <state width="1344" height="199" key="GridCell.Tab.0.center" timestamp="1594439433143">
+    <state width="672" height="174" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1594282847319" />
+    <state width="672" height="174" key="GridCell.Tab.0.center" timestamp="1594282847319">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1344" height="199" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1594439433143" />
-    <state width="1344" height="199" key="GridCell.Tab.0.left" timestamp="1594439433142">
+    <state width="672" height="174" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1594282847319" />
+    <state width="672" height="174" key="GridCell.Tab.0.left" timestamp="1594282847319">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1344" height="199" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1594439433142" />
-    <state width="1344" height="199" key="GridCell.Tab.0.right" timestamp="1594439433143">
+    <state width="672" height="174" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1594282847319" />
+    <state width="672" height="174" key="GridCell.Tab.0.right" timestamp="1594282847319">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1344" height="199" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1594439433143" />
+    <state width="672" height="174" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1594282847319" />
     <state x="184" y="0" key="SettingsEditor" timestamp="1594270369717">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="184" y="0" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1594270369717" />
-    <state x="275" y="95" key="Vcs.Push.Dialog.v2" timestamp="1594384515395">
+    <state x="275" y="95" key="Vcs.Push.Dialog.v2" timestamp="1594271299355">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="275" y="95" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1594384515395" />
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1594438889296">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1594438889296" />
+    <state x="275" y="95" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1594271299355" />
   </component>
 </project>
