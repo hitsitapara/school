@@ -29,12 +29,13 @@ class Window1():
         self.root.title("WINDOW1")
         self.root.config(background=self.bgclr1)
         self.root.geometry("1350x700+0+0")
+        self.root.resizable(False,False)
 
         imagler = Image.open("right-arrow.png")
         imagler = imagler.resize((50,50))
         imgr = ImageTk.PhotoImage(imagler)
 
-        bgimg = ImageTk.PhotoImage(file="images.jpg")
+        bgimg = ImageTk.PhotoImage(file="download (2).jpg")
         lbl = Label(self.root,image=bgimg)
         lbl.place(x=0,y=0,relwidth=1,relheight=1)
 

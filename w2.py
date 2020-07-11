@@ -38,6 +38,7 @@ class Window2(Toplevel):
         self.title("WINDOW2")
         self.config(background=self.bgclr1)
         self.geometry("1350x700+0+0")
+        self.resizable(False, False)
 
         imagel = Image.open("left-arrow.png")
         imagel = imagel.resize((50,50))

@@ -38,7 +38,7 @@ class Window3(Toplevel):
         self.title("WINDOW3")
         self.config(background=self.bgclr1)
         self.geometry("1350x700+0+0")
-
+        self.resizable(False, False)
         imagel = Image.open("left-arrow.png")
         imagel = imagel.resize((50, 50))
         imager = Image.open("right-arrow.png")
