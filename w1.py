@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import messagebox,ttk
 import sqlite3
 from w2 import  Window2
+from PIL import Image,ImageTk
 
 class Window1():
 
@@ -29,7 +30,11 @@ class Window1():
         self.root.config(background=self.bgclr1)
         self.root.geometry("1350x700+0+0")
 
-        nb = Button(self.root, text="NEXT", bd=5, font=(self.f1, 20), bg=self.bgclr2, command=self.next)
+        imagler = Image.open("right-arrow.png")
+        imagler = imagler.resize((50,50))
+        imgr = ImageTk.PhotoImage(imagler)
+
+        nb = Button(self.root, image = imgr, bd=5, font=(self.f1, 20), bg=self.bgclr2, command=self.next)
         nb.pack()
 
         self.root.protocol("WM_DELETE_WINDOW", self.c_w)

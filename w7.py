@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import ttk, messagebox
 import sqlite3
 from w8 import Window8
+from PIL import Image, ImageTk
 
 
 class Window7(Toplevel):
@@ -38,9 +39,17 @@ class Window7(Toplevel):
         self.config(background=self.bgclr1)
         self.geometry("1350x700+0+0")
 
-        bb = Button(self, text="BACK", bd=5, font=(self.f1, 20), bg=self.bgclr2, command=self.backf)
+        imagel = Image.open("left-arrow.png")
+        imagel = imagel.resize((50, 50))
+        imager = Image.open("right-arrow.png")
+        imager = imager.resize((50, 50))
+
+        imgl = ImageTk.PhotoImage(imagel)
+        imgr = ImageTk.PhotoImage(imager)
+
+        bb = Button(self, image = imgl, bd=5, font=(self.f1, 20), bg=self.bgclr2, command=self.backf)
         bb.pack()
-        nb = Button(self, text="NEXT", bd=5, font=(self.f1, 20), bg=self.bgclr2, command=self.next)
+        nb = Button(self, image = imgr, bd=5, font=(self.f1, 20), bg=self.bgclr2, command=self.next)
         nb.pack()
 
         self.protocol("WM_DELETE_WINDOW", self.c_w)
