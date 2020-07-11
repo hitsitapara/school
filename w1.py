@@ -36,9 +36,10 @@ class Window1():
 
         nb = Button(self.root, image = imgr, bd=5, font=(self.f1, 20), bg=self.bgclr2, command=self.next)
         nb.pack()
-
+        bgimg = ImageTk.PhotoImage(file="images.jpg")
+        lbl = Label(self.root,image=bgimg)
+        lbl.place(x=0,y=0,relwidth=1,relheight=1)
         self.root.protocol("WM_DELETE_WINDOW", self.c_w)
-
         self.root.mainloop()
 
 
