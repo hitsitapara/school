@@ -19,16 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2ab67184-dac8-454d-8984-76e6343e26b6" name="Default Changelist" comment="add close button">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/w1.py" beforeDir="false" afterPath="$PROJECT_DIR$/w1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/w2.py" beforeDir="false" afterPath="$PROJECT_DIR$/w2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/w3.py" beforeDir="false" afterPath="$PROJECT_DIR$/w3.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/w4.py" beforeDir="false" afterPath="$PROJECT_DIR$/w4.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/w5.py" beforeDir="false" afterPath="$PROJECT_DIR$/w5.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/w6.py" beforeDir="false" afterPath="$PROJECT_DIR$/w6.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/w7.py" beforeDir="false" afterPath="$PROJECT_DIR$/w7.py" afterDir="false" />
-    </list>
+    <list default="true" id="2ab67184-dac8-454d-8984-76e6343e26b6" name="Default Changelist" comment="add image to button" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -220,7 +211,14 @@
       <option name="project" value="LOCAL" />
       <updated>1594384511900</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="add image to button">
+      <created>1594439509295</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1594439509295</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -240,7 +238,8 @@
     <MESSAGE value="add new line" />
     <MESSAGE value="add new file" />
     <MESSAGE value="add close button" />
-    <option name="LAST_COMMIT_MESSAGE" value="add close button" />
+    <MESSAGE value="add image to button" />
+    <option name="LAST_COMMIT_MESSAGE" value="add image to button" />
   </component>
   <component name="WindowStateProjectService">
     <state x="137" y="17" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1594270784796">
