@@ -32,7 +32,7 @@ class Window1():
         self.root.resizable(False,False)
 
         imagler = Image.open("right-arrow.png")
-        imagler = imagler.resize((50,50))
+        imagler = imagler.resize((60,15))
         imgr = ImageTk.PhotoImage(imagler)
 
         bgimg = ImageTk.PhotoImage(file="download (2).jpg")
