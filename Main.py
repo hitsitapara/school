@@ -22,6 +22,24 @@ class Main1(Toplevel):
         self.withdraw()
         Window3(self, self.main_root)
 
+    def at(self, event=""):
+        pass
+
+    def fee(self,event=""):
+        pass
+
+    def sinfo(self, event=""):
+        pass
+
+    def result(self, event=""):
+        pass
+
+    def im(self, event=""):
+        pass
+
+    def stinfo(self, event=""):
+        pass
+
     def __init__(self, root, main_root):
 
         self.main_root = main_root
@@ -64,27 +82,27 @@ class Main1(Toplevel):
         self.lf2.place(x=0, y=150, height=600, width=1350)
 
         atimg = ImageTk.PhotoImage(file="attendance.png")
-        atbutton = Button(self.lf2, image=atimg, bd=5, bg=self.bgclr2, relief=FLAT)
+        atbutton = Button(self.lf2, image=atimg, bd=5, bg=self.bgclr2, relief=FLAT, command=self.at)
         atbutton.place(x=50, y=50, height=175, width=350)
 
         feeimg = ImageTk.PhotoImage(file="fee.jpeg")
-        feebutton = Button(self.lf2, image=feeimg, bd=5, bg=self.bgclr2, relief=FLAT)
+        feebutton = Button(self.lf2, image=feeimg, bd=5, bg=self.bgclr2, relief=FLAT, command=self.fee)
         feebutton.place(x=500, y=50, height=175, width=350)
 
         simg = ImageTk.PhotoImage(file="student.jpg")
-        sbutoon = Button(self.lf2, image=simg, bd=5, bg=self.bgclr2, relief=FLAT)
+        sbutoon = Button(self.lf2, image=simg, bd=5, bg=self.bgclr2, relief=FLAT, command=self.sinfo)
         sbutoon.place(x=950, y=50, height=175, width=350)
 
         rimg = ImageTk.PhotoImage(file="result.jpg")
-        rbutton = Button(self.lf2, image=rimg, bd=5, bg=self.bgclr2, relief=FLAT)
+        rbutton = Button(self.lf2, image=rimg, bd=5, bg=self.bgclr2, relief=FLAT, command=self.result)
         rbutton.place(x=50, y=300, height=175, width=350)
 
         imimg = ImageTk.PhotoImage(file="internal.jpeg")
-        imbutton = Button(self.lf2, image=imimg, bd=5, bg=self.bgclr2, relief=FLAT)
+        imbutton = Button(self.lf2, image=imimg, bd=5, bg=self.bgclr2, relief=FLAT, command=self.im)
         imbutton.place(x=500, y=300, height=175, width=350)
 
         stimg = ImageTk.PhotoImage(file="staff.png")
-        stbutton = Button(self.lf2, image=stimg, bd=5, bg=self.bgclr2, relief=FLAT)
+        stbutton = Button(self.lf2, image=stimg, bd=5, bg=self.bgclr2, relief=FLAT, command=self.stinfo)
         stbutton.place(x=950, y=300, height=175, width=350)
 
         self.protocol("WM_DELETE_WINDOW", self.c_w)
