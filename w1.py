@@ -1,10 +1,11 @@
 from tkinter import *
-from tkinter import messagebox,ttk
+from tkinter import messagebox, ttk
 import sqlite3
-from w2 import  Window2
-from PIL import Image,ImageTk
+from Main import Main1
+from PIL import Image, ImageTk
 
-class Window1():
+
+class Window1:
 
     def c_w(self, event=""):
         m = messagebox.askyesno("School Software", "Are you Want to Close Application?", parent=self.root)
@@ -15,8 +16,7 @@ class Window1():
 
     def next(self, event=""):
         root.withdraw()
-        obj=Window2(root,self.main_root)
-
+        Main1(root, self.main_root)
 
     def __init__(self, root, main_root):
 
@@ -29,18 +29,18 @@ class Window1():
         self.root.title("WINDOW1")
         self.root.config(background=self.bgclr1)
         self.root.geometry("1350x700+0+0")
-        self.root.resizable(False,False)
+        self.root.resizable(False, False)
 
         imagler = Image.open("right-arrow.png")
-        imagler = imagler.resize((60,15))
+        imagler = imagler.resize((60, 15))
         imgr = ImageTk.PhotoImage(imagler)
 
-        bgimg = ImageTk.PhotoImage(file="download (2).jpg")
-        lbl = Label(self.root,image=bgimg)
-        lbl.place(x=0,y=0,relwidth=1,relheight=1)
+        bgimg = ImageTk.PhotoImage(file="SzsUyC.jpg")
+        lbl = Label(self.root, image=bgimg)
+        lbl.place(x=0, y=0, relwidth=1, relheight=1)
 
         nb = Button(self.root, image=imgr, bd=5, font=(self.f1, 20), bg=self.bgclr2, command=self.next)
-        nb.pack()
+        nb.place(x=10, y=10)
         self.root.protocol("WM_DELETE_WINDOW", self.c_w)
         self.root.mainloop()
 
