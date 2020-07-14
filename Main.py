@@ -51,7 +51,7 @@ class Main1(Toplevel):
         bgimg = ImageTk.PhotoImage(file="dark-blue-blur-gradation-wallpaper-preview.jpg")
 
         self.lf1 = LabelFrame(self, text="NAME", bd=5, bg=self.bgclr1, fg="black", font=(self.f1, 20), relief=SUNKEN)
-        self.lf1.place(x=0, y=0, height=100, width=1350)
+        self.lf1.place(x=0, y=0, height=150, width=1350)
 
         lbl1 = Label(self.lf1, image=bgimg)
         lbl1.place(x=0, y=0, relwidth=1, relheight=1)
@@ -62,28 +62,28 @@ class Main1(Toplevel):
         nb.place(x=1260, y=10)
 
         self.lf2 = LabelFrame(self, text="Buttons", bd=5, bg=self.bgclr1, fg="black", font=(self.f1, 20), relief=SUNKEN)
-        self.lf2.place(x=0, y=100, height=600, width=1350)
+        self.lf2.place(x=0, y=150, height=600, width=1350)
 
         lbl2 = Label(self.lf2, image=bgimg)
         lbl2.place(x=0, y=0, relwidth=1, relheight=1)
 
         atbutton = Button(self.lf2, text="Attedence", bd=5, bg=self.bgclr2)
-        atbutton.place(x=50, y=50, height=200, width=350)
+        atbutton.place(x=50, y=50, height=175, width=350)
 
         feebutton = Button(self.lf2, text="FEE", bd=5, bg=self.bgclr2)
-        feebutton.place(x=500, y=50, height=200, width=350)
+        feebutton.place(x=500, y=50, height=175, width=350)
 
         sbutoon = Button(self.lf2, text="Student", bd=5, bg=self.bgclr2)
-        sbutoon.place(x=950, y=50, height=200, width=350)
+        sbutoon.place(x=950, y=50, height=175, width=350)
 
         rbutton = Button(self.lf2, text="RESULT", bd=5, bg=self.bgclr2)
-        rbutton.place(x=50, y=325, height=200, width=350)
+        rbutton.place(x=50, y=300, height=175, width=350)
 
         imbutton = Button(self.lf2, text="MARKS", bd=5, bg=self.bgclr2)
-        imbutton.place(x=500, y=325, height=200, width=350)
+        imbutton.place(x=500, y=300, height=175, width=350)
 
         stbutton = Button(self.lf2, text="Staff", bd=5, bg=self.bgclr2)
-        stbutton.place(x=950, y=325, height=200, width=350)
+        stbutton.place(x=950, y=300, height=175, width=350)
 
         self.protocol("WM_DELETE_WINDOW", self.c_w)
 

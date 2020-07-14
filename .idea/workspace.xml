@@ -19,13 +19,8 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2ab67184-dac8-454d-8984-76e6343e26b6" name="Default Changelist" comment="add database">
-      <change afterPath="$PROJECT_DIR$/Main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/school.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/school.iml" afterDir="false" />
+    <list default="true" id="2ab67184-dac8-454d-8984-76e6343e26b6" name="Default Changelist" comment="add main screen">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/w1.py" beforeDir="false" afterPath="$PROJECT_DIR$/w1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/w2.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -233,7 +228,14 @@
       <option name="project" value="LOCAL" />
       <updated>1594609813362</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="add main screen">
+      <created>1594701358797</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1594701358797</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -255,7 +257,8 @@
     <MESSAGE value="add close button" />
     <MESSAGE value="add new images" />
     <MESSAGE value="add database" />
-    <option name="LAST_COMMIT_MESSAGE" value="add database" />
+    <MESSAGE value="add main screen" />
+    <option name="LAST_COMMIT_MESSAGE" value="add main screen" />
   </component>
   <component name="WindowStateProjectService">
     <state x="137" y="17" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1594270784796">
@@ -270,22 +273,22 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="462" y="104" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1594270783279" />
-    <state width="1344" height="199" key="GridCell.Tab.0.bottom" timestamp="1594701166223">
+    <state width="1344" height="199" key="GridCell.Tab.0.bottom" timestamp="1594702022951">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1344" height="199" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1594701166223" />
-    <state width="1344" height="199" key="GridCell.Tab.0.center" timestamp="1594701166223">
+    <state width="1344" height="199" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1594702022951" />
+    <state width="1344" height="199" key="GridCell.Tab.0.center" timestamp="1594702022951">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1344" height="199" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1594701166223" />
-    <state width="1344" height="199" key="GridCell.Tab.0.left" timestamp="1594701166223">
+    <state width="1344" height="199" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1594702022951" />
+    <state width="1344" height="199" key="GridCell.Tab.0.left" timestamp="1594702022951">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1344" height="199" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1594701166223" />
-    <state width="1344" height="199" key="GridCell.Tab.0.right" timestamp="1594701166223">
+    <state width="1344" height="199" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1594702022951" />
+    <state width="1344" height="199" key="GridCell.Tab.0.right" timestamp="1594702022951">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1344" height="199" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1594701166223" />
+    <state width="1344" height="199" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1594702022951" />
     <state x="490" y="65" key="RollbackChangesDialog" timestamp="1594697430633">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -294,10 +297,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="184" y="0" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1594270369717" />
-    <state x="275" y="95" key="Vcs.Push.Dialog.v2" timestamp="1594609838032">
+    <state x="275" y="95" key="Vcs.Push.Dialog.v2" timestamp="1594701369358">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="275" y="95" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1594609838032" />
+    <state x="275" y="95" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1594701369358" />
     <state x="492" y="276" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1594697335015">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
