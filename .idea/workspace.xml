@@ -160,11 +160,11 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.demo" />
       <item itemvalue="Python.Main" />
+      <item itemvalue="Python.demo" />
       <item itemvalue="Python.hii" />
-      <item itemvalue="Python.w8" />
       <item itemvalue="Python.w1" />
+      <item itemvalue="Python.w8" />
     </list>
     <recent_temporary>
       <list>
