@@ -52,7 +52,7 @@ class Main1(Toplevel):
         lbl = Label(self, image=bgimg)
         lbl.place(x=0, y=0, relwidth=1, relheight=1)
 
-        self.lf1 = LabelFrame(lbl, text="NAME", bd=5, bg="black", fg="white", font=(self.f1, 20), relief=SUNKEN)
+        self.lf1 = LabelFrame(lbl, text="NAME", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
         self.lf1.place(x=0, y=0, height=150, width=1350)
 
         bb = Button(self.lf1, image=imgl, bd=5, font=(self.f1, 20), bg=self.bgclr2, command=self.backf)
@@ -60,10 +60,10 @@ class Main1(Toplevel):
         nb = Button(self.lf1, image=imgr, bd=5, font=(self.f1, 20), bg=self.bgclr2, command=self.next)
         nb.place(x=1260, y=10)
 
-        self.lf2 = LabelFrame(self, text="Buttons", bd=5, bg="black", fg="white", font=(self.f1, 20), relief=SUNKEN)
+        self.lf2 = LabelFrame(self, text="Buttons", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
         self.lf2.place(x=0, y=150, height=600, width=1350)
 
-        atimg = ImageTk.PhotoImage(file="attedence.jpeg")
+        atimg = ImageTk.PhotoImage(file="attendance.png")
         atbutton = Button(self.lf2, image=atimg, bd=5, bg=self.bgclr2, relief=FLAT)
         atbutton.place(x=50, y=50, height=175, width=350)
 
@@ -71,11 +71,11 @@ class Main1(Toplevel):
         feebutton = Button(self.lf2, image=feeimg, bd=5, bg=self.bgclr2, relief=FLAT)
         feebutton.place(x=500, y=50, height=175, width=350)
 
-        simg = ImageTk.PhotoImage(file="student.jpeg")
+        simg = ImageTk.PhotoImage(file="student.jpg")
         sbutoon = Button(self.lf2, image=simg, bd=5, bg=self.bgclr2, relief=FLAT)
         sbutoon.place(x=950, y=50, height=175, width=350)
 
-        rimg = ImageTk.PhotoImage(file="result.jpeg")
+        rimg = ImageTk.PhotoImage(file="result.jpg")
         rbutton = Button(self.lf2, image=rimg, bd=5, bg=self.bgclr2, relief=FLAT)
         rbutton.place(x=50, y=300, height=175, width=350)
 
@@ -83,7 +83,7 @@ class Main1(Toplevel):
         imbutton = Button(self.lf2, image=imimg, bd=5, bg=self.bgclr2, relief=FLAT)
         imbutton.place(x=500, y=300, height=175, width=350)
 
-        stimg = ImageTk.PhotoImage(file="staff.jpeg")
+        stimg = ImageTk.PhotoImage(file="staff.png")
         stbutton = Button(self.lf2, image=stimg, bd=5, bg=self.bgclr2, relief=FLAT)
         stbutton.place(x=950, y=300, height=175, width=350)
 

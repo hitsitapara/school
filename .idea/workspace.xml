@@ -19,11 +19,15 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2ab67184-dac8-454d-8984-76e6343e26b6" name="Default Changelist" comment="add main screen">
-      <change afterPath="$PROJECT_DIR$/delete.py" afterDir="false" />
+    <list default="true" id="2ab67184-dac8-454d-8984-76e6343e26b6" name="Default Changelist" comment="put image on button">
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/school.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/school.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/attedence.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staff.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/student.jpeg" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +57,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/demo.py" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
   <component name="RunManager" selected="Python.w1">
     <configuration name="Main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
@@ -161,6 +165,13 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Python.demo" />
+      <item itemvalue="Python.Main" />
+      <item itemvalue="Python.hii" />
+      <item itemvalue="Python.w8" />
+      <item itemvalue="Python.w1" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.w1" />
@@ -244,7 +255,14 @@
       <option name="project" value="LOCAL" />
       <updated>1594702479531</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="put image on button">
+      <created>1594708496458</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1594708496458</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -267,7 +285,8 @@
     <MESSAGE value="add new images" />
     <MESSAGE value="add database" />
     <MESSAGE value="add main screen" />
-    <option name="LAST_COMMIT_MESSAGE" value="add main screen" />
+    <MESSAGE value="put image on button" />
+    <option name="LAST_COMMIT_MESSAGE" value="put image on button" />
   </component>
   <component name="WindowStateProjectService">
     <state x="137" y="17" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1594270784796">
@@ -278,52 +297,46 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="363" y="98" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1366.728@0.0.1366.728" timestamp="1594696952009" />
-    <state x="484" y="8" key="#w1" timestamp="1594709185793">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state x="413" y="109" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1594709974823">
+      <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="484" y="8" key="#w1/0.0.1536.824@0.0.1536.824" timestamp="1594709185793" />
-    <state x="519" y="118" key="FileChooserDialogImpl" timestamp="1594709745035">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state x="413" y="109" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.728@0.0.1366.728" timestamp="1594709974823" />
+    <state x="462" y="104" key="FileChooserDialogImpl" timestamp="1594270783279">
+      <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="462" y="104" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1594270783279" />
-    <state x="519" y="118" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1594709745035" />
-    <state width="1515" height="210" key="GridCell.Tab.0.bottom" timestamp="1594710021405">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1344" height="199" key="GridCell.Tab.0.bottom" timestamp="1594710252887">
+      <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1344" height="199" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1594708459489" />
-    <state width="1515" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1594710021405" />
-    <state width="1515" height="210" key="GridCell.Tab.0.center" timestamp="1594710021404">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1344" height="199" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1594710252887" />
+    <state width="1344" height="199" key="GridCell.Tab.0.center" timestamp="1594710252887">
+      <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1344" height="199" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1594708459489" />
-    <state width="1515" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1594710021404" />
-    <state width="1515" height="210" key="GridCell.Tab.0.left" timestamp="1594710021401">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1344" height="199" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1594710252887" />
+    <state width="1344" height="199" key="GridCell.Tab.0.left" timestamp="1594710252887">
+      <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1344" height="199" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1594708459489" />
-    <state width="1515" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1594710021401" />
-    <state width="1515" height="210" key="GridCell.Tab.0.right" timestamp="1594710021404">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1344" height="199" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1594710252887" />
+    <state width="1344" height="199" key="GridCell.Tab.0.right" timestamp="1594710252887">
+      <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1344" height="199" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1594708459489" />
-    <state width="1515" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1594710021404" />
+    <state width="1344" height="199" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1594710252887" />
     <state x="490" y="65" key="RollbackChangesDialog" timestamp="1594697430633">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="490" y="65" key="RollbackChangesDialog/0.0.1366.728@0.0.1366.728" timestamp="1594697430633" />
-    <state x="207" y="0" key="SettingsEditor" timestamp="1594710019005">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state x="184" y="0" key="SettingsEditor" timestamp="1594270369717">
+      <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="184" y="0" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1594270369717" />
-    <state x="207" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1594710019005" />
-    <state x="275" y="95" key="Vcs.Push.Dialog.v2" timestamp="1594702521617">
+    <state x="275" y="95" key="Vcs.Push.Dialog.v2" timestamp="1594708501896">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="275" y="95" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1594702521617" />
-    <state x="492" y="276" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1594707169544">
+    <state x="275" y="95" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1594708501896" />
+    <state x="492" y="276" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1594708705489">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="492" y="276" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.728@0.0.1366.728" timestamp="1594707169544" />
+    <state x="492" y="276" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.728@0.0.1366.728" timestamp="1594708705489" />
     <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1594708144775">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
