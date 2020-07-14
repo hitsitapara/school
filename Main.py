@@ -49,40 +49,42 @@ class Main1(Toplevel):
         imgr = ImageTk.PhotoImage(imager)
 
         bgimg = ImageTk.PhotoImage(file="dark-blue-blur-gradation-wallpaper-preview.jpg")
+        lbl = Label(self, image=bgimg)
+        lbl.place(x=0, y=0, relwidth=1, relheight=1)
 
-        self.lf1 = LabelFrame(self, text="NAME", bd=5, bg=self.bgclr1, fg="black", font=(self.f1, 20), relief=SUNKEN)
+        self.lf1 = LabelFrame(lbl, text="NAME", bd=5, bg="black", fg="white", font=(self.f1, 20), relief=SUNKEN)
         self.lf1.place(x=0, y=0, height=150, width=1350)
-
-        lbl1 = Label(self.lf1, image=bgimg)
-        lbl1.place(x=0, y=0, relwidth=1, relheight=1)
 
         bb = Button(self.lf1, image=imgl, bd=5, font=(self.f1, 20), bg=self.bgclr2, command=self.backf)
         bb.place(x=10, y=10)
         nb = Button(self.lf1, image=imgr, bd=5, font=(self.f1, 20), bg=self.bgclr2, command=self.next)
         nb.place(x=1260, y=10)
 
-        self.lf2 = LabelFrame(self, text="Buttons", bd=5, bg=self.bgclr1, fg="black", font=(self.f1, 20), relief=SUNKEN)
+        self.lf2 = LabelFrame(self, text="Buttons", bd=5, bg="black", fg="white", font=(self.f1, 20), relief=SUNKEN)
         self.lf2.place(x=0, y=150, height=600, width=1350)
 
-        lbl2 = Label(self.lf2, image=bgimg)
-        lbl2.place(x=0, y=0, relwidth=1, relheight=1)
-
-        atbutton = Button(self.lf2, text="Attedence", bd=5, bg=self.bgclr2)
+        atimg = ImageTk.PhotoImage(file="attedence.jpeg")
+        atbutton = Button(self.lf2, image=atimg, bd=5, bg=self.bgclr2, relief=FLAT)
         atbutton.place(x=50, y=50, height=175, width=350)
 
-        feebutton = Button(self.lf2, text="FEE", bd=5, bg=self.bgclr2)
+        feeimg = ImageTk.PhotoImage(file="fee.jpeg")
+        feebutton = Button(self.lf2, image=feeimg, bd=5, bg=self.bgclr2, relief=FLAT)
         feebutton.place(x=500, y=50, height=175, width=350)
 
-        sbutoon = Button(self.lf2, text="Student", bd=5, bg=self.bgclr2)
+        simg = ImageTk.PhotoImage(file="student.jpeg")
+        sbutoon = Button(self.lf2, image=simg, bd=5, bg=self.bgclr2, relief=FLAT)
         sbutoon.place(x=950, y=50, height=175, width=350)
 
-        rbutton = Button(self.lf2, text="RESULT", bd=5, bg=self.bgclr2)
+        rimg = ImageTk.PhotoImage(file="result.jpeg")
+        rbutton = Button(self.lf2, image=rimg, bd=5, bg=self.bgclr2, relief=FLAT)
         rbutton.place(x=50, y=300, height=175, width=350)
 
-        imbutton = Button(self.lf2, text="MARKS", bd=5, bg=self.bgclr2)
+        imimg = ImageTk.PhotoImage(file="internal.jpeg")
+        imbutton = Button(self.lf2, image=imimg, bd=5, bg=self.bgclr2, relief=FLAT)
         imbutton.place(x=500, y=300, height=175, width=350)
 
-        stbutton = Button(self.lf2, text="Staff", bd=5, bg=self.bgclr2)
+        stimg = ImageTk.PhotoImage(file="staff.jpeg")
+        stbutton = Button(self.lf2, image=stimg, bd=5, bg=self.bgclr2, relief=FLAT)
         stbutton.place(x=950, y=300, height=175, width=350)
 
         self.protocol("WM_DELETE_WINDOW", self.c_w)
