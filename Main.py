@@ -25,7 +25,7 @@ class Main1(Toplevel):
     def at(self, event=""):
         pass
 
-    def fee(self,event=""):
+    def fee(self, event=""):
         pass
 
     def sinfo(self, event=""):
@@ -53,7 +53,7 @@ class Main1(Toplevel):
         self.bgclr2 = "#e7d95a"
         self.f1 = "Arial Bold"
         self.f2 = "times new roman"
-        self.title("WINDOW2")
+        self.title("Main Screen")
         self.config(background=self.bgclr1)
         self.geometry("1350x700+0+0")
         self.resizable(False, False)
@@ -73,9 +73,9 @@ class Main1(Toplevel):
         self.lf1 = LabelFrame(lbl, text="NAME", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
         self.lf1.place(x=0, y=0, height=150, width=1350)
 
-        bb = Button(self.lf1, image=imgl, bd=5, font=(self.f1, 20), bg=self.bgclr2, command=self.backf)
+        bb = Button(self.lf1, image=imgl, bd=5, font=(self.f1, 20), command=self.backf)
         bb.place(x=10, y=10)
-        nb = Button(self.lf1, image=imgr, bd=5, font=(self.f1, 20), bg=self.bgclr2, command=self.next)
+        nb = Button(self.lf1, image=imgr, bd=5, font=(self.f1, 20), command=self.next)
         nb.place(x=1260, y=10)
 
         self.lf2 = LabelFrame(self, text="Buttons", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
