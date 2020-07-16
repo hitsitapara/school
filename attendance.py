@@ -3,6 +3,7 @@ from tkinter import ttk, messagebox
 import sqlite3
 from w5 import Window5
 from PIL import Image, ImageTk
+from tkcalendar import Calendar
 
 class Attedance1(Toplevel):
 
@@ -21,7 +22,42 @@ class Attedance1(Toplevel):
         self.withdraw()
         obj=Window5(self, self.main_root)
 
+    def calselect(self):
+        if (self.calcount == 0):
+            self.cal.place(x=400, y=10)
+            self.calcount = 1
+        else:
+            self.cal.place_forget()
+            self.calcount = 0
+
+    def division(self, event=""):
+        if self.divcounter == 0 :
+            self.divlabel = Label(self.lf2, text="DIV", bd=2 ,bg="black", fg="white", font=(self.f1, 15), relief=GROOVE)
+            self.divlabel.place(x=225, y=85, height=25)
+            query = """ select div from master where std = ? """
+            a = self.conn.execute(query, (self.classbox.get(),)).fetchall()
+            b = set(a)
+            self.divs = []
+            for i in b:
+                self.divs.append(i[0])
+            self.divs.sort()
+            self.divbox = ttk.Combobox(self.lf2, state="readonly", font=(self.f1,15))
+            self.divbox.place(x=225, y=150, height=25, width=100)
+            self.divbox['values'] = self.divs
+            self.divbox.bind("<<ComboboxSelected>>", self.rollno)
+
+
+    def rollno(self, event=""):
+        pass
+
+
+
     def __init__(self, root, main_root):
+
+        try:
+            self.conn = sqlite3.connect('sinfo.db')
+        except:
+            m = messagebox.showerror("School Software","Couldn't Connect With Database !")
 
         self.main_root = main_root
         self.root = root
@@ -39,7 +75,11 @@ class Attedance1(Toplevel):
         self.config(background=self.bgclr1)
         self.geometry("1350x700+0+0")
         self.resizable(False, False)
+##================================================variables =============================================================================
+        self.calcount = 0
+        self.divcounter = 0
 
+##======================================================frame 1===========================================================================
         imagel = Image.open("left-arrow.png")
         imagel = imagel.resize((60, 15))
         imager = Image.open("right-arrow.png")
@@ -55,41 +95,41 @@ class Attedance1(Toplevel):
         bb.place(x=10, y=10)
         nb = Button(self.lf1, image=imgr, bd=5, font=(self.f1, 20), command=self.next)
         nb.place(x=1260, y=10)
-
+##=============================================frame 2======================================================================
         self.lf2 = LabelFrame(self, text="ATTENDANCE WINDOW", bd=2, bg="black", fg="white", font=(self.f1, 20),
                               relief=GROOVE)
         self.lf2.place(x=0, y=150, height=600, width=675)
 
         self.datelabel = Label(self.lf2, text="DATE", bd=2, bg="black", fg="White", font=(self.f1, 15), relief=GROOVE)
-        self.datelabel.place(x=10, y=10, height=25)
+        self.datelabel.place(x=50, y=10, height=25)
 
-        self.date = ttk.Combobox(self.lf2, state="readonly", font=(self.f1, 10))
-        self.date.place(x=100, y=10, height=25)
-        self.date.set("DATE")
-        d = []
-        for i in range(1, 32):
-            d.append(i)
-        self.date['values'] = d
+        calimg = ImageTk.PhotoImage(file="calendar-icon-vector-22895109.jpg")
+        self.cbutton = Button(self.lf2, image= calimg, bd=2, relief=GROOVE, command=self.calselect)
+        self.cbutton.place(x=300, y=10, height=30, width=30)
 
-        self.month = ttk.Combobox(self.lf2, state="readonly", font=(self.f1, 10))
-        self.month.place(x=300, y=10, height=25)
-        self.month.set("MONTH")
-        mo = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October',
-              'November', 'December']
-        self.month['values'] = mo
-
-        self.year = ttk.Combobox(self.lf2, state="readonly", font=(self.f1, 10))
-        self.year.place(x=500, y=10, height=25)
-        self.year.set("YEAR")
-        y = []
-        for i in range(2001,2100):
-            y.append(i)
-        self.year['values'] = y
+        self.cal = Calendar(self.lf2, font="Arial 10", background='black', foreground='white', selectmode='day')
+        self.cal.pack_forget()
 
         self.classlabel = Label(self.lf2, text="CLASS", bd=2 ,bg="black", fg="white", font=(self.f1, 15), relief=GROOVE)
-        self.classlabel.place(x=10, y=85, height=25)
+        self.classlabel.place(x=50, y=85, height=25)
+
+        query = """select std from master """
+        a = self.conn.execute(query).fetchall()
+        self.cals = []
+        for i in a:
+            self.cals.append(i[0])
+        self.cals.sort()
+
+        self.c_lassbox = StringVar()
+        self.classbox = ttk.Combobox(self.lf2, state="readonly", textvariable=self.c_lassbox ,font=(self.f1, 10))
+        self.classbox.place(x=50, y=150, height=25, width=100)
+        self.classbox['values'] = self.cals
+        self.classbox.bind("<<ComboboxSelected>>",self.division)
 
 
+
+
+##======================================================frame 3=====================================================================
         self.lf3 = LabelFrame(self, text="ATTENDANCE PREVIEW", bd=2, bg="black", fg="white", font=(self.f1, 20),
                               relief=GROOVE)
         self.lf3.place(x=675, y=150, height=600, width=675)
