@@ -5,6 +5,7 @@ from w5 import Window5
 from PIL import Image, ImageTk
 from tkcalendar import Calendar
 
+
 class Attedance1(Toplevel):
 
     def backf(self, event=""):
@@ -20,7 +21,7 @@ class Attedance1(Toplevel):
 
     def next(self, event=""):
         self.withdraw()
-        obj=Window5(self, self.main_root)
+        Window5(self, self.main_root)
 
     def calselect(self):
         if (self.calcount == 0):
@@ -31,7 +32,7 @@ class Attedance1(Toplevel):
             self.calcount = 0
 
     def division(self, event=""):
-        if self.divcounter == 0 :
+        if self.divcounter == 0:
             self.divlabel = Label(self.lf2, text="DIV", bd=2 ,bg="black", fg="white", font=(self.f1, 15), relief=GROOVE)
             self.divlabel.place(x=225, y=85, height=25)
             query = """ select div from master where std = ? """
@@ -48,16 +49,30 @@ class Attedance1(Toplevel):
 
 
     def rollno(self, event=""):
-        pass
-
-
+        self.rolllabel = Label(self.lf2, text="ROLL NO", bd=2, bg="black", fg="white", font=(self.f1, 15), relief=GROOVE)
+        self.rolllabel.place(x=400, y=85, height=25)
+        query1 = """ select rno from master where std = ? AND div=?"""
+        a = self.conn.execute(query1, (self.classbox.get(),self.divbox.get() )).fetchall()
+        self.rno = []
+        for i in a:
+            self.rno.append(i[0])
+        self.rno.sort()
+        frame = Frame(self.lf2)
+        frame.place(x=400,y=150,height=100, width=100)
+        self.rnobox = Listbox(frame,  font=(self.f1, 15), selectmode="multiple", selectbackground="yellow")
+        for i in self.rno:
+            self.rnobox.insert(END, i)
+        self.rnobox.pack()
+        yscrollbar = Scrollbar(frame)
+        yscrollbar.pack(side=RIGHT, fill=Y)
+        yscrollbar.config(command=self.rnobox.yview)
 
     def __init__(self, root, main_root):
 
         try:
             self.conn = sqlite3.connect('sinfo.db')
         except:
-            m = messagebox.showerror("School Software","Couldn't Connect With Database !")
+            m = messagebox.showerror("School Software","Couldn't Connect With Database !", parent=self)
 
         self.main_root = main_root
         self.root = root
@@ -115,8 +130,9 @@ class Attedance1(Toplevel):
 
         query = """select std from master """
         a = self.conn.execute(query).fetchall()
+        b = set(a)
         self.cals = []
-        for i in a:
+        for i in b:
             self.cals.append(i[0])
         self.cals.sort()
 
