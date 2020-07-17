@@ -4,6 +4,7 @@ import sqlite3
 from w5 import Window5
 from PIL import Image, ImageTk
 from tkcalendar import Calendar
+import json
 
 
 class Attedance1(Toplevel):
@@ -47,7 +48,6 @@ class Attedance1(Toplevel):
             self.divbox['values'] = self.divs
             self.divbox.bind("<<ComboboxSelected>>", self.rollno)
 
-
     def rollno(self, event=""):
         self.rolllabel = Label(self.lf2, text="ROLL NO", bd=2, bg="black", fg="white", font=(self.f1, 15), relief=GROOVE)
         self.rolllabel.place(x=400, y=85, height=25)
@@ -66,6 +66,32 @@ class Attedance1(Toplevel):
         yscrollbar = Scrollbar(frame)
         yscrollbar.pack(side=RIGHT, fill=Y)
         yscrollbar.config(command=self.rnobox.yview)
+
+    def addat(self, event=""):
+
+        y = self.rnobox.curselection()
+        for item in y:
+
+            query = """ select abday from master where std = ? and div=? and rno = ?"""
+            a = self.conn.execute(query, (self.classbox.get(), self.divbox.get(),self.rno[item])).fetchone()
+            if a[0] == None:
+                b = [self.cal.get_date()]
+                p = json.dumps(b)
+                query1 = """ update master set abday = ? where std =? and div=? and rno=?"""
+                self.conn.execute(query1, (p, self.classbox.get(), self.divbox.get(),self.rno[item]))
+                self.conn.commit()
+            else:
+                x = json.loads(a[0])
+                print(x)
+                x.append(self.cal.get_date())
+                print(len(x))
+                p = json.dumps(x)
+                query1 = """ update master set abday = ? where std =? and div=? and rno=?"""
+                self.conn.execute(query1, (p, self.classbox.get(), self.divbox.get(), self.rno[item]))
+                self.conn.commit()
+
+
+
 
     def __init__(self, root, main_root):
 
@@ -141,6 +167,9 @@ class Attedance1(Toplevel):
         self.classbox.place(x=50, y=150, height=25, width=100)
         self.classbox['values'] = self.cals
         self.classbox.bind("<<ComboboxSelected>>",self.division)
+
+        self.addbutton =Button(self.lf2, text="ADD",font=(self.f2, 15), bd=5, command=self.addat)
+        self.addbutton.place(x=100, y=400, height=30)
 
 
 
