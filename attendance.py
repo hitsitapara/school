@@ -34,64 +34,98 @@ class Attedance1(Toplevel):
 
     def division(self, event=""):
         if self.divcounter == 0:
-            self.divlabel = Label(self.lf2, text="DIV", bd=2 ,bg="black", fg="white", font=(self.f1, 15), relief=GROOVE)
-            self.divlabel.place(x=225, y=85, height=25)
             query = """ select div from master where std = ? """
-            a = self.conn.execute(query, (self.classbox.get(),)).fetchall()
+            a = self.conn.execute(query, (self.classbox.get(), )).fetchall() ## fetch division from database
             b = set(a)
+            self.divlabel = Label(self.lf2, text="DIV", bd=2, bg="black", fg="white", font=(self.f1, 15),
+                                  relief=GROOVE)
+            self.divlabel.place(x=225, y=85, height=25)
             self.divs = []
             for i in b:
                 self.divs.append(i[0])
             self.divs.sort()
-            self.divbox = ttk.Combobox(self.lf2, state="readonly", font=(self.f1,15))
-            self.divbox.place(x=225, y=150, height=25, width=100)
+            self.divbox = ttk.Combobox(self.lf2, state="readonly", font=(self.f1, 15))
+            self.divbox.place(x=225, y=150, height=25, width=150)
             self.divbox['values'] = self.divs
             self.divbox.bind("<<ComboboxSelected>>", self.rollno)
+            self.divbox.set("DIVISION")
+            self.divcounter = 1
+        else:
+            self.divbox.destroy()
+            self.divlabel.destroy()
+            self.rollno()
+            self.divcounter = 0
+            self.division()
 
     def rollno(self, event=""):
-        self.rolllabel = Label(self.lf2, text="ROLL NO", bd=2, bg="black", fg="white", font=(self.f1, 15), relief=GROOVE)
-        self.rolllabel.place(x=400, y=85, height=25)
-        query1 = """ select rno from master where std = ? AND div=?"""
-        a = self.conn.execute(query1, (self.classbox.get(),self.divbox.get() )).fetchall()
-        self.rno = []
-        for i in a:
-            self.rno.append(i[0])
-        self.rno.sort()
-        frame = Frame(self.lf2)
-        frame.place(x=400,y=150,height=100, width=100)
-        self.rnobox = Listbox(frame,  font=(self.f1, 15), selectmode="multiple", selectbackground="yellow")
-        for i in self.rno:
-            self.rnobox.insert(END, i)
-        self.rnobox.pack()
-        yscrollbar = Scrollbar(frame)
-        yscrollbar.pack(side=RIGHT, fill=Y)
-        yscrollbar.config(command=self.rnobox.yview)
+        if self.rollcounter == 0:
+            self.rolllabel = Label(self.lf2, text="ROLL NO", bd=2, bg="black", fg="white", font=(self.f1, 15),
+                                   relief=GROOVE)
+            self.rolllabel.place(x=50, y=200, height=25)
+            query1 = """ select rno from master where std = ? AND div=?"""
+            a = self.conn.execute(query1, (self.classbox.get(), self.divbox.get())).fetchall()
+            self.rno = []
+            for i in a:
+                self.rno.append(i[0])
+            self.rno.sort()
+            self.frame = Frame(self.lf2)
+            self.frame.place(x=200, y=200, height=100, width=100)
+            self.rnobox = Listbox(self.frame, font=(self.f1, 15), selectmode="multiple", selectbackground="yellow")
+            for i in self.rno:
+                self.rnobox.insert(END, i)
+            self.rnobox.pack()
+            yscrollbar = Scrollbar(self.frame)
+            yscrollbar.pack(side=RIGHT, fill=Y)
+            yscrollbar.config(command=self.rnobox.yview)
+            self.rollcounter = 1
+        else:
+            self.frame.destroy()
+            self.rolllabel.destroy()
+            self.rnobox.destroy()
+            self.rollcounter = 0
 
     def addat(self, event=""):
+
+        try:
+            if(self.classbox.get() == "CLASS"):
+                raise ValueError
+            try:
+                if(self.divbox.get() == "DIVISION"):
+                    raise ValueError
+            except:
+                m = messagebox.showerror("School Software", "Please Select Division")
+                self.divbox.focus_set()
+                return
+        except:
+            m = messagebox.showerror("School Software", "First select Standard", parent=self)
+            self.classbox.focus_set()
+            return
 
         y = self.rnobox.curselection()
         for item in y:
 
             query = """ select abday from master where std = ? and div=? and rno = ?"""
-            a = self.conn.execute(query, (self.classbox.get(), self.divbox.get(),self.rno[item])).fetchone()
+            a = self.conn.execute(query, (self.classbox.get(), self.divbox.get(), self.rno[item])).fetchone()
             if a[0] == None:
                 b = [self.cal.get_date()]
                 p = json.dumps(b)
                 query1 = """ update master set abday = ? where std =? and div=? and rno=?"""
-                self.conn.execute(query1, (p, self.classbox.get(), self.divbox.get(),self.rno[item]))
+                self.conn.execute(query1, (p, self.classbox.get(), self.divbox.get(), self.rno[item]))
                 self.conn.commit()
             else:
                 x = json.loads(a[0])
-                print(x)
                 x.append(self.cal.get_date())
-                print(len(x))
                 p = json.dumps(x)
                 query1 = """ update master set abday = ? where std =? and div=? and rno=?"""
                 self.conn.execute(query1, (p, self.classbox.get(), self.divbox.get(), self.rno[item]))
                 self.conn.commit()
-
-
-
+        self.frame.destroy()
+        self.rolllabel.destroy()
+        self.rnobox.destroy()
+        self.divbox.destroy()
+        self.divlabel.destroy()
+        self.classbox.set("CLASS")
+        self.classbox.focus_set()
 
     def __init__(self, root, main_root):
 
@@ -119,6 +153,7 @@ class Attedance1(Toplevel):
 ##================================================variables =============================================================================
         self.calcount = 0
         self.divcounter = 0
+        self.rollcounter = 0
 
 ##======================================================frame 1===========================================================================
         imagel = Image.open("left-arrow.png")
@@ -151,7 +186,7 @@ class Attedance1(Toplevel):
         self.cal = Calendar(self.lf2, font="Arial 10", background='black', foreground='white', selectmode='day')
         self.cal.pack_forget()
 
-        self.classlabel = Label(self.lf2, text="CLASS", bd=2 ,bg="black", fg="white", font=(self.f1, 15), relief=GROOVE)
+        self.classlabel = Label(self.lf2, text="STANDARD", bd=2 ,bg="black", fg="white", font=(self.f1, 15), relief=GROOVE)
         self.classlabel.place(x=50, y=85, height=25)
 
         query = """select std from master """
@@ -167,8 +202,9 @@ class Attedance1(Toplevel):
         self.classbox.place(x=50, y=150, height=25, width=100)
         self.classbox['values'] = self.cals
         self.classbox.bind("<<ComboboxSelected>>",self.division)
+        self.c_lassbox.set("CLASS")
 
-        self.addbutton =Button(self.lf2, text="ADD",font=(self.f2, 15), bd=5, command=self.addat)
+        self.addbutton = Button(self.lf2, text="ADD",font=(self.f2, 15), bd=5, command=self.addat)
         self.addbutton.place(x=100, y=400, height=30)
 
 
