@@ -4,6 +4,7 @@ import sqlite3
 from w3 import Window3
 from PIL import Image, ImageTk
 from result import r1
+from attendance import Attedance1
 
 
 class Main1(Toplevel):
@@ -24,7 +25,8 @@ class Main1(Toplevel):
         r1(self, self.main_root)
 
     def at(self, event=""):
-        pass
+        self.withdraw()
+        Attedance1(self, self.main_root)
 
     def fee(self,event=""):
         pass

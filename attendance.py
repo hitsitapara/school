@@ -34,7 +34,7 @@ class Attedance1(Toplevel):
 
     def division(self, event=""):
         if self.divcounter == 0:
-            query = """ select div from master where std = ? """
+            query = """ select div from master where standard = ? """
             a = self.conn.execute(query, (self.classbox.get(), )).fetchall() ## fetch division from database
             b = set(a)
             self.divlabel = Label(self.lf2, text="DIV", bd=2, bg="black", fg="white", font=(self.f1, 15),
@@ -43,7 +43,6 @@ class Attedance1(Toplevel):
             self.divs = []
             for i in b:
                 self.divs.append(i[0])
-            self.divs.sort()
             self.divbox = ttk.Combobox(self.lf2, state="readonly", font=(self.f1, 15))
             self.divbox.place(x=225, y=150, height=25, width=150)
             self.divbox['values'] = self.divs
@@ -53,8 +52,9 @@ class Attedance1(Toplevel):
         else:
             self.divbox.destroy()
             self.divlabel.destroy()
-            self.rollno()
             self.divcounter = 0
+            if self.rollcounter == 1:
+                self.rollno()
             self.division()
 
     def rollno(self, event=""):
@@ -62,7 +62,7 @@ class Attedance1(Toplevel):
             self.rolllabel = Label(self.lf2, text="ROLL NO", bd=2, bg="black", fg="white", font=(self.f1, 15),
                                    relief=GROOVE)
             self.rolllabel.place(x=50, y=200, height=25)
-            query1 = """ select rno from master where std = ? AND div=?"""
+            query1 = """ select rollno from master where standard = ? AND div=?"""
             a = self.conn.execute(query1, (self.classbox.get(), self.divbox.get())).fetchall()
             self.rno = []
             for i in a:
@@ -104,19 +104,19 @@ class Attedance1(Toplevel):
         y = self.rnobox.curselection()
         for item in y:
 
-            query = """ select abday from master where std = ? and div=? and rno = ?"""
+            query = """ select abday from master where standard = ? and div=? and rollno = ?"""
             a = self.conn.execute(query, (self.classbox.get(), self.divbox.get(), self.rno[item])).fetchone()
             if a[0] == None:
                 b = [self.cal.get_date()]
                 p = json.dumps(b)
-                query1 = """ update master set abday = ? where std =? and div=? and rno=?"""
+                query1 = """ update master set abday = ? where standard =? and div=? and rollno=?"""
                 self.conn.execute(query1, (p, self.classbox.get(), self.divbox.get(), self.rno[item]))
                 self.conn.commit()
             else:
                 x = json.loads(a[0])
                 x.append(self.cal.get_date())
                 p = json.dumps(x)
-                query1 = """ update master set abday = ? where std =? and div=? and rno=?"""
+                query1 = """ update master set abday = ? where standard =? and div=? and rollno=?"""
                 self.conn.execute(query1, (p, self.classbox.get(), self.divbox.get(), self.rno[item]))
                 self.conn.commit()
         self.frame.destroy()
@@ -126,6 +126,50 @@ class Attedance1(Toplevel):
         self.divlabel.destroy()
         self.classbox.set("CLASS")
         self.classbox.focus_set()
+        self.cal.place_forget()
+
+    def rem(self,event=""):
+        try:
+            if(self.classbox.get() == "CLASS"):
+                raise ValueError
+            try:
+                if(self.divbox.get() == "DIVISION"):
+                    raise ValueError
+            except:
+                m = messagebox.showerror("School Software", "Please Select Division")
+                self.divbox.focus_set()
+                return
+        except:
+            m = messagebox.showerror("School Software", "First select Standard", parent=self)
+            self.classbox.focus_set()
+            return
+
+        y = self.rnobox.curselection()
+        for item in y:
+
+            query = """ select abday from master where standard = ? and div=? and rollno = ?"""
+            a = self.conn.execute(query, (self.classbox.get(), self.divbox.get(), self.rno[item])).fetchone()
+            if a[0] == None:
+                m = messagebox.showerror("School Software", "Please mark Absent then you remove", parent=self)
+                return
+            else:
+                x = json.loads(a[0])
+                if self.cal.get_date() in x:
+                    x.remove(self.cal.get_date())
+                else:
+                    m = messagebox.showerror("School Software", "Please select valid date", parent=self)
+                p = json.dumps(x)
+                query1 = """ update master set abday = ? where standard =? and div=? and rollno=?"""
+                self.conn.execute(query1, (p, self.classbox.get(), self.divbox.get(), self.rno[item]))
+                self.conn.commit()
+        self.frame.destroy()
+        self.rolllabel.destroy()
+        self.rnobox.destroy()
+        self.divbox.destroy()
+        self.divlabel.destroy()
+        self.classbox.set("CLASS")
+        self.classbox.focus_set()
+        self.cal.place_forget()
 
     def __init__(self, root, main_root):
 
@@ -189,7 +233,7 @@ class Attedance1(Toplevel):
         self.classlabel = Label(self.lf2, text="STANDARD", bd=2 ,bg="black", fg="white", font=(self.f1, 15), relief=GROOVE)
         self.classlabel.place(x=50, y=85, height=25)
 
-        query = """select std from master """
+        query = """select standard from master """
         a = self.conn.execute(query).fetchall()
         b = set(a)
         self.cals = []
@@ -206,6 +250,9 @@ class Attedance1(Toplevel):
 
         self.addbutton = Button(self.lf2, text="ADD",font=(self.f2, 15), bd=5, command=self.addat)
         self.addbutton.place(x=100, y=400, height=30)
+
+        self.removebutton = Button(self.lf2, text="REMOVE", font=(self.f2, 15), bd=5, command=self.rem)
+        self.removebutton.place(x=250, y=400, height=30)
 
 
 
