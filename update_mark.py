@@ -24,6 +24,14 @@ class Update_Mark(Toplevel):
 
         if m == True:
 
+            if self.combo_roll.get() != 'Select':
+                pass
+            else:
+                messagebox.showerror("School Software", "Please Select Standard first.")
+                self.combo_roll.focus_set()
+                return
+
+
             self.insert_data_list = []
             self.insert_data_list.append(self.standard_entry_var.get())
             self.insert_data_list.append(self.combo_roll.get())

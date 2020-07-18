@@ -51,7 +51,7 @@ class Mark_Entry(Toplevel):
         self.roll_var = StringVar()
         self.combo_roll = Combobox(self, state="readonly", textvariable=self.roll_var, font=("Arial Bold", 15))
         self.combo_roll.pack()
-
+        self.combo_roll.set('Select')
         self.rollno_maintain()
         for i in range(len(self.subject)-1):
             self.var[i] = StringVar()
@@ -113,6 +113,12 @@ class Mark_Entry(Toplevel):
         m = messagebox.askyesnocancel("School Software","Are you really want to Save the Changes?")
 
         if m == True:
+            if self.combo_roll.get() != 'Select':
+                pass
+            else:
+                messagebox.showerror("School Software", "Please Select Standard first.")
+                self.combo_roll.focus_set()
+                return
 
             self.insert_data_list = []
             self.insert_data_list.append(self.standard_entry_var.get())
@@ -132,6 +138,9 @@ class Mark_Entry(Toplevel):
                 self.var[i].set('')
             self.rollno_maintain()
             self.combo_roll.set('Select')
+            messagebox.showinfo("School Software", "Operation Successful.")
+            for i in range(len(self.subject) - 1):
+                self.var[i].set('')
             self.conn.commit()
 
         elif m == False:
