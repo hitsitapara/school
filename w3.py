@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter import ttk, messagebox
 import sqlite3
-from w4 import Window4
+from attendance import Attedance1
 from PIL import Image, ImageTk
 
 
@@ -20,7 +20,7 @@ class Window3(Toplevel):
 
     def next(self, event=""):
         self.withdraw()
-        obj=Window4(self, self.main_root)
+        Attedance1(self, self.main_root)
 
     def __init__(self, root, main_root):
 
