@@ -4,7 +4,7 @@ import time
 import json
 from tkinter import messagebox
 from tkinter.ttk import Combobox
-from PIL import ImageTk
+from PIL import Image,ImageTk
 
 class Exam(Toplevel):
     def done_sub(self):
@@ -33,14 +33,14 @@ class Exam(Toplevel):
 
             query = "select count(*) from exams"
             rows = self.conn.execute(query).fetchone()
-
+            set_exam_name = "{}_{}".format(self.exam_entry.get(), self.combo_var_std_start.get())
             if rows[0] == 0:
                 mark_data = {}
                 data = {}
                 self.subject_list.append(
                     '{}_{}_{}'.format(self.exam_entry.get(), self.combo_var_std_start.get(), self.date))
-                data[self.exam_entry.get()] = self.subject_list
-                mark_data[self.exam_entry.get()] = self.mark_list
+                data[set_exam_name] = self.subject_list
+                mark_data[set_exam_name] = self.mark_list
                 j_mark = json.dumps(mark_data)
                 j = json.dumps(data)
                 query = """insert into exams(data, marks) values(?,?)"""
@@ -59,8 +59,8 @@ class Exam(Toplevel):
                 fetched_mark = json.loads(j_fetch[1])
                 self.subject_list.append(
                     '{}_{}_{}'.format(self.exam_entry.get(), self.combo_var_std_start.get(), self.date))
-                fetched_data[self.exam_entry.get()] = self.subject_list
-                fetched_mark[self.exam_entry.get()] = self.mark_list
+                fetched_data[set_exam_name] = self.subject_list
+                fetched_mark[set_exam_name] = self.mark_list
                 j = json.dumps(fetched_data)
                 j_mark = json.dumps(fetched_mark)
                 query = """update exams set data=(?), marks=(?)"""
@@ -180,6 +180,7 @@ class Exam(Toplevel):
         self.geometry("1350x700+0+0")
         self.resizable(False, False)
 
+
         bgimg = ImageTk.PhotoImage(file="dark-blue-blur-gradation-wallpaper-preview.jpg")
         lbl = Label(self, image=bgimg)
         lbl.place(x=0, y=0, relwidth=1, relheight=1)
@@ -216,5 +217,11 @@ class Exam(Toplevel):
         add_btn.place(x=20,y=520)
         done_btn = Button(self, text="DONE", command=self.done_sub)
         done_btn.place(x=120,y=520)
+
+        # imagel = Image.open("left-arrow.png")
+        # imagel = imagel.resize((50, 50))
+        # imgl = ImageTk.PhotoImage(imagel)
+        bb = Button(self, text="Back", bd=5, font=(self.f1, 20), bg=self.bgclr2, command=self.backf)
+        bb.place(x=620,y=580)
         self.protocol("WM_DELETE_WINDOW", self.c_w)
 

@@ -5,7 +5,7 @@ from PIL import ImageTk
 from mark_entry import Mark_Entry
 from delete_exam import Delete_Exam
 from update_mark import Update_Mark
-
+from percentage import Percentage
 
 class r1(Toplevel):
 
@@ -27,6 +27,9 @@ class r1(Toplevel):
         self.withdraw()
         Exam(self, self.main_root)
 
+    def calculate_percentage(self):
+        self.withdraw()
+        Percentage(self,self.main_root)
 
     def delete_exam(self):
         self.withdraw()
@@ -60,11 +63,13 @@ class r1(Toplevel):
 
 
         btn = Button(self, text="Create Exam",command=self.create_exam)
-        btn.pack()
+        btn.place(x=220, y=320)
         mark_btn = Button(self, text="MARK ENTRY", command=self.mark_entry)
-        mark_btn.place(x=220, y=320)
+        mark_btn.place(x=420, y=320)
         btn = Button(self, text="Update Marks", command=self.update_marks)
-        btn.pack()
+        btn.place(x=620, y=320)
         btn = Button(self, text="Delete Exam", command=self.delete_exam)
-        btn.pack()
+        btn.place(x=820, y=320)
+        btn = Button(self, text="Calculate Percentage", command=self.calculate_percentage)
+        btn.place(x=1020, y=320)
         self.protocol("WM_DELETE_WINDOW", self.c_w)
