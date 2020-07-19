@@ -67,6 +67,7 @@ class Mark_Entry(Toplevel):
 
     def reset(self):
         self.cb1.config(state="normal")
+        self.cb1.config(state="readonly")
 
         for i in range(len(self.subject)-1):
             self.mark_ent[i].destroy()
@@ -120,6 +121,38 @@ class Mark_Entry(Toplevel):
                 self.combo_roll.focus_set()
                 return
 
+            for i in range(len(self.subject) - 1):
+
+                try:
+                    int(self.mark_ent[i].get())
+                except:
+                    messagebox.showerror("School Software",
+                                         "For Subject '{}' Marks field Should be Positive Number and Not Null.".format(
+                                             self.subject[i]))
+                    self.mark_ent[i].focus_set()
+                    return
+
+                query = "select marks from exams"
+                fetched_total = self.conn.execute(query).fetchone()
+                j = json.loads(fetched_total[0])
+                mark_list = j[self.cb1.get()]
+                print(mark_list)
+                if int(self.mark_ent[i].get()) > int(mark_list[i]):
+                    messagebox.showerror("School Software",
+                                         "For Subject '{}' Total Marks are '{}' and you Entered '{}'.\nIt's not Posiible to give marks more then Total.".format(
+                                             self.subject[i], mark_list[i], self.mark_ent[i].get()))
+                    self.mark_ent[i].focus_set()
+                    return
+
+
+                if self.mark_ent[i].get() == "" or int(self.mark_ent[i].get())<0:
+                    messagebox.showerror("School Software","For Subject '{}' Marks field Should be Positive Number and Not Null.".format(self.subject[i]))
+                    self.mark_ent[i].focus_set()
+                    return
+
+
+
+
             self.insert_data_list = []
             self.insert_data_list.append(self.standard_entry_var.get())
             self.insert_data_list.append(self.combo_roll.get())
@@ -138,10 +171,10 @@ class Mark_Entry(Toplevel):
                 self.var[i].set('')
             self.rollno_maintain()
             self.combo_roll.set('Select')
-            messagebox.showinfo("School Software", "Operation Successful.")
             for i in range(len(self.subject) - 1):
                 self.var[i].set('')
             self.conn.commit()
+            messagebox.showinfo("School Software", "Your Entry of Marks is Succesful!")
 
         elif m == False:
 

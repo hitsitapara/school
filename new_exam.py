@@ -22,7 +22,7 @@ class Exam(Toplevel):
 
             for i in range(len(self.subject_list)):
                 if i == 0:
-                    query = "CREATE TABLE '{}_{}_{}' (std TEXT, rollno NUMERIC,{} NUMERIC NOT NULL );".format(self.exam_entry.get(), self.combo_var_std_start.get(), self.date, self.subject_list[i])
+                    query = "CREATE TABLE '{}_{}_{}' (std TEXT, rollno NUMERIC,{} NUMERIC );".format(self.exam_entry.get(), self.combo_var_std_start.get(), self.date, self.subject_list[i])
                     self.conn.execute(query)
                 else:
                     query = "ALTER TABLE '{}_{}_{}' ADD {} NUMERIC;".format(self.exam_entry.get(),
@@ -46,7 +46,9 @@ class Exam(Toplevel):
                 query = """insert into exams(data, marks) values(?,?)"""
                 self.conn.execute(query, (j, j_mark))
                 self.conn.commit()
-                messagebox.showinfo("School Software", "Operation Successful.")
+                messagebox.showinfo("School Software",
+                                    "Youe Exam is Genereted Succesfully.\nYour Exam is Generated with Name : '{}'".format(
+                                        set_exam_name))
                 self.reset()
 
 
@@ -66,7 +68,9 @@ class Exam(Toplevel):
                 query = """update exams set data=(?), marks=(?)"""
                 self.conn.execute(query, (j, j_mark))
                 self.conn.commit()
-                messagebox.showinfo("School Software", "Operation Successful.")
+                messagebox.showinfo("School Software",
+                                    "Youe Exam is Genereted Succesfully.\nYour Exam is Generated with Name : '{}'".format(
+                                        set_exam_name))
                 self.reset()
 
 
@@ -88,6 +92,7 @@ class Exam(Toplevel):
         self.sub_entry_var.set('')
         self.mark_entry_var.set('')
         self.internal_mark_entry_var.set('0')
+        self.exam_entry.focus_set()
 
 
 
@@ -139,6 +144,7 @@ class Exam(Toplevel):
         self.sub_entry_var.set('')
         self.mark_entry_var.set('')
         self.internal_mark_entry_var.set('0')
+        self.subject_entry.focus_set()
 
     def backf(self, event=""):
         self.destroy()
@@ -213,15 +219,16 @@ class Exam(Toplevel):
         self.cb3['values'] = ["L.K.G", "H.K.G", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, "11~Commerce", "12~Commerce",
                               "11~Science", "12~Science"]
         self.cb3.set("Select")
-        add_btn = Button(self, text="ADD", command=self.add_sub_and_mark)
-        add_btn.place(x=20,y=520)
-        done_btn = Button(self, text="DONE", command=self.done_sub)
-        done_btn.place(x=120,y=520)
+        add_btn = Button(self, text="ADD Another Subject", bg=self.bgclr2 , font=(self.f1, 10),command=self.add_sub_and_mark)
+        add_btn.place(x=500,y=20)
+        done_btn = Button(self,width=30, text="DONE", bg=self.bgclr2 , font=(self.f1, 20),command=self.done_sub)
+        done_btn.place(x=20,y=580)
 
         # imagel = Image.open("left-arrow.png")
         # imagel = imagel.resize((50, 50))
         # imgl = ImageTk.PhotoImage(imagel)
         bb = Button(self, text="Back", bd=5, font=(self.f1, 20), bg=self.bgclr2, command=self.backf)
-        bb.place(x=620,y=580)
+        bb.place(x=670,y=580)
+        self.exam_entry.focus_set()
         self.protocol("WM_DELETE_WINDOW", self.c_w)
 

@@ -38,8 +38,38 @@ class Percentage(Toplevel):
             self.get_mark = []
             print(fetched_result)
 
+            query = "select marks from exams"
+            fetched_total = self.conn.execute(query).fetchone()
+            j = json.loads(fetched_total[0])
+            mark_list = j[self.cb1.get()]
+            print(mark_list)
+            total_exam_mark = 0
+            for i in mark_list:
+                total_exam_mark += int(i)
+            print(total_exam_mark)
+            percentage = []
+            obtained = []
+            got = 0
+
+            query = "alter table '{}' add percentage NUMERIC;".format(self.subject[-1])
+            self.conn.execute(query)
+            self.conn.commit()
+
+            for i in fetched_result:
+                for j in range(2,len(i)):
+                    got += i[j]
+                per = float((got*100)/total_exam_mark)
+                percentage.append(per)
+                obtained.append(got)
+                query = "update '{}' set percentage={} where rollno = {}".format(self.subject[-1], per, i[1])
+                print(query)
+                self.conn.execute(query)
+                got = 0
+                self.conn.commit()
+
+            messagebox.showinfo("School Software","Your Percentage for Exam '{}' is Calculated Succesfully.".format(self.cb1.get()))
         else:
-            print("Please Complete the mark entry for all stdents")
+            messagebox.showerror("School Software", "Mark Entry of All Students for Exam '{}' is not Done.".format(self.cb1.get()))
 
 
     def __init__(self, root, main_root):
