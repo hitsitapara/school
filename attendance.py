@@ -115,14 +115,17 @@ class Attedance1(Toplevel):
             query = """ select abday from master where standard = ? and div=? and rollno = ?"""
             a = self.conn.execute(query, (self.classbox.get(), self.divbox.get(), self.rno[item])).fetchone()
             if a[0] == None:
-                b = [self.cal.get_date()]
-                p = json.dumps(b)
+                b = str(self.cal.get_date())
+                c = list()
+                c.append(b)
+                print(c)
+                p = json.dumps(c)
                 query1 = """ update master set abday = ? where standard =? and div=? and rollno=?"""
                 self.conn.execute(query1, (p, self.classbox.get(), self.divbox.get(), self.rno[item]))
                 self.conn.commit()
             else:
                 x = json.loads(a[0])
-                x.append(self.cal.get_date())
+                x.append(str(self.cal.get_date()))
                 p = json.dumps(x)
                 query1 = """ update master set abday = ? where standard =? and div=? and rollno=?"""
                 self.conn.execute(query1, (p, self.classbox.get(), self.divbox.get(), self.rno[item]))
@@ -134,7 +137,6 @@ class Attedance1(Toplevel):
         self.divlabel.destroy()
         self.classbox.set("CLASS")
         self.classbox.focus_set()
-        self.cal.place_forget()
 
     def rem(self,event=""):
         try:
