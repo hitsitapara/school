@@ -93,6 +93,7 @@ class Exam(Toplevel):
         self.mark_entry_var.set('')
         self.internal_mark_entry_var.set('0')
         self.exam_entry.focus_set()
+        self.done_btn.config(state="disabled")
 
 
 
@@ -108,6 +109,7 @@ class Exam(Toplevel):
             messagebox.showerror("School Software",  "Subject Name Should not be Empty nor Numeric.")
             self.subject_entry.focus_set()
             return
+
 
         try:
             int(self.mark_entry.get())
@@ -145,6 +147,7 @@ class Exam(Toplevel):
         self.mark_entry_var.set('')
         self.internal_mark_entry_var.set('0')
         self.subject_entry.focus_set()
+        self.done_btn.config(state="normal")
 
     def backf(self, event=""):
         self.destroy()
@@ -221,8 +224,9 @@ class Exam(Toplevel):
         self.cb3.set("Select")
         add_btn = Button(self, text="ADD Another Subject", bg=self.bgclr2 , font=(self.f1, 10),command=self.add_sub_and_mark)
         add_btn.place(x=500,y=20)
-        done_btn = Button(self,width=30, text="DONE", bg=self.bgclr2 , font=(self.f1, 20),command=self.done_sub)
-        done_btn.place(x=20,y=580)
+        self.done_btn = Button(self,width=30, text="DONE", bg=self.bgclr2 , font=(self.f1, 20),command=self.done_sub)
+        self.done_btn.place(x=20,y=580)
+        self.done_btn.config(state="disabled")
 
         # imagel = Image.open("left-arrow.png")
         # imagel = imagel.resize((50, 50))
