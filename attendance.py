@@ -3,8 +3,9 @@ from tkinter import ttk, messagebox
 import sqlite3
 from w5 import Window5
 from PIL import Image, ImageTk
-from tkcalendar import Calendar
+from tkcalendar import DateEntry
 import json
+from datetime import date
 
 
 class Attedance1(Toplevel):
@@ -87,6 +88,13 @@ class Attedance1(Toplevel):
     def addat(self, event=""):
 
         try:
+            if self.cal.get_date() > date.today() :
+                raise ValueError
+        except:
+            m = messagebox.showerror("School Software", "You can not enter future attendance")
+            return
+
+        try:
             if(self.classbox.get() == "CLASS"):
                 raise ValueError
             try:
@@ -107,14 +115,16 @@ class Attedance1(Toplevel):
             query = """ select abday from master where standard = ? and div=? and rollno = ?"""
             a = self.conn.execute(query, (self.classbox.get(), self.divbox.get(), self.rno[item])).fetchone()
             if a[0] == None:
-                b = [self.cal.get_date()]
-                p = json.dumps(b)
+                b = str(self.cal.get_date())
+                c = list()
+                c.append(b)
+                p = json.dumps(c)
                 query1 = """ update master set abday = ? where standard =? and div=? and rollno=?"""
                 self.conn.execute(query1, (p, self.classbox.get(), self.divbox.get(), self.rno[item]))
                 self.conn.commit()
             else:
                 x = json.loads(a[0])
-                x.append(self.cal.get_date())
+                x.append(str(self.cal.get_date()))
                 p = json.dumps(x)
                 query1 = """ update master set abday = ? where standard =? and div=? and rollno=?"""
                 self.conn.execute(query1, (p, self.classbox.get(), self.divbox.get(), self.rno[item]))
@@ -126,7 +136,6 @@ class Attedance1(Toplevel):
         self.divlabel.destroy()
         self.classbox.set("CLASS")
         self.classbox.focus_set()
-        self.cal.place_forget()
 
     def rem(self,event=""):
         try:
@@ -198,6 +207,7 @@ class Attedance1(Toplevel):
         self.calcount = 0
         self.divcounter = 0
         self.rollcounter = 0
+        self.d_ateentry = StringVar()
 
 ##======================================================frame 1===========================================================================
         imagel = Image.open("left-arrow.png")
@@ -223,12 +233,9 @@ class Attedance1(Toplevel):
         self.datelabel = Label(self.lf2, text="DATE", bd=2, bg="black", fg="White", font=(self.f1, 15), relief=GROOVE)
         self.datelabel.place(x=50, y=10, height=25)
 
-        calimg = ImageTk.PhotoImage(file="calendar-icon-vector-22895109.jpg")
-        self.cbutton = Button(self.lf2, image= calimg, bd=2, relief=GROOVE, command=self.calselect)
-        self.cbutton.place(x=300, y=10, height=30, width=30)
-
-        self.cal = Calendar(self.lf2, font="Arial 10", background='black', foreground='white', selectmode='day')
-        self.cal.pack_forget()
+        self.cal = DateEntry(self.lf2, width=12, background='darkblue', date_pattern='dd/mm/yyyy',
+                    foreground='white', borderwidth=2, state="readonly")
+        self.cal.place(x=300, y=10)
 
         self.classlabel = Label(self.lf2, text="STANDARD", bd=2 ,bg="black", fg="white", font=(self.f1, 15), relief=GROOVE)
         self.classlabel.place(x=50, y=85, height=25)
@@ -242,7 +249,7 @@ class Attedance1(Toplevel):
         self.cals.sort()
 
         self.c_lassbox = StringVar()
-        self.classbox = ttk.Combobox(self.lf2, state="readonly", textvariable=self.c_lassbox ,font=(self.f1, 10))
+        self.classbox = ttk.Combobox(self.lf2, state="readonly", textvariable=self.c_lassbox, font=(self.f1, 10))
         self.classbox.place(x=50, y=150, height=25, width=100)
         self.classbox['values'] = self.cals
         self.classbox.bind("<<ComboboxSelected>>",self.division)
@@ -254,15 +261,10 @@ class Attedance1(Toplevel):
         self.removebutton = Button(self.lf2, text="REMOVE", font=(self.f2, 15), bd=5, command=self.rem)
         self.removebutton.place(x=250, y=400, height=30)
 
-
-
-
 ##======================================================frame 3=====================================================================
         self.lf3 = LabelFrame(self, text="ATTENDANCE PREVIEW", bd=2, bg="black", fg="white", font=(self.f1, 20),
                               relief=GROOVE)
         self.lf3.place(x=675, y=150, height=600, width=675)
-
-
 
         self.protocol("WM_DELETE_WINDOW", self.c_w)
 
