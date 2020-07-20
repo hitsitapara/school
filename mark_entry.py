@@ -38,7 +38,6 @@ class Mark_Entry(Toplevel):
         self.get_std_list = get_std_from_table_name.split("_")
 
         self.standard_entry_var.set(self.get_std_list[1])
-        print(self.standard_entry_var.get())
 
         self.var = []
         self.mark_ent = []
@@ -107,7 +106,6 @@ class Mark_Entry(Toplevel):
 
             self.list_for_combo = list(self.set_of_masterroll.difference(self.set_of_resultroll))
             self.combo_roll['values'] = self.list_for_combo
-            print(self.list_for_combo)
 
     def set_mark(self):
 
@@ -164,8 +162,6 @@ class Mark_Entry(Toplevel):
             self.insert_data_tuple = tuple(self.insert_data_list)
 
             query = "insert into '{}' values ({})".format(self.subject[-1], self.add_query_formatting)
-            print(query)
-            print (self.insert_data_tuple)
             self.conn.execute(query, self.insert_data_tuple)
             for i in range(len(self.subject)-1):
                 self.var[i].set('')
