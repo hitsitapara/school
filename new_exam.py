@@ -4,10 +4,61 @@ import time
 import json
 from tkinter import messagebox
 from tkinter.ttk import Combobox
-from PIL import ImageTk
+from PIL import Image,ImageTk
 
 class Exam(Toplevel):
     def done_sub(self):
+
+        #======
+        if self.subject_entry.get() != "" or self.mark_entry.get() != "" or self.internal_mark_entry.get() != "0":
+            if self.exam_entry.get() == "":
+                messagebox.showerror("School Software", "Exam Name Should not be Empty.")
+                self.exam_entry.focus_set()
+                return
+
+            if self.subject_entry.get().isalpha():
+                pass
+            else:
+                messagebox.showerror("School Software", "Subject Name Should not be Empty nor Numeric.")
+                self.subject_entry.focus_set()
+                return
+
+            try:
+                int(self.mark_entry.get())
+            except:
+                messagebox.showerror("School Software", "Marks Should not be Empty.\nMarks Shold be Positive Number")
+                self.mark_entry.focus_set()
+                return
+            if int(self.mark_entry.get()) < 1:
+                messagebox.showerror("School Software", "Marks Should not be Empty.\nMarks Shold be Positive Number")
+                self.mark_entry.focus_set()
+                return
+
+            try:
+                int(self.internal_mark_entry.get())
+            except:
+                messagebox.showerror("School Software",
+                                     "Internal Marks Should not be Empty.\nInternal Marks Shold be Positive Number.")
+                self.internal_mark_entry.focus_set()
+                return
+
+            if int(self.internal_mark_entry.get()) < 0:
+                messagebox.showerror("School Software",
+                                     "Internal Marks Should not be Empty.\nInternal Marks Shold be Positive Number.")
+                self.internal_mark_entry.focus_set()
+                return
+
+            mark = self.mark_entry.get()
+            sub = self.subject_entry.get()
+            internal = self.internal_mark_entry.get()
+            self.subject_list.append(sub)
+            internal_subj_column = "{}_internal".format(self.subject_list[-1])
+            self.subject_list.append(internal_subj_column)
+            self.mark_list.append(mark)
+            self.mark_list.append(internal)
+        else:
+            print("Else AAyvu")
+        #======
 
         m = messagebox.askyesnocancel("School Software","Are you really want to Save the Changes?")
         if m == True:
@@ -21,32 +72,61 @@ class Exam(Toplevel):
 
 
             for i in range(len(self.subject_list)):
+                print(self.subject_list)
                 if i == 0:
-                    query = "CREATE TABLE '{}_{}_{}' (std TEXT, rollno NUMERIC,{} NUMERIC NOT NULL );".format(self.exam_entry.get(), self.combo_var_std_start.get(), self.date, self.subject_list[i])
-                    self.conn.execute(query)
+                    try:
+                        query = "CREATE TABLE '{}_{}_{}' (std TEXT, rollno NUMERIC,{} NUMERIC );".format(self.exam_entry.get(), self.combo_var_std_start.get(), self.date, self.subject_list[i])
+                        self.conn.execute(query)
+                    except:
+                        messagebox.showerror("School Software",
+                                             "You have already Generated Exam : '{}' for Standard : '{}'.\nPlease Complete it or Delete it.".format(
+                                                 self.exam_entry.get(), self.combo_var_std_start.get()))
+                        self.sub_entry_var.set('')
+                        self.mark_entry_var.set('')
+                        self.internal_mark_entry_var.set('0')
+                        return
                 else:
-                    query = "ALTER TABLE '{}_{}_{}' ADD {} NUMERIC;".format(self.exam_entry.get(),
-                                                                            self.combo_var_std_start.get(),
-                                                                            self.date, self.subject_list[i])
-                    self.conn.execute(query)
+                    try:
+
+                        query = "ALTER TABLE '{}_{}_{}' ADD {} NUMERIC;".format(self.exam_entry.get(),
+                                                                                self.combo_var_std_start.get(),
+                                                                                self.date, self.subject_list[i])
+                        self.conn.execute(query)
+                    except:
+                        messagebox.showerror("School Software", "You have already Entered Subject : '{}' for Exam : '{}'\nPlease Change The Subject.".format(self.subject_list[i],self.exam_entry.get()))
+                        self.conn.rollback()
+                        query = "drop table '{}_{}_{}'".format(self.exam_entry.get(), self.combo_var_std_start.get(), self.date)
+                        self.conn.execute(query)
+
+                        self.subject_list.remove(self.subject_list[i])
+                        self.mark_list.remove(self.mark_list[i])
+
+                        self.subject_list.remove(self.subject_list[i])
+                        self.mark_list.remove(self.mark_list[i])
+                        self.sub_entry_var.set('')
+                        self.subject_entry.focus_set()
+
+                        return
             self.conn.commit()
 
             query = "select count(*) from exams"
             rows = self.conn.execute(query).fetchone()
-
+            set_exam_name = "{}_{}".format(self.exam_entry.get(), self.combo_var_std_start.get())
             if rows[0] == 0:
                 mark_data = {}
                 data = {}
                 self.subject_list.append(
                     '{}_{}_{}'.format(self.exam_entry.get(), self.combo_var_std_start.get(), self.date))
-                data[self.exam_entry.get()] = self.subject_list
-                mark_data[self.exam_entry.get()] = self.mark_list
+                data[set_exam_name] = self.subject_list
+                mark_data[set_exam_name] = self.mark_list
                 j_mark = json.dumps(mark_data)
                 j = json.dumps(data)
                 query = """insert into exams(data, marks) values(?,?)"""
                 self.conn.execute(query, (j, j_mark))
                 self.conn.commit()
-                messagebox.showinfo("School Software", "Operation Successful.")
+                messagebox.showinfo("School Software",
+                                    "Youe Exam is Genereted Succesfully.\nYour Exam is Generated with Name : '{}'".format(
+                                        set_exam_name))
                 self.reset()
 
 
@@ -59,14 +139,16 @@ class Exam(Toplevel):
                 fetched_mark = json.loads(j_fetch[1])
                 self.subject_list.append(
                     '{}_{}_{}'.format(self.exam_entry.get(), self.combo_var_std_start.get(), self.date))
-                fetched_data[self.exam_entry.get()] = self.subject_list
-                fetched_mark[self.exam_entry.get()] = self.mark_list
+                fetched_data[set_exam_name] = self.subject_list
+                fetched_mark[set_exam_name] = self.mark_list
                 j = json.dumps(fetched_data)
                 j_mark = json.dumps(fetched_mark)
                 query = """update exams set data=(?), marks=(?)"""
                 self.conn.execute(query, (j, j_mark))
                 self.conn.commit()
-                messagebox.showinfo("School Software", "Operation Successful.")
+                messagebox.showinfo("School Software",
+                                    "Youe Exam is Genereted Succesfully.\nYour Exam is Generated with Name : '{}'".format(
+                                        set_exam_name))
                 self.reset()
 
 
@@ -88,7 +170,8 @@ class Exam(Toplevel):
         self.sub_entry_var.set('')
         self.mark_entry_var.set('')
         self.internal_mark_entry_var.set('0')
-
+        self.exam_entry.focus_set()
+        self.done_btn.config(state="disabled")
 
 
     def add_sub_and_mark(self):
@@ -101,6 +184,13 @@ class Exam(Toplevel):
 
         if self.subject_entry.get() == "":
             messagebox.showerror("School Software",  "Subject Name Should not be Empty nor Numeric.")
+            self.subject_entry.focus_set()
+            return
+
+        if self.subject_entry.get().isalpha():
+            pass
+        else:
+            messagebox.showerror("School Software", "Subject Name Should not be Empty nor Numeric.")
             self.subject_entry.focus_set()
             return
 
@@ -139,6 +229,8 @@ class Exam(Toplevel):
         self.sub_entry_var.set('')
         self.mark_entry_var.set('')
         self.internal_mark_entry_var.set('0')
+        self.subject_entry.focus_set()
+        self.done_btn.config(state="normal")
 
     def backf(self, event=""):
         self.destroy()
@@ -180,6 +272,7 @@ class Exam(Toplevel):
         self.geometry("1350x700+0+0")
         self.resizable(False, False)
 
+
         bgimg = ImageTk.PhotoImage(file="dark-blue-blur-gradation-wallpaper-preview.jpg")
         lbl = Label(self, image=bgimg)
         lbl.place(x=0, y=0, relwidth=1, relheight=1)
@@ -212,9 +305,17 @@ class Exam(Toplevel):
         self.cb3['values'] = ["L.K.G", "H.K.G", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, "11~Commerce", "12~Commerce",
                               "11~Science", "12~Science"]
         self.cb3.set("Select")
-        add_btn = Button(self, text="ADD", command=self.add_sub_and_mark)
-        add_btn.place(x=20,y=520)
-        done_btn = Button(self, text="DONE", command=self.done_sub)
-        done_btn.place(x=120,y=520)
+        add_btn = Button(self, text="ADD Another Subject", bg=self.bgclr2 , font=(self.f1, 10),command=self.add_sub_and_mark)
+        add_btn.place(x=500,y=20)
+        self.done_btn = Button(self,width=30, text="DONE", bg=self.bgclr2 , font=(self.f1, 20),command=self.done_sub)
+        self.done_btn.place(x=20,y=580)
+        self.done_btn.config(state="disabled")
+
+        # imagel = Image.open("left-arrow.png")
+        # imagel = imagel.resize((50, 50))
+        # imgl = ImageTk.PhotoImage(imagel)
+        bb = Button(self, text="Back", bd=5, font=(self.f1, 20), bg=self.bgclr2, command=self.backf)
+        bb.place(x=670,y=580)
+        self.exam_entry.focus_set()
         self.protocol("WM_DELETE_WINDOW", self.c_w)
 

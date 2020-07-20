@@ -27,9 +27,40 @@ class Update_Mark(Toplevel):
             if self.combo_roll.get() != 'Select':
                 pass
             else:
-                messagebox.showerror("School Software", "Please Select Standard first.")
+                messagebox.showerror("School Software", "Please Select Roll Number first.")
                 self.combo_roll.focus_set()
                 return
+
+            for i in range(len(self.subject) - 1):
+
+                try:
+                    int(self.mark_ent[i].get())
+                except:
+                    print("except")
+                    messagebox.showerror("School Software",
+                                         "For Subject '{}' Marks field Should be Positive Number and Not Null.".format(
+                                             self.subject[i]))
+                    self.mark_ent[i].focus_set()
+                    return
+
+                #==========================================================================
+                query = "select marks from exams"
+                fetched_total = self.conn.execute(query).fetchone()
+                j = json.loads(fetched_total[0])
+                mark_list = j[self.combo_get_exam_var.get()]
+                print(mark_list)
+                if int(self.mark_ent[i].get()) > int(mark_list[i]):
+                    messagebox.showerror("School Software",
+                                         "For Subject '{}' Total Marks are '{}' and you Entered '{}'.\nIt's not Posiible to give marks more then Total.".format(
+                                             self.subject[i],mark_list[i],self.mark_ent[i].get()))
+                    self.mark_ent[i].focus_set()
+                    return
+                #==========================================================================
+
+                if self.mark_ent[i].get() == "" or int(self.mark_ent[i].get())<0:
+                    messagebox.showerror("School Software","For Subject '{}' Marks field Should be Positive Number and Not Null.".format(self.subject[i]))
+                    self.mark_ent[i].focus_set()
+                    return
 
 
             self.insert_data_list = []
@@ -55,7 +86,7 @@ class Update_Mark(Toplevel):
             self.rollno_maintain()
             self.combo_roll.set('Select')
             self.conn.commit()
-
+            messagebox.showinfo("School Software", "Your Updation of Marks is Succesful!")
         elif m == False:
 
             self.reset()

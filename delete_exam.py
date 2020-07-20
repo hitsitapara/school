@@ -48,17 +48,15 @@ class Delete_Exam(Toplevel):
             query = """update exams set data=(?), marks=(?)"""
             self.conn.execute(query, (j, j_mark))
             self.conn.commit()
+            messagebox.showinfo("School Software", "Your Deletion of Exam : '{}' is Succesful!".format(self.selected_entry_var.get()))
             self.reset()
-
-
-
-
         elif m == False:
             self.reset()
         else:
             return
     def reset(self):
         self.combo_get_exam.config(state="normal")
+        self.combo_get_exam.config(state="readonly")
         self.selected_entry.destroy()
         self.selected_label.destroy()
 
