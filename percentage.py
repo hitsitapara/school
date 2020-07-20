@@ -29,11 +29,11 @@ class Percentage(Toplevel):
 
         query = "select count(*) from master where standard = {}".format(self.get_std_list[1])
         self.roll_from_master = self.conn.execute(query).fetchone()
-        query = "select count(*) from {} where std = {}".format(self.subject[-1],self.get_std_list[1])
+        query = "select count(*) from '{}' where std = {}".format(self.subject[-1],self.get_std_list[1])
         self.roll_from_result = self.conn.execute(query).fetchone()
 
         if self.roll_from_master[0] == self.roll_from_result[0]:
-            query = "select * from {} where std = {}".format(self.subject[-1],self.get_std_list[1])
+            query = "select * from '{}' where std = {}".format(self.subject[-1],self.get_std_list[1])
             fetched_result = self.conn.execute(query).fetchall()
             self.get_mark = []
             print(fetched_result)
