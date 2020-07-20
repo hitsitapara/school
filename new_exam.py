@@ -9,6 +9,57 @@ from PIL import Image,ImageTk
 class Exam(Toplevel):
     def done_sub(self):
 
+        #======
+        if self.subject_entry.get() != "" or self.mark_entry.get() != "" or self.internal_mark_entry.get() != "0":
+            if self.exam_entry.get() == "":
+                messagebox.showerror("School Software", "Exam Name Should not be Empty.")
+                self.exam_entry.focus_set()
+                return
+
+            if self.subject_entry.get().isalpha():
+                pass
+            else:
+                messagebox.showerror("School Software", "Subject Name Should not be Empty nor Numeric.")
+                self.subject_entry.focus_set()
+                return
+
+            try:
+                int(self.mark_entry.get())
+            except:
+                messagebox.showerror("School Software", "Marks Should not be Empty.\nMarks Shold be Positive Number")
+                self.mark_entry.focus_set()
+                return
+            if int(self.mark_entry.get()) < 1:
+                messagebox.showerror("School Software", "Marks Should not be Empty.\nMarks Shold be Positive Number")
+                self.mark_entry.focus_set()
+                return
+
+            try:
+                int(self.internal_mark_entry.get())
+            except:
+                messagebox.showerror("School Software",
+                                     "Internal Marks Should not be Empty.\nInternal Marks Shold be Positive Number.")
+                self.internal_mark_entry.focus_set()
+                return
+
+            if int(self.internal_mark_entry.get()) < 0:
+                messagebox.showerror("School Software",
+                                     "Internal Marks Should not be Empty.\nInternal Marks Shold be Positive Number.")
+                self.internal_mark_entry.focus_set()
+                return
+
+            mark = self.mark_entry.get()
+            sub = self.subject_entry.get()
+            internal = self.internal_mark_entry.get()
+            self.subject_list.append(sub)
+            internal_subj_column = "{}_internal".format(self.subject_list[-1])
+            self.subject_list.append(internal_subj_column)
+            self.mark_list.append(mark)
+            self.mark_list.append(internal)
+        else:
+            print("Else AAyvu")
+        #======
+
         m = messagebox.askyesnocancel("School Software","Are you really want to Save the Changes?")
         if m == True:
 
@@ -21,14 +72,41 @@ class Exam(Toplevel):
 
 
             for i in range(len(self.subject_list)):
+                print(self.subject_list)
                 if i == 0:
-                    query = "CREATE TABLE '{}_{}_{}' (std TEXT, rollno NUMERIC,{} NUMERIC );".format(self.exam_entry.get(), self.combo_var_std_start.get(), self.date, self.subject_list[i])
-                    self.conn.execute(query)
+                    try:
+                        query = "CREATE TABLE '{}_{}_{}' (std TEXT, rollno NUMERIC,{} NUMERIC );".format(self.exam_entry.get(), self.combo_var_std_start.get(), self.date, self.subject_list[i])
+                        self.conn.execute(query)
+                    except:
+                        messagebox.showerror("School Software",
+                                             "You have already Generated Exam : '{}' for Standard : '{}'.\nPlease Complete it or Delete it.".format(
+                                                 self.exam_entry.get(), self.combo_var_std_start.get()))
+                        self.sub_entry_var.set('')
+                        self.mark_entry_var.set('')
+                        self.internal_mark_entry_var.set('0')
+                        return
                 else:
-                    query = "ALTER TABLE '{}_{}_{}' ADD {} NUMERIC;".format(self.exam_entry.get(),
-                                                                            self.combo_var_std_start.get(),
-                                                                            self.date, self.subject_list[i])
-                    self.conn.execute(query)
+                    try:
+
+                        query = "ALTER TABLE '{}_{}_{}' ADD {} NUMERIC;".format(self.exam_entry.get(),
+                                                                                self.combo_var_std_start.get(),
+                                                                                self.date, self.subject_list[i])
+                        self.conn.execute(query)
+                    except:
+                        messagebox.showerror("School Software", "You have already Entered Subject : '{}' for Exam : '{}'\nPlease Change The Subject.".format(self.subject_list[i],self.exam_entry.get()))
+                        self.conn.rollback()
+                        query = "drop table '{}_{}_{}'".format(self.exam_entry.get(), self.combo_var_std_start.get(), self.date)
+                        self.conn.execute(query)
+
+                        self.subject_list.remove(self.subject_list[i])
+                        self.mark_list.remove(self.mark_list[i])
+
+                        self.subject_list.remove(self.subject_list[i])
+                        self.mark_list.remove(self.mark_list[i])
+                        self.sub_entry_var.set('')
+                        self.subject_entry.focus_set()
+
+                        return
             self.conn.commit()
 
             query = "select count(*) from exams"
@@ -96,7 +174,6 @@ class Exam(Toplevel):
         self.done_btn.config(state="disabled")
 
 
-
     def add_sub_and_mark(self):
 
         if self.exam_entry.get() == "":
@@ -110,6 +187,12 @@ class Exam(Toplevel):
             self.subject_entry.focus_set()
             return
 
+        if self.subject_entry.get().isalpha():
+            pass
+        else:
+            messagebox.showerror("School Software", "Subject Name Should not be Empty nor Numeric.")
+            self.subject_entry.focus_set()
+            return
 
         try:
             int(self.mark_entry.get())

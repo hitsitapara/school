@@ -27,7 +27,7 @@ class Update_Mark(Toplevel):
             if self.combo_roll.get() != 'Select':
                 pass
             else:
-                messagebox.showerror("School Software", "Please Select Standard first.")
+                messagebox.showerror("School Software", "Please Select Roll Number first.")
                 self.combo_roll.focus_set()
                 return
 
