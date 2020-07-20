@@ -118,7 +118,6 @@ class Attedance1(Toplevel):
                 b = str(self.cal.get_date())
                 c = list()
                 c.append(b)
-                print(c)
                 p = json.dumps(c)
                 query1 = """ update master set abday = ? where standard =? and div=? and rollno=?"""
                 self.conn.execute(query1, (p, self.classbox.get(), self.divbox.get(), self.rno[item]))
