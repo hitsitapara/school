@@ -203,13 +203,13 @@ class Attedance1(Toplevel):
         self.config(background=self.bgclr1)
         self.geometry("1350x700+0+0")
         self.resizable(False, False)
-##================================================variables =============================================================================
+##================================================variables ============================================================
         self.calcount = 0
         self.divcounter = 0
         self.rollcounter = 0
         self.d_ateentry = StringVar()
 
-##======================================================frame 1===========================================================================
+##======================================================frame 1=========================================================
         imagel = Image.open("left-arrow.png")
         imagel = imagel.resize((60, 15))
         imager = Image.open("right-arrow.png")
@@ -225,7 +225,7 @@ class Attedance1(Toplevel):
         bb.place(x=10, y=10)
         nb = Button(self.lf1, image=imgr, bd=5, font=(self.f1, 20), command=self.next)
         nb.place(x=1260, y=10)
-##=============================================frame 2======================================================================
+##=============================================frame 2==================================================================
         self.lf2 = LabelFrame(self, text="ATTENDANCE WINDOW", bd=2, bg="black", fg="white", font=(self.f1, 20),
                               relief=GROOVE)
         self.lf2.place(x=0, y=150, height=600, width=675)
@@ -237,7 +237,8 @@ class Attedance1(Toplevel):
                     foreground='white', borderwidth=2, state="readonly")
         self.cal.place(x=300, y=10)
 
-        self.classlabel = Label(self.lf2, text="STANDARD", bd=2 ,bg="black", fg="white", font=(self.f1, 15), relief=GROOVE)
+        self.classlabel = Label(self.lf2, text="STANDARD", bd=2, bg="black", fg="white", font=(self.f1, 15),
+                            relief=GROOVE)
         self.classlabel.place(x=50, y=85, height=25)
 
         query = """select standard from master """
@@ -255,13 +256,13 @@ class Attedance1(Toplevel):
         self.classbox.bind("<<ComboboxSelected>>",self.division)
         self.c_lassbox.set("CLASS")
 
-        self.addbutton = Button(self.lf2, text="ADD",font=(self.f2, 15), bd=5, command=self.addat)
+        self.addbutton = Button(self.lf2, text="ADD", font=(self.f2, 15), bd=5, command=self.addat)
         self.addbutton.place(x=100, y=400, height=30)
 
         self.removebutton = Button(self.lf2, text="REMOVE", font=(self.f2, 15), bd=5, command=self.rem)
         self.removebutton.place(x=250, y=400, height=30)
 
-##======================================================frame 3=====================================================================
+##======================================================frame 3=========================================================
         self.lf3 = LabelFrame(self, text="ATTENDANCE PREVIEW", bd=2, bg="black", fg="white", font=(self.f1, 20),
                               relief=GROOVE)
         self.lf3.place(x=675, y=150, height=600, width=675)

@@ -1,7 +1,6 @@
 from tkinter import *
 from tkinter import ttk,messagebox
 import sqlite3
-from w3 import Window3
 from PIL import Image, ImageTk
 from result import r1
 from attendance import Attedance1
@@ -96,7 +95,7 @@ class Main1(Toplevel):
         sbutoon = Button(self.lf2, image=simg, bd=5, bg=self.bgclr2, relief=FLAT, command=self.sinfo)
         sbutoon.place(x=950, y=50, height=175, width=350)
 
-        rimg = ImageTk.PhotoImage(file="result.jpg")
+        rimg = ImageTk.PhotoImage(file="exam.jpg")
         rbutton = Button(self.lf2, image=rimg, bd=5, bg=self.bgclr2, relief=FLAT, command=self.next)
         rbutton.place(x=50, y=300, height=175, width=350)
 

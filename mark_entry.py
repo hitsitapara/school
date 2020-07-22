@@ -63,7 +63,6 @@ class Mark_Entry(Toplevel):
         self.reset_btn = Button(self, text="Reset", command=self.reset)
         self.reset_btn.pack()
 
-
     def reset(self):
         self.cb1.config(state="normal")
         self.cb1.config(state="readonly")
@@ -76,7 +75,6 @@ class Mark_Entry(Toplevel):
         self.reset_btn.destroy()
         self.standard_entry.destroy()
         self.combo_roll.destroy()
-
 
     def rollno_maintain(self):
 
@@ -134,7 +132,6 @@ class Mark_Entry(Toplevel):
                 fetched_total = self.conn.execute(query).fetchone()
                 j = json.loads(fetched_total[0])
                 mark_list = j[self.cb1.get()]
-                print(mark_list)
                 if int(self.mark_ent[i].get()) > int(mark_list[i]):
                     messagebox.showerror("School Software",
                                          "For Subject '{}' Total Marks are '{}' and you Entered '{}'.\nIt's not Posiible to give marks more then Total.".format(
@@ -178,7 +175,6 @@ class Mark_Entry(Toplevel):
 
         else:
             return
-
 
     def __init__(self, root, main_root):
 

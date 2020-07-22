@@ -36,17 +36,14 @@ class Percentage(Toplevel):
             query = "select * from '{}' where std = {}".format(self.subject[-1],self.get_std_list[1])
             fetched_result = self.conn.execute(query).fetchall()
             self.get_mark = []
-            print(fetched_result)
 
             query = "select marks from exams"
             fetched_total = self.conn.execute(query).fetchone()
             j = json.loads(fetched_total[0])
             mark_list = j[self.cb1.get()]
-            print(mark_list)
             total_exam_mark = 0
             for i in mark_list:
                 total_exam_mark += int(i)
-            print(total_exam_mark)
             percentage = []
             obtained = []
             got = 0
@@ -62,7 +59,6 @@ class Percentage(Toplevel):
                 percentage.append(per)
                 obtained.append(got)
                 query = "update '{}' set percentage={} where rollno = {}".format(self.subject[-1], per, i[1])
-                print(query)
                 self.conn.execute(query)
                 got = 0
                 self.conn.commit()

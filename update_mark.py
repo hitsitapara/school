@@ -36,7 +36,6 @@ class Update_Mark(Toplevel):
                 try:
                     int(self.mark_ent[i].get())
                 except:
-                    print("except")
                     messagebox.showerror("School Software",
                                          "For Subject '{}' Marks field Should be Positive Number and Not Null.".format(
                                              self.subject[i]))
@@ -48,7 +47,6 @@ class Update_Mark(Toplevel):
                 fetched_total = self.conn.execute(query).fetchone()
                 j = json.loads(fetched_total[0])
                 mark_list = j[self.combo_get_exam_var.get()]
-                print(mark_list)
                 if int(self.mark_ent[i].get()) > int(mark_list[i]):
                     messagebox.showerror("School Software",
                                          "For Subject '{}' Total Marks are '{}' and you Entered '{}'.\nIt's not Posiible to give marks more then Total.".format(
@@ -74,12 +72,9 @@ class Update_Mark(Toplevel):
             self.insert_data_tuple = tuple(self.insert_data_list)
 
             query = "delete from '{}' where std='{}' and rollno = '{}' ".format(self.subject[-1],self.get_std_list[1],self.combo_roll.get())
-            print(query)
             self.conn.execute(query)
 
             query = "insert into '{}' values ({})".format(self.subject[-1], self.add_query_formatting)
-            print(query)
-            print(self.insert_data_tuple)
             self.conn.execute(query, self.insert_data_tuple)
             for i in range(len(self.subject)-1):
                 self.var[i].set('')
@@ -124,7 +119,6 @@ class Update_Mark(Toplevel):
         self.get_std_list = get_std_from_table_name.split("_")
 
         self.standard_entry_var.set(self.get_std_list[1])
-        print(self.standard_entry_var.get())
 
         self.var = []
         self.mark_ent = []
@@ -152,9 +146,7 @@ class Update_Mark(Toplevel):
     def set_exist_values(self,event):
 
         query = "select * from '{}' where std = '{}' and rollno = '{}'".format(self.subject[-1],self.get_std_list[1],self.combo_roll.get())
-        print(query)
         self.fetch_value = self.conn.execute(query).fetchall()
-        print(len(self.fetch_value[0]))
         for i in range(2,len(self.fetch_value[0])):
             self.var[i-2].set(self.fetch_value[0][i])
 
