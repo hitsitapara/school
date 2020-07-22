@@ -27,12 +27,12 @@ class Mark_Entry(Toplevel):
         data = json.loads(j_data[0])
         self.subject = data[self.cb1.get()]
 
-        label = Label(self, text="Standard")
-        label.place(x=20, y=420)
+        self.std_label = Label(self, text="Standard", width=10)
+        self.std_label.place(x=550, y=200)
 
         self.standard_entry_var = StringVar()
-        self.standard_entry = Entry(self,state="disabled", textvariable=self.standard_entry_var)
-        self.standard_entry.place(x=220, y=420)
+        self.standard_entry = Entry(self,state="disabled", textvariable=self.standard_entry_var, width=13)
+        self.standard_entry.place(x=650, y=200)
 
         get_std_from_table_name = str(self.subject[-1])
         self.get_std_list = get_std_from_table_name.split("_")
@@ -42,26 +42,40 @@ class Mark_Entry(Toplevel):
         self.var = []
         self.mark_ent = []
         self.mark_label = []
+
+
         for i in range(len(self.subject)-1):
             self.var.append(str(i))
             self.mark_ent.append(str(i))
             self.mark_label.append(str(i))
 
+        self.roll = Label(self, text="Roll No. : ")
+        self.roll.place(x=800, y=200)
+
         self.roll_var = StringVar()
-        self.combo_roll = Combobox(self, state="readonly", textvariable=self.roll_var, font=("Arial Bold", 15))
-        self.combo_roll.pack()
+        self.combo_roll = Combobox(self, state="readonly", textvariable=self.roll_var, font=("Arial Bold", 10))
+        self.combo_roll.place(x=900, y=200)
         self.combo_roll.set('Select')
         self.rollno_maintain()
+
+        top = 280
+        side = 300
+
         for i in range(len(self.subject)-1):
             self.var[i] = StringVar()
             self.mark_label[i] = Label(self,text=self.subject[i])
-            self.mark_label[i].pack()
             self.mark_ent[i] = Entry(self, textvariable=self.var[i])
-            self.mark_ent[i].pack()
+            if i % 2 == 0:
+                self.mark_label[i].place(x=side, y=top)
+                self.mark_ent[i].place(x=(side+120), y=top)
+            else:
+                self.mark_label[i].place(x=((2*side) + 50), y=top)
+                self.mark_ent[i].place(x=((2*side) + 220), y=top)
+                top += 50
         self.confirm_btn= Button(self,text="Confirm",command=self.set_mark)
-        self.confirm_btn.pack()
+        self.confirm_btn.place(x = 550, y= 650)
         self.reset_btn = Button(self, text="Reset", command=self.reset)
-        self.reset_btn.pack()
+        self.reset_btn.place(x = 650, y= 650)
 
     def reset(self):
         self.cb1.config(state="normal")
@@ -75,6 +89,8 @@ class Mark_Entry(Toplevel):
         self.reset_btn.destroy()
         self.standard_entry.destroy()
         self.combo_roll.destroy()
+        self.std_label.destroy()
+        self.roll.destroy()
 
     def rollno_maintain(self):
 
@@ -210,9 +226,12 @@ class Mark_Entry(Toplevel):
 
         self.protocol("WM_DELETE_WINDOW", self.c_w)
 
+        self.exam_lbl = Label(self, text="Exam Name : ")
+        self.exam_lbl.place(x=200, y=200)
+
         self.combo_var = StringVar()
-        self.cb1 = Combobox(self, state="readonly", textvariable=self.combo_var, font=("Arial Bold", 15))
-        self.cb1.pack()
+        self.cb1 = Combobox(self, state="readonly", textvariable=self.combo_var, font=("Arial Bold", 10))
+        self.cb1.place(x=320, y=200)
         query = "select data from exams"
         j_data = self.conn.execute(query).fetchone()
         data = json.loads(j_data[0])
