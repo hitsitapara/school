@@ -27,12 +27,12 @@ class Mark_Entry(Toplevel):
         data = json.loads(j_data[0])
         self.subject = data[self.cb1.get()]
 
-        self.std_label = Label(self, text="Standard", width=10)
-        self.std_label.place(x=550, y=200)
+        self.std_label = Label(self.lf2, text="Standard", width=10)
+        self.std_label.place(x=550, y=10)
 
         self.standard_entry_var = StringVar()
-        self.standard_entry = Entry(self,state="disabled", textvariable=self.standard_entry_var, width=13)
-        self.standard_entry.place(x=650, y=200)
+        self.standard_entry = Entry(self.lf2,state="disabled", textvariable=self.standard_entry_var, width=13)
+        self.standard_entry.place(x=650, y=10)
 
         get_std_from_table_name = str(self.subject[-1])
         self.get_std_list = get_std_from_table_name.split("_")
@@ -49,22 +49,22 @@ class Mark_Entry(Toplevel):
             self.mark_ent.append(str(i))
             self.mark_label.append(str(i))
 
-        self.roll = Label(self, text="Roll No. : ")
-        self.roll.place(x=800, y=200)
+        self.roll = Label(self.lf2, text="Roll No. : ")
+        self.roll.place(x=800, y=10)
 
         self.roll_var = StringVar()
-        self.combo_roll = Combobox(self, state="readonly", textvariable=self.roll_var, font=("Arial Bold", 10))
-        self.combo_roll.place(x=900, y=200)
+        self.combo_roll = Combobox(self.lf2, state="readonly", textvariable=self.roll_var, font=("Arial Bold", 10))
+        self.combo_roll.place(x=900, y=10)
         self.combo_roll.set('Select')
         self.rollno_maintain()
 
-        top = 280
+        top = 75
         side = 300
 
         for i in range(len(self.subject)-1):
             self.var[i] = StringVar()
-            self.mark_label[i] = Label(self,text=self.subject[i])
-            self.mark_ent[i] = Entry(self, textvariable=self.var[i])
+            self.mark_label[i] = Label(self.lf2,text=self.subject[i])
+            self.mark_ent[i] = Entry(self.lf2, textvariable=self.var[i])
             if i % 2 == 0:
                 self.mark_label[i].place(x=side, y=top)
                 self.mark_ent[i].place(x=(side+120), y=top)
@@ -72,10 +72,10 @@ class Mark_Entry(Toplevel):
                 self.mark_label[i].place(x=((2*side) + 50), y=top)
                 self.mark_ent[i].place(x=((2*side) + 220), y=top)
                 top += 50
-        self.confirm_btn= Button(self,text="Confirm",command=self.set_mark)
-        self.confirm_btn.place(x = 550, y= 650)
-        self.reset_btn = Button(self, text="Reset", command=self.reset)
-        self.reset_btn.place(x = 650, y= 650)
+        self.confirm_btn= Button(self.lf2,text="Confirm",command=self.set_mark)
+        self.confirm_btn.place(x=550, y=450)
+        self.reset_btn = Button(self.lf2, text="Reset", command=self.reset)
+        self.reset_btn.place(x=650, y=450)
 
     def reset(self):
         self.cb1.config(state="normal")
@@ -211,27 +211,32 @@ class Mark_Entry(Toplevel):
         self.bgclr2 = "#e7d95a"
         self.f1 = "Arial Bold"
         self.f2 = "times new roman"
-        self.title("WINDOW10")
+        self.title("MARK ENTRY")
         self.config(background=self.bgclr1)
         self.geometry("1350x700+0+0")
         self.resizable(False, False)
-
+##===================================================frame 1============================================================
         imagel = Image.open("left-arrow.png")
-        imagel = imagel.resize((50, 50))
+        imagel = imagel.resize((60, 15))
 
         imgl = ImageTk.PhotoImage(imagel)
 
-        bb = Button(self, image = imgl, bd=5, font=(self.f1, 20), bg=self.bgclr2, command=self.backf)
-        bb.pack()
+        self.lf1 = LabelFrame(self, text="NAME", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
+        self.lf1.place(x=0, y=0, height=150, width=1350)
 
-        self.protocol("WM_DELETE_WINDOW", self.c_w)
+        bb = Button(self.lf1, image=imgl, bd=5, font=(self.f1, 20), command=self.backf)
+        bb.place(x=10, y=10)
 
-        self.exam_lbl = Label(self, text="Exam Name : ")
-        self.exam_lbl.place(x=200, y=200)
+##===================================================frame 2============================================================
+        self.lf2 = LabelFrame(self, text="MARK'S ENTRY", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
+        self.lf2.place(x=0, y=150, height=550, width=1350)
+
+        self.exam_lbl = Label(self.lf2, text="Exam Name : ")
+        self.exam_lbl.place(x=200, y=10)
 
         self.combo_var = StringVar()
-        self.cb1 = Combobox(self, state="readonly", textvariable=self.combo_var, font=("Arial Bold", 10))
-        self.cb1.place(x=320, y=200)
+        self.cb1 = Combobox(self.lf2, state="readonly", textvariable=self.combo_var, font=("Arial Bold", 10))
+        self.cb1.place(x=320, y=10)
         query = "select data from exams"
         j_data = self.conn.execute(query).fetchone()
         data = json.loads(j_data[0])
@@ -243,5 +248,5 @@ class Mark_Entry(Toplevel):
         self.cb1.bind("<<ComboboxSelected>>", self.selected_exam)
         self.cb1.set("Select")
 
-
+        self.protocol("WM_DELETE_WINDOW", self.c_w)
         self.mainloop()

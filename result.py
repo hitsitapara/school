@@ -279,7 +279,7 @@ class r1(Toplevel):
         self.bgclr2 = "#e7d95a"
         self.f1 = "Arial Bold"
         self.f2 = "times new roman"
-        self.title("WINDOW2")
+        self.title("EXAMS")
         self.config(background=self.bgclr1)
         self.geometry("1350x700+0+0")
         self.resizable(False, False)
@@ -306,13 +306,13 @@ class r1(Toplevel):
         label = Label(self.lf2, text="Enter Exam Name")
         label.place(x=20, y=20, height=20)
         label = Label(self.lf2, text="Enter Subjects for Exam")
-        label.place(x=20, y=100, height=20)
+        label.place(x=20, y=180, height=20)
         label = Label(self.lf2, text="Enter Marks for Subject")
-        label.place(x=20, y=200, height=20)
+        label.place(x=20, y=260, height=20)
         label = Label(self.lf2, text="Enter Internal Marks for Subject")
-        label.place(x=20, y=300, height=20)
+        label.place(x=20, y=340, height=20)
         label = Label(self.lf2, text="Enter Standard")
-        label.place(x=20, y=400, height=20)
+        label.place(x=20, y=100, height=20)
         self.sub_entry_var = StringVar()
         self.mark_entry_var = StringVar()
         self.exam_entry_var = StringVar()
@@ -321,23 +321,23 @@ class r1(Toplevel):
         self.exam_entry = Entry(self.lf2, textvariable=self.exam_entry_var)
         self.exam_entry.place(x=220, y=20, height=20)
         self.subject_entry = Entry(self.lf2, textvariable=self.sub_entry_var)
-        self.subject_entry.place(x=220, y=100, height=20)
+        self.subject_entry.place(x=220, y=180, height=20)
         self.mark_entry = Entry(self.lf2, textvariable=self.mark_entry_var)
-        self.mark_entry.place(x=220, y=200, height=20)
+        self.mark_entry.place(x=220, y=260, height=20)
         self.internal_mark_entry = Entry(self.lf2, textvariable=self.internal_mark_entry_var)
-        self.internal_mark_entry.place(x=220, y=300, height=20)
+        self.internal_mark_entry.place(x=220, y=340, height=20)
         self.combo_var_std_start = StringVar()
         self.cb3 = ttk.Combobox(self.lf2, state="readonly", textvariable=self.combo_var_std_start, font=("Arial Bold", 10))
-        self.cb3.place(x=220, y=400, height=20, width=150)
+        self.cb3.place(x=220, y=100, height=20, width=150)
         self.cb3['values'] = ["L.K.G", "H.K.G", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, "11~Commerce", "12~Commerce",
                               "11~Science", "12~Science"]
         self.cb3.set("Select")
         add_btn = Button(self.lf2, text="ADD Another Subject", font=(self.f1, 10),
                          command=self.add_sub_and_mark)
-        add_btn.place(x=300, y=450, width=200)
+        add_btn.place(x=50, y=425, width=200)
         self.done_btn = Button(self.lf2, width=30, text="DONE", font=(self.f1, 10),
                                command=self.done_sub)
-        self.done_btn.place(x=50, y=450, width=200)
+        self.done_btn.place(x=300, y=425, width=200)
         self.done_btn.config(state="disabled")
 
         ##===================================================== frame 3===============================================
