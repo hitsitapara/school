@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import ttk, messagebox
 import sqlite3
 from PIL import  Image, ImageTk
+from datetime import date
 
 
 class fee1(Toplevel):
@@ -51,11 +52,12 @@ class fee1(Toplevel):
 
             query = """ select fee from master where standard=? AND rollno=?"""
             a = self.conn.execute(query,(self.classbox.get(), self.rollbox.get())).fetchone()
+            self.feeamount = a[0]
             self.t_feeentry = StringVar()
             self.tfeeentry = Entry(self.lf2, textvariable=self.t_feeentry, font=(self.f1,10))
             self.tfeeentry.place(x=50, y=350, height=25, width=150)
             self.tfeeentry.config(state="disabled")
-            self.t_feeentry.set(a[0])
+            self.t_feeentry.set(self.feeamount)
 
             self.pfeelabel = Label(self.lf2, text="Pay Amount", bd=2, bg="black", fg="white", font=(self.f1, 15),
                                    relief=GROOVE)
@@ -71,6 +73,40 @@ class fee1(Toplevel):
             self.tfeelabel.destroy()
             self.feecounter = 0
             self.amountoffee()
+
+    def pay(self,event=""):
+        try:
+            if self.classbox.get == "CLASS":
+                raise ValueError
+        except:
+            m = messagebox.showerror("School Software","Please select standard", parent=self)
+            self.classbox.focus_set()
+            return
+
+        try:
+            if self.rollbox.get() == "Select":
+                raise ValueError
+        except:
+            m = messagebox.showerror("School Software", "Please select roll no", parent=self)
+            self.rollbox.focus_set()
+            return
+        try:
+            if self.pfeeentry.get() == "":
+                raise ValueError
+        except:
+            m = messagebox.showerror("School Software", "Please enter fee amount", parent=self)
+            self.pfeeentry.focus_set()
+            return
+
+        query = """ select hisfee from master where standard=? and rollno=? """
+        a = self.conn.execute(query,(self.classbox.get(), self.rollbox.get())).fetchone()
+        newfee = self.feeamount - int(self.pfeeentry.get())
+        self.dic ={}
+        self.dic[str(date.today())] = self.pfeeentry.get()
+        print(self.dic)
+
+
+
 
     def __init__(self, root, main_root):
 
@@ -133,6 +169,9 @@ class fee1(Toplevel):
         self.classbox['values'] = self.cals
         self.classbox.bind("<<ComboboxSelected>>", self.rollno)
         self.c_lassbox.set("CLASS")
+
+        self.paybutton = Button(self.lf2, text="PAY", font=(self.f2, 15), bd=5, command=self.pay)
+        self.paybutton.place(x=100, y=450, height=25)
 
 
         ##======================================================frame 3=================================================

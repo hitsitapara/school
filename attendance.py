@@ -4,7 +4,7 @@ import sqlite3
 from PIL import Image, ImageTk
 from tkcalendar import DateEntry
 import json
-from datetime import date
+from datetime import date, timedelta
 
 
 class Attedance1(Toplevel):
@@ -20,10 +20,6 @@ class Attedance1(Toplevel):
         else:
             return
 
-    def next(self, event=""):
-        self.withdraw()
-        Window5(self, self.main_root)
-
     def calselect(self):
         if (self.calcount == 0):
             self.cal.place(x=400, y=10)
@@ -32,44 +28,20 @@ class Attedance1(Toplevel):
             self.cal.place_forget()
             self.calcount = 0
 
-    def division(self, event=""):
-        if self.divcounter == 0:
-            query = """ select div from master where standard = ? """
-            a = self.conn.execute(query, (self.classbox.get(), )).fetchall() ## fetch division from database
-            b = set(a)
-            self.divlabel = Label(self.lf2, text="DIV", bd=2, bg="black", fg="white", font=(self.f1, 15),
-                                  relief=GROOVE)
-            self.divlabel.place(x=225, y=85, height=25)
-            self.divs = []
-            for i in b:
-                self.divs.append(i[0])
-            self.divbox = ttk.Combobox(self.lf2, state="readonly", font=(self.f1, 15))
-            self.divbox.place(x=225, y=150, height=25, width=150)
-            self.divbox['values'] = self.divs
-            self.divbox.bind("<<ComboboxSelected>>", self.rollno)
-            self.divbox.set("DIVISION")
-            self.divcounter = 1
-        else:
-            self.divbox.destroy()
-            self.divlabel.destroy()
-            self.divcounter = 0
-            if self.rollcounter == 1:
-                self.rollno()
-            self.division()
 
     def rollno(self, event=""):
         if self.rollcounter == 0:
             self.rolllabel = Label(self.lf2, text="ROLL NO", bd=2, bg="black", fg="white", font=(self.f1, 15),
                                    relief=GROOVE)
-            self.rolllabel.place(x=50, y=200, height=25)
-            query1 = """ select rollno from master where standard = ? AND div=?"""
-            a = self.conn.execute(query1, (self.classbox.get(), self.divbox.get())).fetchall()
+            self.rolllabel.place(x=350, y=85, height=25)
+            query1 = """ select rollno from master where standard = ? """
+            a = self.conn.execute(query1, (self.classbox.get(),)).fetchall()
             self.rno = []
             for i in a:
                 self.rno.append(i[0])
             self.rno.sort()
             self.frame = Frame(self.lf2)
-            self.frame.place(x=200, y=200, height=100, width=100)
+            self.frame.place(x=350, y=150, height=100, width=100)
             self.rnobox = Listbox(self.frame, font=(self.f1, 15), selectmode="multiple", selectbackground="yellow")
             for i in self.rno:
                 self.rnobox.insert(END, i)
@@ -90,19 +62,22 @@ class Attedance1(Toplevel):
             if self.cal.get_date() > date.today() :
                 raise ValueError
         except:
-            m = messagebox.showerror("School Software", "You can not enter future attendance")
+            m = messagebox.showerror("School Software", "You can not enter future attendance", parent=self)
+            self.cal.focus_set()
+            return
+
+        try:
+            datelimit = date.today() - timedelta(days=7)
+            if datelimit > self.cal.get_date():
+                raise ValueError
+        except:
+            m = messagebox.showerror("school software", "attendance entry date limit ", parent=self)
+            self.cal.focus_set()
             return
 
         try:
             if(self.classbox.get() == "CLASS"):
                 raise ValueError
-            try:
-                if(self.divbox.get() == "DIVISION"):
-                    raise ValueError
-            except:
-                m = messagebox.showerror("School Software", "Please Select Division")
-                self.divbox.focus_set()
-                return
         except:
             m = messagebox.showerror("School Software", "First select Standard", parent=self)
             self.classbox.focus_set()
@@ -111,28 +86,30 @@ class Attedance1(Toplevel):
         y = self.rnobox.curselection()
         for item in y:
 
-            query = """ select abday from master where standard = ? and div=? and rollno = ?"""
-            a = self.conn.execute(query, (self.classbox.get(), self.divbox.get(), self.rno[item])).fetchone()
+            query = """ select abday from master where standard = ? and rollno = ?"""
+            a = self.conn.execute(query, (self.classbox.get(), self.rno[item])).fetchone()
             if a[0] == None:
                 b = str(self.cal.get_date())
                 c = list()
                 c.append(b)
                 p = json.dumps(c)
-                query1 = """ update master set abday = ? where standard =? and div=? and rollno=?"""
-                self.conn.execute(query1, (p, self.classbox.get(), self.divbox.get(), self.rno[item]))
+                query1 = """ update master set abday = ? where standard =? and rollno=?"""
+                self.conn.execute(query1, (p, self.classbox.get(), self.rno[item]))
                 self.conn.commit()
             else:
                 x = json.loads(a[0])
-                x.append(str(self.cal.get_date()))
+                if str(self.cal.get_date()) in x:
+                    messagebox.showerror("School Software ","you alredy mark take atendane",parent=self)
+                    return
+                else:
+                    x.append(str(self.cal.get_date()))
                 p = json.dumps(x)
-                query1 = """ update master set abday = ? where standard =? and div=? and rollno=?"""
-                self.conn.execute(query1, (p, self.classbox.get(), self.divbox.get(), self.rno[item]))
+                query1 = """ update master set abday = ? where standard =? and rollno=?"""
+                self.conn.execute(query1, (p, self.classbox.get(), self.rno[item]))
                 self.conn.commit()
         self.frame.destroy()
         self.rolllabel.destroy()
         self.rnobox.destroy()
-        self.divbox.destroy()
-        self.divlabel.destroy()
         self.classbox.set("CLASS")
         self.classbox.focus_set()
 
@@ -140,13 +117,6 @@ class Attedance1(Toplevel):
         try:
             if(self.classbox.get() == "CLASS"):
                 raise ValueError
-            try:
-                if(self.divbox.get() == "DIVISION"):
-                    raise ValueError
-            except:
-                m = messagebox.showerror("School Software", "Please Select Division")
-                self.divbox.focus_set()
-                return
         except:
             m = messagebox.showerror("School Software", "First select Standard", parent=self)
             self.classbox.focus_set()
@@ -155,8 +125,8 @@ class Attedance1(Toplevel):
         y = self.rnobox.curselection()
         for item in y:
 
-            query = """ select abday from master where standard = ? and div=? and rollno = ?"""
-            a = self.conn.execute(query, (self.classbox.get(), self.divbox.get(), self.rno[item])).fetchone()
+            query = """ select abday from master where standard = ?  and rollno = ?"""
+            a = self.conn.execute(query, (self.classbox.get(), self.rno[item])).fetchone()
             if a[0] == None:
                 m = messagebox.showerror("School Software", "Please mark Absent then you remove", parent=self)
                 return
@@ -167,14 +137,12 @@ class Attedance1(Toplevel):
                 else:
                     m = messagebox.showerror("School Software", "Please select valid date", parent=self)
                 p = json.dumps(x)
-                query1 = """ update master set abday = ? where standard =? and div=? and rollno=?"""
-                self.conn.execute(query1, (p, self.classbox.get(), self.divbox.get(), self.rno[item]))
+                query1 = """ update master set abday = ? where standard =? and rollno=?"""
+                self.conn.execute(query1, (p, self.classbox.get(), self.rno[item]))
                 self.conn.commit()
         self.frame.destroy()
         self.rolllabel.destroy()
         self.rnobox.destroy()
-        self.divbox.destroy()
-        self.divlabel.destroy()
         self.classbox.set("CLASS")
         self.classbox.focus_set()
         self.cal.place_forget()
@@ -211,19 +179,13 @@ class Attedance1(Toplevel):
 ##======================================================frame 1=========================================================
         imagel = Image.open("left-arrow.png")
         imagel = imagel.resize((60, 15))
-        imager = Image.open("right-arrow.png")
-        imager = imager.resize((60, 15))
-
         imgl = ImageTk.PhotoImage(imagel)
-        imgr = ImageTk.PhotoImage(imager)
 
         self.lf1 = LabelFrame(self, text="NAME", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
         self.lf1.place(x=0, y=0, height=150, width=1350)
 
         bb = Button(self.lf1, image=imgl, bd=5, font=(self.f1, 20), command=self.backf)
         bb.place(x=10, y=10)
-        nb = Button(self.lf1, image=imgr, bd=5, font=(self.f1, 20), command=self.next)
-        nb.place(x=1260, y=10)
 ##=============================================frame 2==================================================================
         self.lf2 = LabelFrame(self, text="ATTENDANCE WINDOW", bd=2, bg="black", fg="white", font=(self.f1, 20),
                               relief=GROOVE)
@@ -252,7 +214,7 @@ class Attedance1(Toplevel):
         self.classbox = ttk.Combobox(self.lf2, state="readonly", textvariable=self.c_lassbox, font=(self.f1, 10))
         self.classbox.place(x=50, y=150, height=25, width=100)
         self.classbox['values'] = self.cals
-        self.classbox.bind("<<ComboboxSelected>>",self.division)
+        self.classbox.bind("<<ComboboxSelected>>",self.rollno)
         self.c_lassbox.set("CLASS")
 
         self.addbutton = Button(self.lf2, text="ADD", font=(self.f2, 15), bd=5, command=self.addat)
