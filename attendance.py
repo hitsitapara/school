@@ -1,7 +1,6 @@
 from tkinter import *
 from tkinter import ttk, messagebox
 import sqlite3
-from w5 import Window5
 from PIL import Image, ImageTk
 from tkcalendar import DateEntry
 import json

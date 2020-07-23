@@ -4,6 +4,7 @@ import sqlite3
 from PIL import Image, ImageTk
 from result import r1
 from attendance import Attedance1
+from fee import fee1
 
 
 class Main1(Toplevel):
@@ -19,22 +20,20 @@ class Main1(Toplevel):
         else:
             return
 
-    def next(self, event=""):
-        self.withdraw()
-        r1(self, self.main_root)
-
     def at(self, event=""):
         self.withdraw()
         Attedance1(self, self.main_root)
 
     def fee(self,event=""):
-        pass
+        self.withdraw()
+        fee1(self, self.main_root)
 
     def sinfo(self, event=""):
         pass
 
     def result(self, event=""):
-        pass
+        self.withdraw()
+        r1(self, self.main_root)
 
     def im(self, event=""):
         pass
@@ -62,23 +61,13 @@ class Main1(Toplevel):
 
         imagel = Image.open("left-arrow.png")
         imagel = imagel.resize((60, 15))
-        imager = Image.open("right-arrow.png")
-        imager = imager.resize((60, 15))
-
         imgl = ImageTk.PhotoImage(imagel)
-        imgr = ImageTk.PhotoImage(imager)
 
-        bgimg = ImageTk.PhotoImage(file="dark-blue-blur-gradation-wallpaper-preview.jpg")
-        lbl = Label(self, image=bgimg)
-        lbl.place(x=0, y=0, relwidth=1, relheight=1)
-
-        self.lf1 = LabelFrame(lbl, text="NAME", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
+        self.lf1 = LabelFrame(self, text="NAME", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
         self.lf1.place(x=0, y=0, height=150, width=1350)
 
         bb = Button(self.lf1, image=imgl, bd=5, font=(self.f1, 20), bg="white", command=self.backf)
         bb.place(x=10, y=10)
-        nb = Button(self.lf1, image=imgr, bd=5, font=(self.f1, 20), bg="white", command=self.next)
-        nb.place(x=1260, y=10)
 
         self.lf2 = LabelFrame(self, text="Buttons", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
         self.lf2.place(x=0, y=150, height=600, width=1350)
@@ -96,7 +85,7 @@ class Main1(Toplevel):
         sbutoon.place(x=950, y=50, height=175, width=350)
 
         rimg = ImageTk.PhotoImage(file="exam.jpg")
-        rbutton = Button(self.lf2, image=rimg, bd=5, bg=self.bgclr2, relief=FLAT, command=self.next)
+        rbutton = Button(self.lf2, image=rimg, bd=5, bg=self.bgclr2, relief=FLAT, command=self.result)
         rbutton.place(x=50, y=300, height=175, width=350)
 
         imimg = ImageTk.PhotoImage(file="internal.jpeg")
