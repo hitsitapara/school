@@ -3,7 +3,7 @@ from tkinter import messagebox, ttk
 import sqlite3
 from Main import Main1
 from PIL import Image, ImageTk
-
+import os
 
 class Window1:
 
@@ -19,6 +19,11 @@ class Window1:
         Main1(root, self.main_root)
 
     def __init__(self, root, main_root):
+
+        try:
+            os.mkdir("C:\\Fees")
+        except:
+            pass
 
         self.main_root = main_root
         self.root = root

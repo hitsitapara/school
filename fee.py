@@ -4,6 +4,8 @@ import sqlite3
 from PIL import  Image, ImageTk
 from datetime import date
 import json
+from reportlab.pdfgen import canvas
+import webbrowser
 
 class fee1(Toplevel):
 
@@ -46,9 +48,9 @@ class fee1(Toplevel):
     def amountoffee(self, event=""):
 
         if self.feecounter == 0:
-            self.tfeelabel = Label(self.lf2, text="Total Fee", bd=2, bg="black", fg="white",font=(self.f1, 15),
+            self.tfeelabel = Label(self.lf2, text="Total Fee", bd=2, bg="black", fg="white",font=(self.f1, 12),
                                   relief=GROOVE)
-            self.tfeelabel.place(x=50, y=275, height=25)
+            self.tfeelabel.place(x=70, y=275, height=25)
 
             query = """ select fee from master where standard=? AND rollno=?"""
             a = self.conn.execute(query,(self.classbox.get(), self.rollbox.get())).fetchone()
@@ -59,13 +61,13 @@ class fee1(Toplevel):
             self.tfeeentry.config(state="disabled")
             self.t_feeentry.set(self.feeamount)
 
-            self.pfeelabel = Label(self.lf2, text="Pay Amount", bd=2, bg="black", fg="white", font=(self.f1, 15),
+            self.pfeelabel = Label(self.lf2, text="Payment", bd=2, bg="black", fg="white", font=(self.f1, 12),
                                    relief=GROOVE)
-            self.pfeelabel.place(x=450, y=275, height=25)
+            self.pfeelabel.place(x=470, y=275, height=25)
             self.p_feeentry = StringVar()
             self.pfeeentry = Entry(self.lf2, textvariable=self.p_feeentry, font=(self.f1,10))
             self.pfeeentry.place(x=450, y=350, height=25, width=150)
-            self.rfeelabel = Label(self.lf2,text="FEE", bd=2, bg="black", fg="white", font=(self.f1,15), relief=GROOVE)
+            self.rfeelabel = Label(self.lf2,text="Fee to be Paid", bd=2, bg="black", fg="white", font=(self.f1,12), relief=GROOVE)
             self.rfeelabel.place(x=250, y=275, height=25)
             self.r_feeentry = StringVar()
             self.rfeeentry = Entry(self.lf2, textvariable=self.r_feeentry, font=(self.f1,10))
@@ -93,6 +95,86 @@ class fee1(Toplevel):
             self.rfeelabel.destroy()
             self.feecounter = 0
             self.amountoffee()
+
+    def fee_pdf(self,pdf):
+        pdf.line(10, 20, 590, 20)
+        pdf.line(10, 430, 590, 430)
+        pdf.line(20, 10, 20, 440)
+        pdf.line(580, 10, 580, 440)
+        pdf.line(30, 380, 570, 380)
+        pdf.setFont("Courier-Bold", 20)
+        pdf.drawString(220, 410, "School Name")
+        pdf.setFont("Courier-Bold", 10)
+        pdf.drawString(230, 370, "-: FEE RECEIPT :-")
+        pdf.drawString(220, 390, "Email : ")
+        pdf.drawString(420, 390, "Phone No. : ")
+        pdf.setFont("Courier-Bold", 10)
+        pdf.drawString(30, 350, "Date :")
+        pdf.line(70, 350, 150, 350)
+        pdf.drawString(170, 350, "Receipt No :")
+        pdf.line(245, 350, 280, 350)
+        pdf.drawString(300, 350, "Receiver ID :")
+        pdf.line(380, 350, 410, 350)
+        pdf.drawString(430, 350, "Payment Mode :")
+        pdf.line(515, 350, 560, 350)
+        pdf.setFont("Courier-Bold", 13)
+
+        pdf.drawString(30, 330, "Student Name :")
+        pdf.drawString(30, 315, "Standard     :")
+        pdf.drawString(30, 300, "Roll No      :")
+
+        pdf.setFont("Courier-Bold", 10)
+
+        pdf.drawString(50,264,"Sr.")
+        pdf.drawString(125, 264, "Description")
+        pdf.drawString(328, 270, "Fee Paid")
+        pdf.drawString(330, 260, "(Today)")
+        pdf.drawString(430, 270, "Fee Remaining")
+        pdf.drawString(455, 260, "(Now)")
+        pdf.line(300,280,300,150)
+        pdf.line(400,280,400,150)
+
+        pdf.line(80, 280, 80, 150)
+
+        pdf.line(30, 280, 560, 280)
+        pdf.line(30, 250, 560, 250)
+
+        pdf.line(30, 150, 560, 150)
+
+        pdf.setFont("Courier-Bold", 13)
+        pdf.drawString(30, 120, "Cheque No. :")
+        pdf.drawString(30, 105, "Total Fee : {}".format(self.feeamount))
+        pdf.drawString(30, 90, "Last Remaining : {}".format(self.r_feeentry.get()))
+        pdf.drawString(480, 50, "Signature")
+        pdf.drawString(478, 35, "(Receiver)")
+        pdf.line(470, 65, 565, 65)
+
+
+        #===================================
+
+        print(self.data)
+        pdf.setFont("Courier-Bold", 10)
+        pdf.drawString(80,352,str(date.today()))
+        pdf.drawString(255,352,'1')
+        pdf.drawString(390,352,'1')
+        pdf.drawString(525,352,'CASH')
+        pdf.setFont("Courier-Bold", 13)
+        pdf.drawString(170,330,str(self.data[3]))
+        pdf.drawString(170,315,str(self.data[2]))
+        pdf.drawString(170,300,str(self.data[1]))
+
+        pdf.drawString(120,235,"School Fee")
+        pdf.drawString(50,235,'1')
+        pdf.drawString(340,235,str(self.p_feeentry.get()))
+        remaining = int(self.r_feeentry.get()) - int(self.p_feeentry.get())
+        pdf.drawString(440, 235, str(remaining))
+        #===================================
+
+
+        pdf.save()
+        print("succesfull")
+        webbrowser.open("C:\\Fees\\fee_1_{}_{}.pdf".format(self.classbox.get(),self.data[3]))
+
 
     def pay(self,event=""):
         try:
@@ -122,7 +204,7 @@ class fee1(Toplevel):
                 print(self.rfeeentry.get())
                 raise ValueError
         except:
-            m = messagebox.showerror("School Software","You can not pay fee more than total fee", parent=self)
+            m = messagebox.showerror("School Software","You have remaining only '{}' Rs. to pay.".format(self.rfeeentry.get()), parent=self)
             self.pfeeentry.focus_set()
             return
 
@@ -144,6 +226,11 @@ class fee1(Toplevel):
             query = """update master set hisfee=? where standard=? and rollno=?"""
             self.conn.execute(query,(p, self.classbox.get(), self.rollbox.get()))
             self.conn.commit()
+        query = "select * from master where standard={} and rollno={}".format(self.classbox.get(), self.rollbox.get())
+        self.data = self.conn.execute(query).fetchone()
+        pdf = canvas.Canvas("C:\\Fees\\fee_1_{}_{}.pdf".format(self.classbox.get(),self.data[3]))
+        pdf.setPageSize((600, 450))
+        self.fee_pdf(pdf)
 
         self.pfeeentry.destroy()
         self.pfeelabel.destroy()
