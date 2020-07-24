@@ -3,7 +3,7 @@ from tkinter import ttk, messagebox
 import sqlite3
 from PIL import  Image, ImageTk
 from datetime import date
-
+import json
 
 class fee1(Toplevel):
 
@@ -61,16 +61,36 @@ class fee1(Toplevel):
 
             self.pfeelabel = Label(self.lf2, text="Pay Amount", bd=2, bg="black", fg="white", font=(self.f1, 15),
                                    relief=GROOVE)
-            self.pfeelabel.place(x=300, y=275, height=25)
+            self.pfeelabel.place(x=450, y=275, height=25)
             self.p_feeentry = StringVar()
             self.pfeeentry = Entry(self.lf2, textvariable=self.p_feeentry, font=(self.f1,10))
-            self.pfeeentry.place(x=300, y=350, height=25, width=150)
+            self.pfeeentry.place(x=450, y=350, height=25, width=150)
+            self.rfeelabel = Label(self.lf2,text="FEE", bd=2, bg="black", fg="white", font=(self.f1,15), relief=GROOVE)
+            self.rfeelabel.place(x=250, y=275, height=25)
+            self.r_feeentry = StringVar()
+            self.rfeeentry = Entry(self.lf2, textvariable=self.r_feeentry, font=(self.f1,10))
+            self.rfeeentry.place(x=250, y=350, height=25, width=150)
+            self.rfeeentry.config(state="disabled")
+            query = """ select hisfee from master where standard=? and rollno=? """
+            a = self.conn.execute(query, (self.classbox.get(), self.rollbox.get())).fetchone()
+            if a[0] == None:
+                self.r_feeentry.set(0)
+            else:
+                x = json.loads(a[0])
+                sum = int()
+                for i in x.values():
+                    sum +=int(i)
+                query = """ select fee from master where standard=? and rollno=? """
+                b = self.conn.execute(query, (self.classbox.get(), self.rollbox.get())).fetchone()
+                self.r_feeentry.set(b[0]-sum)
             self.feecounter = 1
         else:
             self.pfeeentry.destroy()
             self.pfeelabel.destroy()
             self.tfeeentry.destroy()
             self.tfeelabel.destroy()
+            self.rfeeentry.destroy()
+            self.rfeelabel.destroy()
             self.feecounter = 0
             self.amountoffee()
 
@@ -97,16 +117,58 @@ class fee1(Toplevel):
             m = messagebox.showerror("School Software", "Please enter fee amount", parent=self)
             self.pfeeentry.focus_set()
             return
+        try:
+            if(self.pfeeentry.get() < self.rfeeentry.get()):
+                print(self.rfeeentry.get())
+                raise ValueError
+        except:
+            m = messagebox.showerror("School Software","You can not pay fee more than total fee", parent=self)
+            self.pfeeentry.focus_set()
+            return
 
         query = """ select hisfee from master where standard=? and rollno=? """
         a = self.conn.execute(query,(self.classbox.get(), self.rollbox.get())).fetchone()
+        self.dic = {}
         newfee = self.feeamount - int(self.pfeeentry.get())
-        self.dic ={}
-        self.dic[str(date.today())] = self.pfeeentry.get()
-        print(self.dic)
 
+        if a[0] == None:
+            self.dic[str(date.today())] = self.pfeeentry.get()
+            p = json.dumps(self.dic)
+            query = """update master set hisfee=? where standard=? and rollno=?"""
+            self.conn.execute(query,(p, self.classbox.get(), self.rollbox.get()))
+            self.conn.commit()
+        else:
+            x = json.loads(a[0])
+            x[str(date.today())] = self.pfeeentry.get()
+            p = json.dumps(x)
+            query = """update master set hisfee=? where standard=? and rollno=?"""
+            self.conn.execute(query,(p, self.classbox.get(), self.rollbox.get()))
+            self.conn.commit()
 
+        self.pfeeentry.destroy()
+        self.pfeelabel.destroy()
+        self.tfeeentry.destroy()
+        self.tfeelabel.destroy()
+        self.rfeeentry.destroy()
+        self.rfeelabel.destroy()
+        self.rolllabel.destroy()
+        self.rollbox.destroy()
+        self.rollcounter = 0
+        self.feecounter = 0
+        self.classbox.set('CLASS')
 
+    def reset(self, event=""):
+        self.pfeeentry.destroy()
+        self.pfeelabel.destroy()
+        self.tfeeentry.destroy()
+        self.tfeelabel.destroy()
+        self.rfeeentry.destroy()
+        self.rfeelabel.destroy()
+        self.rolllabel.destroy()
+        self.rollbox.destroy()
+        self.rollcounter = 0
+        self.feecounter = 0
+        self.classbox.set('CLASS')
 
     def __init__(self, root, main_root):
 
@@ -172,6 +234,9 @@ class fee1(Toplevel):
 
         self.paybutton = Button(self.lf2, text="PAY", font=(self.f2, 15), bd=5, command=self.pay)
         self.paybutton.place(x=100, y=450, height=25)
+
+        self.resetbutton = Button(self.lf2, text="RESET", font=(self.f2, 15), bd=5, command=self.reset)
+        self.resetbutton.place(x=300, y=450, height=25)
 
 
         ##======================================================frame 3=================================================
