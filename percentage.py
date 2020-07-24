@@ -122,7 +122,7 @@ class Percentage(Toplevel):
             pdf.line(10, 725, 150, 725)
             pdf.line(10, 825, 150, 825)
 
-            logo = 'student.jpg'
+            logo = 'logo.jpg'
             pdf.drawInlineImage(logo, 30, 725)
 
             pdf.setFont("Courier-Bold", 30)
@@ -132,6 +132,7 @@ class Percentage(Toplevel):
             pdf.drawString(250, 750, "EXAM NAME")
 
             pdf.setFont("Courier-Bold", 10)
+            pdf.drawString(30, 580, "Sr No.")
             pdf.drawString(130, 580, "Subjects")
             pdf.drawString(289, 587, " Exam")
             pdf.drawString(286, 577, "(Total)")
@@ -172,14 +173,15 @@ class Percentage(Toplevel):
             pdf.drawString(60, 650, "Gr. No. : {}".format(str(i[0])))
             pdf.drawString(60, 635, "Roll No. : {}".format(str(i[1])))
 
-
-
-
+            result = True
             #=========Fetching Marks==================================
 
             top = 550
+            sr = 1
             for j in range(0,len(self.subject)-1,2):
                 pdf.drawString(130,top,str(self.subject[j]))
+                pdf.drawString(30, top,str(sr))
+                sr += 1
                 top -= 15
             top_e_m = 550
             top_i_m = 550
@@ -193,7 +195,7 @@ class Percentage(Toplevel):
                     top_e_m -= 15
                     x += int(self.mark_list[j])
                 else:
-                    pdf.drawString(385, top_i_m, str(self.mark_list[j]))
+                    pdf.drawString(389, top_i_m, str(self.mark_list[j]))
                     top_i_m -= 15
                     x += int(self.mark_list[j])
                     subject_total.append(x)
@@ -212,12 +214,18 @@ class Percentage(Toplevel):
                     pdf.drawString(343, top_e_m, str(mark_detail[j]))
                     top_e_m -= 15
                     x += int(mark_detail[j])
+                    if float(mark_detail[j]) < float((int(self.mark_list[j-2])*33)/100):
+                        result = False
                 else:
                     pdf.drawString(443, top_i_m, str(mark_detail[j]))
                     top_i_m -= 15
                     x += int(mark_detail[j])
                     subject_obtained.append(x)
                     x = 0
+                    print(mark_detail[j])
+                    print(float((int(mark_detail[j])*33)/100))
+                    if float(mark_detail[j]) < float((int(self.mark_list[j-2])*33)/100):
+                        result = False
             top = 550
             for j in range(len(subject_obtained)):
                 pdf.drawString(490, top, str(subject_total[j]))
@@ -226,7 +234,10 @@ class Percentage(Toplevel):
             query = "select percentage from '{}' where rollno = {}".format(self.subject[-1], str(i[1]))
             per = self.conn.execute(query).fetchone()
             pdf.drawString(60, 155, "Percentage : {}".format(per[0]))
-
+            if result:
+                pdf.drawString(450, 155, "Result : PASS")
+            else:
+                pdf.drawString(450, 155, "Result : FAIL")
 
             try:
                 rank = self.rank_list.index(per[0])
