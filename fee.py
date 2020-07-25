@@ -26,11 +26,11 @@ class fee1(Toplevel):
             self.rolllabel = Label(self.lf2, text="ROLL NO", bd=2, bg="black", fg="white", font=(self.f1, 15),
                                    relief=GROOVE)
             self.rolllabel.place(x=300, y=85, height=25)
-            query1 = """ select rollno from master where standard = ?"""
+            query1 = """ select rollno, fname, mname, lname from master where standard = ?"""
             a = self.conn.execute(query1, (self.classbox.get(), )).fetchall()
             self.rno = []
             for i in a:
-                self.rno.append(i[0])
+                self.rno.append(i)
             self.rno.sort()
             self.r_ollbox = StringVar()
             self.rollbox = ttk.Combobox(self.lf2, state="readonly", textvariable=self.r_ollbox, font=(self.f1, 10))
@@ -48,12 +48,14 @@ class fee1(Toplevel):
     def amountoffee(self, event=""):
 
         if self.feecounter == 0:
+            b = self.rollbox.get()
+            self.r = b.split(' ')
             self.tfeelabel = Label(self.lf2, text="Total Fee", bd=2, bg="black", fg="white",font=(self.f1, 12),
                                   relief=GROOVE)
             self.tfeelabel.place(x=70, y=275, height=25)
 
             query = """ select fee from master where standard=? AND rollno=?"""
-            a = self.conn.execute(query,(self.classbox.get(), self.rollbox.get())).fetchone()
+            a = self.conn.execute(query,(self.classbox.get(), self.r[0])).fetchone()
             self.feeamount = a[0]
             self.t_feeentry = StringVar()
             self.tfeeentry = Entry(self.lf2, textvariable=self.t_feeentry, font=(self.f1,10))
@@ -74,10 +76,10 @@ class fee1(Toplevel):
             self.rfeeentry.place(x=250, y=350, height=25, width=150)
             self.rfeeentry.config(state="disabled")
             query = """ select hisfee from master where standard=? and rollno=? """
-            a = self.conn.execute(query, (self.classbox.get(), self.rollbox.get())).fetchone()
+            a = self.conn.execute(query, (self.classbox.get(), self.r[0])).fetchone()
             if a[0] == None:
                 query = """ select fee from master where standard=? and rollno=? """
-                b = self.conn.execute(query, (self.classbox.get(), self.rollbox.get())).fetchone()
+                b = self.conn.execute(query, (self.classbox.get(), self.r[0])).fetchone()
                 self.r_feeentry.set(b[0])
             else:
                 x = json.loads(a[0])
@@ -85,7 +87,7 @@ class fee1(Toplevel):
                 for i in x.values():
                     sum +=int(i)
                 query = """ select fee from master where standard=? and rollno=? """
-                b = self.conn.execute(query, (self.classbox.get(), self.rollbox.get())).fetchone()
+                b = self.conn.execute(query, (self.classbox.get(), self.r[0])).fetchone()
                 self.r_feeentry.set(b[0]-sum)
             self.feecounter = 1
         else:
@@ -208,7 +210,7 @@ class fee1(Toplevel):
             return
 
         query = """ select hisfee from master where standard=? and rollno=? """
-        a = self.conn.execute(query,(self.classbox.get(), self.rollbox.get())).fetchone()
+        a = self.conn.execute(query,(self.classbox.get(), self.r[0])).fetchone()
         self.dic = {}
         newfee = self.feeamount - int(self.pfeeentry.get())
 
@@ -216,16 +218,16 @@ class fee1(Toplevel):
             self.dic[str(date.today())] = self.pfeeentry.get()
             p = json.dumps(self.dic)
             query = """update master set hisfee=? where standard=? and rollno=?"""
-            self.conn.execute(query,(p, self.classbox.get(), self.rollbox.get()))
+            self.conn.execute(query,(p, self.classbox.get(), self.r[0]))
             self.conn.commit()
         else:
             x = json.loads(a[0])
             x[str(date.today())] = self.pfeeentry.get()
             p = json.dumps(x)
             query = """update master set hisfee=? where standard=? and rollno=?"""
-            self.conn.execute(query,(p, self.classbox.get(), self.rollbox.get()))
+            self.conn.execute(query,(p, self.classbox.get(), self.r[0]))
             self.conn.commit()
-        query = "select * from master where standard={} and rollno={}".format(self.classbox.get(), self.rollbox.get())
+        query = "select * from master where standard={} and rollno={}".format(self.classbox.get(), self.r[0])
         self.data = self.conn.execute(query).fetchone()
         pdf = canvas.Canvas("C:\\Fees\\fee_1_{}_{}.pdf".format(self.classbox.get(),self.data[3]))
         pdf.setPageSize((600, 450))
