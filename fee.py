@@ -76,7 +76,9 @@ class fee1(Toplevel):
             query = """ select hisfee from master where standard=? and rollno=? """
             a = self.conn.execute(query, (self.classbox.get(), self.rollbox.get())).fetchone()
             if a[0] == None:
-                self.r_feeentry.set(0)
+                query = """ select fee from master where standard=? and rollno=? """
+                b = self.conn.execute(query, (self.classbox.get(), self.rollbox.get())).fetchone()
+                self.r_feeentry.set(b[0])
             else:
                 x = json.loads(a[0])
                 sum = int()
@@ -152,7 +154,6 @@ class fee1(Toplevel):
 
         #===================================
 
-        print(self.data)
         pdf.setFont("Courier-Bold", 10)
         pdf.drawString(80,352,str(date.today()))
         pdf.drawString(255,352,'1')
@@ -172,7 +173,6 @@ class fee1(Toplevel):
 
 
         pdf.save()
-        print("succesfull")
         webbrowser.open("C:\\Fees\\fee_1_{}_{}.pdf".format(self.classbox.get(),self.data[3]))
 
 
@@ -200,8 +200,7 @@ class fee1(Toplevel):
             self.pfeeentry.focus_set()
             return
         try:
-            if(self.pfeeentry.get() < self.rfeeentry.get()):
-                print(self.rfeeentry.get())
+            if(int(self.pfeeentry.get()) > int(self.rfeeentry.get())):
                 raise ValueError
         except:
             m = messagebox.showerror("School Software","You have remaining only '{}' Rs. to pay.".format(self.rfeeentry.get()), parent=self)
