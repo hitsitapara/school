@@ -7,7 +7,7 @@ from registration import Registration
 from change_password import ChangePassword
 
 
-class Window1:
+class start:
 
     def c_w(self, event=""):
         m = messagebox.askyesno("School Software", "Are you Want to Close Application?", parent=self.root)
@@ -28,15 +28,8 @@ class Window1:
         self.tuple2 = self.conn.execute(self.query2).fetchone()
         self.query3 = "select authority from staff where empno="+str(self.usernameentry.get())
         self. tuple3 = self.conn.execute(self.query3).fetchone()
-        print("type nikunj d")
-        print(self.list1)
-        print(type(self.list1))
         user = self.usernameentry.get()
         for i in self.list1:
-            print(i)
-            print(type(i[0]))
-            print(i[0])
-            # print(self.usernameentry.get())
 
             if user == str(i[0]):
                 c = 1
@@ -138,7 +131,7 @@ class Window1:
         self.bgclr2 = "#e7d95a"
         self.f1 = "Arial Bold"
         self.f2 = "times new roman"
-        self.root.title("WINDOW1")
+        self.root.title("Start")
         self.root.config(background=self.bgclr1)
         self.root.geometry("1350x700+0+0")
         self.root.resizable(False, False)
@@ -184,5 +177,5 @@ class Window1:
 
 
 root = Tk()
-Window1(root, root)
+start(root, root)
 root.mainloop()

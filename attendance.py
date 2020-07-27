@@ -22,12 +22,12 @@ class Attedance1(Toplevel):
 
     def calselect(self):
         if (self.calcount == 0):
-            self.cal.place(x=400, y=10)
+            self.cal.place(x=300, y=10)
             self.calcount = 1
         else:
             self.cal.place_forget()
             self.calcount = 0
-
+            self.calselect()
 
     def rollno(self, event=""):
         if self.rollcounter == 0:
@@ -55,6 +55,7 @@ class Attedance1(Toplevel):
             self.rolllabel.destroy()
             self.rnobox.destroy()
             self.rollcounter = 0
+            self.rollno()
 
     def addat(self, event=""):
 
@@ -132,8 +133,8 @@ class Attedance1(Toplevel):
                 return
             else:
                 x = json.loads(a[0])
-                if self.cal.get_date() in x:
-                    x.remove(self.cal.get_date())
+                if str(self.cal.get_date()) in x:
+                    x.remove(str(self.cal.get_date()))
                 else:
                     m = messagebox.showerror("School Software", "Please select valid date", parent=self)
                 p = json.dumps(x)
@@ -145,7 +146,6 @@ class Attedance1(Toplevel):
         self.rnobox.destroy()
         self.classbox.set("CLASS")
         self.classbox.focus_set()
-        self.cal.place_forget()
 
     def __init__(self, root, main_root):
 
@@ -207,7 +207,7 @@ class Attedance1(Toplevel):
         b = set(a)
         self.cals = []
         for i in b:
-            self.cals.append(i[0])
+            self.cals.append(str(i[0]))
         self.cals.sort()
 
         self.c_lassbox = StringVar()
