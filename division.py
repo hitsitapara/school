@@ -48,6 +48,7 @@ class Division(Toplevel):
             self.rolllabel.destroy()
             self.rnobox.destroy()
             self.rollcounter = 0
+            self.rollno()
 
     def div(self, event=""):
 
@@ -66,20 +67,45 @@ class Division(Toplevel):
             self.diventry.focus_set()
             return
         try:
-            if( not self.diventry.get().isalpha()):
+            if( not self.diventry.get().isalpha() ):
+                raise ValueError
+            if(len(self.diventry.get()) != 1):
                 raise ValueError
         except:
-            m = messagebox.showerror("school software", "division name must be in character", parent=self)
+            m = messagebox.showerror("school software", "division name must be in single character ", parent=self)
             self.diventry.focus_set()
             return
+        try:
+            query2 = """ select standard from master"""
+            a = self.conn.execute(query2).fetchall()
+            b = set(a)
+            self.updatecals = []
+            for i in b:
+                if (str(i[0])):
+                    self.updatecals.append(i[0])
+            self.updatestd = self.classbox.get() + self.diventry.get()
+            if self.updatestd in self.updatecals:
+                raise ValueError
+        except:
+            m = messagebox.showerror("School Software","Division name alredy exits", parent=self)
+            self.diventry.focus_set()
+            return
+
         query = """ update master set standard = ? where rollno=?"""
-        self.updatestd = self.classbox.get() + self.diventry.get()
         y = self.rnobox.curselection()
         for item in y:
             self.rollnumber = self.rno[item]
             self.conn.execute(query,(self.updatestd, self.rollnumber[0]))
             self.conn.commit()
+        self.d_iventry.set("")
         self.rollno()
+        query1 = """select rollno from master where standard=?"""
+        x = self.conn.execute(query1,(self.classbox.get(),)).fetchall()
+        if x != []:
+            self.classbox.config(state="disabled")
+        else:
+            self.destroy()
+            self.__init__(self,root)
 
 
 
