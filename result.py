@@ -72,7 +72,7 @@ class r1(Toplevel):
             self.subject_list.append(internal_subj_column)
             self.mark_list.append(mark)
             self.mark_list.append(internal)
-        # ======
+        # ========================
 
         m = messagebox.askyesnocancel("School Software", "Are you really want to Save the Changes?")
         if m == True:
@@ -88,7 +88,7 @@ class r1(Toplevel):
                 if i == 0:
                     try:
                         query = "CREATE TABLE '{}_{}_{}' (std TEXT, rollno NUMERIC,{} NUMERIC );".format(
-                            self.exam_entry.get(), self.combo_var_std_start.get(), self.date, self.subject_list[i])
+                            self.exam_entry.get(), self.combo_var_std_start.get(), str(self.cal.get_date()), self.subject_list[i])
                         self.conn.execute(query)
                     except:
                         messagebox.showerror("School Software",
@@ -103,7 +103,7 @@ class r1(Toplevel):
 
                         query = "ALTER TABLE '{}_{}_{}' ADD {} NUMERIC;".format(self.exam_entry.get(),
                                                                                 self.combo_var_std_start.get(),
-                                                                                self.date, self.subject_list[i])
+                                                                                str(self.cal.get_date()), self.subject_list[i])
                         self.conn.execute(query)
                     except:
                         messagebox.showerror("School Software",
@@ -111,7 +111,7 @@ class r1(Toplevel):
                                                  self.subject_list[i], self.exam_entry.get()))
                         self.conn.rollback()
                         query = "drop table '{}_{}_{}'".format(self.exam_entry.get(), self.combo_var_std_start.get(),
-                                                               self.date)
+                                                               str(self.cal.get_date()))
                         self.conn.execute(query)
 
                         self.subject_list.remove(self.subject_list[i])
@@ -127,12 +127,12 @@ class r1(Toplevel):
 
             query = "select count(*) from exams"
             rows = self.conn.execute(query).fetchone()
-            set_exam_name = "{}_{}".format(self.exam_entry.get(), self.combo_var_std_start.get())
+            set_exam_name = "{}_{}_{}".format(self.exam_entry.get(), self.combo_var_std_start.get(), str(self.cal.get_date()))
             if rows[0] == 0:
                 mark_data = {}
                 data = {}
                 self.subject_list.append(
-                    '{}_{}_{}'.format(self.exam_entry.get(), self.combo_var_std_start.get(), self.date))
+                    '{}_{}_{}'.format(self.exam_entry.get(), self.combo_var_std_start.get(), str(self.cal.get_date())))
                 data[set_exam_name] = self.subject_list
                 mark_data[set_exam_name] = self.mark_list
                 j_mark = json.dumps(mark_data)
@@ -153,7 +153,7 @@ class r1(Toplevel):
                 fetched_data = json.loads(j_fetch[0])
                 fetched_mark = json.loads(j_fetch[1])
                 self.subject_list.append(
-                    '{}_{}_{}'.format(self.exam_entry.get(), self.combo_var_std_start.get(), self.date))
+                    '{}_{}_{}'.format(self.exam_entry.get(), self.combo_var_std_start.get(), str(self.cal.get_date())))
                 fetched_data[set_exam_name] = self.subject_list
                 fetched_mark[set_exam_name] = self.mark_list
                 j = json.dumps(fetched_data)
@@ -185,6 +185,7 @@ class r1(Toplevel):
         self.internal_mark_entry_var.set('0')
         self.exam_entry.focus_set()
         self.done_btn.config(state="disabled")
+
 
     def add_sub_and_mark(self):
         if self.exam_entry.get() == "":
