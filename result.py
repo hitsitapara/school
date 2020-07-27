@@ -8,6 +8,7 @@ from percentage import Percentage
 import sqlite3
 import json
 import time
+from tkcalendar import DateEntry
 
 class r1(Toplevel):
 
@@ -306,13 +307,15 @@ class r1(Toplevel):
         label = Label(self.lf2, text="Exam Name")
         label.place(x=100, y=20, height=20)
         label = Label(self.lf2, text="Subjects for Exam")
-        label.place(x=100, y=180, height=20)
+        label.place(x=100, y=230, height=20)
         label = Label(self.lf2, text="Marks for Subject")
-        label.place(x=100, y=260, height=20)
+        label.place(x=100, y=300, height=20)
         label = Label(self.lf2, text="Internal Marks for Subject")
-        label.place(x=100, y=340, height=20)
+        label.place(x=100, y=370, height=20)
         label = Label(self.lf2, text="Standard")
-        label.place(x=100, y=100, height=20)
+        label.place(x=100, y=90, height=20)
+        label = Label(self.lf2, text="Date of Exam")
+        label.place(x=100, y=160)
         self.sub_entry_var = StringVar()
         self.mark_entry_var = StringVar()
         self.exam_entry_var = StringVar()
@@ -323,13 +326,16 @@ class r1(Toplevel):
         self.combo_var_std_start = StringVar()
         self.cb3 = ttk.Combobox(self.lf2, state="readonly",textvariable=self.combo_var_std_start,
                                 font=("Arial Bold", 10))
-        self.cb3.place(x=355, y=100, height=20, width=150)
+        self.cb3.place(x=355, y=90, height=20, width=100)
+        self.cal = DateEntry(self.lf2, width=12, background='darkblue', date_pattern='dd/mm/yyyy',
+                             foreground='white', borderwidth=2, state="readonly")
+        self.cal.place(x=350, y=160)
         self.subject_entry = Entry(self.lf2, textvariable=self.sub_entry_var)
-        self.subject_entry.place(x=350, y=180, height=20)
+        self.subject_entry.place(x=350, y=230, height=20)
         self.mark_entry = Entry(self.lf2, textvariable=self.mark_entry_var)
-        self.mark_entry.place(x=350, y=260, height=20)
+        self.mark_entry.place(x=350, y=300, height=20)
         self.internal_mark_entry = Entry(self.lf2, textvariable=self.internal_mark_entry_var)
-        self.internal_mark_entry.place(x=350, y=340, height=20)
+        self.internal_mark_entry.place(x=350, y=370, height=20)
 
         self.cb3['values'] = ["L.K.G", "H.K.G", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, "11~Commerce", "12~Commerce",
                               "11~Science", "12~Science"]

@@ -207,7 +207,7 @@ class Attedance1(Toplevel):
         b = set(a)
         self.cals = []
         for i in b:
-            self.cals.append(i[0])
+            self.cals.append(str(i[0]))
         self.cals.sort()
 
         self.c_lassbox = StringVar()

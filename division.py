@@ -1,7 +1,6 @@
 from tkinter import *
 from tkinter import ttk, messagebox
 import sqlite3
-from attendance import Attedance1
 from PIL import Image, ImageTk
 
 
@@ -83,7 +82,7 @@ class Division(Toplevel):
             for i in b:
                 if (str(i[0])):
                     self.updatecals.append(i[0])
-            self.updatestd = self.classbox.get() + self.diventry.get()
+            self.updatestd = self.classbox.get() +"_"+ self.diventry.get()
             if self.updatestd in self.updatecals:
                 raise ValueError
         except:
@@ -106,7 +105,6 @@ class Division(Toplevel):
         else:
             self.destroy()
             self.__init__(self,root)
-
 
 
     def __init__(self, root, main_root):
@@ -148,7 +146,7 @@ class Division(Toplevel):
         ##====================================================frame 2===================================================
 
         self.lf2 = LabelFrame(self, text="Division", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
-        self.lf2.place(x=0,y=150,height=550, width=1350)
+        self.lf2.place(x=0, y=150, height=550, width=1350)
 
         self.classlabel = Label(self.lf2, text="STANDARD", bd=2, bg="black", fg="white", font=(self.f1, 15),
                                 relief=GROOVE)
