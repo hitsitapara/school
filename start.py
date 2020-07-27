@@ -5,7 +5,7 @@ from Main import Main1
 from PIL import Image, ImageTk
 from registration import Registration
 from change_password import ChangePassword
-
+import os
 
 class start:
 
@@ -120,7 +120,11 @@ class start:
 
         except:
             messagebox.showerror("School Software", "There is some error in connection of Database")
-
+        try:
+            os.makedirs("C:\\Reports\\Exams")
+            os.mkdir("C:\\Fees")
+        except:
+            pass
         rowcounter = "select count(*) from staff;"
         rc = self.conn.execute(rowcounter).fetchone()
         if rc[0] == 0:

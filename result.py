@@ -360,7 +360,7 @@ class r1(Toplevel):
         btn.place(x=300, y=125, height=25)
         btn = Button(self.lf3, text="Delete Exam", command=self.delete_exam)
         btn.place(x=300, y=200, height=25)
-        btn = Button(self.lf3, text="Calculate Percentage", command=self.calculate_percentage)
-        btn.place(x=280, y=275, height=25)
+        btn = Button(self.lf3, text="Generate Result", command=self.calculate_percentage)
+        btn.place(x=290, y=275, height=25)
 
         self.protocol("WM_DELETE_WINDOW", self.c_w)
