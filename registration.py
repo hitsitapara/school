@@ -245,7 +245,3 @@ class Registration(Toplevel):
 
 
         self.protocol("WM_DELETE_WINDOW", self.c_w)
-
-
-
-
