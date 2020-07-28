@@ -6,6 +6,7 @@ from tkinter.ttk import Combobox
 import json
 from reportlab.pdfgen import canvas
 import os
+import webbrowser
 
 class Percentage(Toplevel):
 
@@ -19,46 +20,113 @@ class Percentage(Toplevel):
             self.main_root.destroy()
         else:
             return
+    
+    def get_data_for_preview_and_result(self):
+        return_value = True
+        query = "select data from exams"
+        j_data = self.conn.execute(query).fetchone()
+        self.data = json.loads(j_data[0])
+        self.subject = self.data[self.cb1.get()]
 
+        get_std_from_table_name = str(self.subject[-1])
+        self.get_std_list = get_std_from_table_name.split("_")
+
+        query = "select count(*) from master where standard = '{}'".format((self.get_std_list[1]))
+        self.roll_from_master = self.conn.execute(query).fetchone()
+        query = "select count(*) from '{}' where std = '{}'".format(self.subject[-1], (self.get_std_list[1]))
+        self.roll_from_result = self.conn.execute(query).fetchone()
+
+        if self.roll_from_master[0] == self.roll_from_result[0]:
+            query = "select * from '{}' where std = '{}'".format(self.subject[-1], (self.get_std_list[1]))
+            self.fetched_result = self.conn.execute(query).fetchall()
+            self.get_mark = []
+
+            query = "select marks from exams"
+            fetched_total = self.conn.execute(query).fetchone()
+            self.mark = json.loads(fetched_total[0])
+            self.mark_list = self.mark[self.cb1.get()]
+            self.total_exam_mark = 0
+            for i in self.mark_list:
+                self.total_exam_mark += int(i)
+            query = "select * from '{}' order by rollno".format(self.subject[-1])
+            self.all_details_marks = self.conn.execute(query).fetchall()
+            query = "select * from master where standard = '{}' order by rollno".format((self.get_std_list[1]))
+            self.all_details_student = self.conn.execute(query).fetchall()
+
+            return_value = True
+        else:
+            messagebox.showerror("School Software",
+                                 "Mark Entry of All Students for Exam '{}' is not Done.".format(self.cb1.get()))
+            self.cb1.set("Select")
+            return_value = False
+        return return_value
+        
     def selected_exam(self,event):
-        m = messagebox.askyesnocancel("School Software", "Are You really Want to Generate Result of Exam : {}".format(self.cb1.get()))
+        get_return_value = self.get_data_for_preview_and_result()
+        if not get_return_value:
+            return
+        self.preview_btn = Button(self, text="See Preview", command=self.preview)
+        self.preview_btn.place(x=550, y=350, height=25)
+        self.generate_btn = Button(self, text="Generate Result", command=self.generate_result)
+        self.generate_btn.place(x=750, y=350, height=25)
+
+    def preview(self):
+        pdf = canvas.Canvas("C:\\Reports\\Exams\\preview_{}.pdf".format(self.cb1.get()))
+        pdf.setPageSize((600, 930))
+        pdf.line(10, 800, 590, 800)
+
+        length_cols = len(self.all_details_marks)
+        length_rows = len(self.all_details_marks[0])
+        diff = int(550 / (length_rows - 1))
+
+        pdf.setFont("Courier-Bold", 15)
+        heading = self.cb1.get().split("_")
+
+        pdf.drawString(215, 885, "Preview Report : {}".format(heading[0]))
+        pdf.drawString(50, 870, "Standard : {}".format(heading[1]))
+        pdf.drawString(430, 870, "Date : {}".format(heading[2]))
+
+        side = 40
+        top = 780
+        pdf.setFont("Courier-Bold", 12)
+        head_side = 30
+        pdf.drawString(head_side, 820, "Roll")
+        head_side += diff
+        for i in range(len(self.subject) - 1):
+            if i % 2 == 0:
+                pdf.drawString(head_side, 825, self.subject[i])
+            else:
+                pdf.drawString((head_side + 10), 820, "Int.")
+            pdf.drawString((side + diff), 805, '({})'.format(self.mark_list[i]))
+            side += diff
+            head_side += diff
+        pdf.setFont("Courier-Bold", 12)
+        side = 50
+        for i in range(length_cols):
+            for j in range(1, length_rows):
+                pdf.drawString(side, top, str(self.all_details_marks[i][j]))
+                side += diff
+            top -= 10
+            side = 50
+
+        pdf.save()
+        messagebox.showinfo("School Software",
+                            "Your Preview for Exam '{}' is Generated Succesfully !\n".format(self.cb1.get()))
+        webbrowser.open("C:\\Reports\\Exams\\report_{}.pdf".format(self.cb1.get()))
+    def generate_result(self):
+        m = messagebox.askyesnocancel("School Software", "Before Generating Result Please Ensure that you have Entered Correct Marks for all Students, After Generating Result you can't Update Marks.\nFor Mark Details Please See Preview.\nAre You really Want to Generate Result of Exam : '{}' ?".format(self.cb1.get()))
         if m == True:
             os.makedirs("C:\\Results\\{}".format(self.cb1.get()))
-
-            query = "select data from exams"
-            j_data = self.conn.execute(query).fetchone()
-            data = json.loads(j_data[0])
-            self.subject = data[self.cb1.get()]
-
-            get_std_from_table_name = str(self.subject[-1])
-            self.get_std_list = get_std_from_table_name.split("_")
-
-            query = "select count(*) from master where standard = '{}'".format((self.get_std_list[1]))
-            self.roll_from_master = self.conn.execute(query).fetchone()
-            query = "select count(*) from '{}' where std = '{}'".format(self.subject[-1],(self.get_std_list[1]))
-            self.roll_from_result = self.conn.execute(query).fetchone()
-
-            if self.roll_from_master[0] == self.roll_from_result[0]:
-                query = "select * from '{}' where std = '{}'".format(self.subject[-1],(self.get_std_list[1]))
-                fetched_result = self.conn.execute(query).fetchall()
-                self.get_mark = []
-
-                query = "select marks from exams"
-                fetched_total = self.conn.execute(query).fetchone()
-                mark = json.loads(fetched_total[0])
-                self.mark_list = mark[self.cb1.get()]
-                self.total_exam_mark = 0
-                for i in self.mark_list:
-                    self.total_exam_mark += int(i)
+            get_return_value = self.get_data_for_preview_and_result()
+            if get_return_value:
                 percentage = []
                 obtained = []
                 self.got = 0
-
                 query = "alter table '{}' add percentage NUMERIC;".format(self.subject[-1])
                 self.conn.execute(query)
                 self.conn.commit()
 
-                for i in fetched_result:
+                for i in self.fetched_result:
                     for j in range(2,len(i)):
                         self.got += i[j]
                     per = float((self.got*100)/self.total_exam_mark)
@@ -73,15 +141,15 @@ class Percentage(Toplevel):
                 self.set_percentage = set()
                 for i in self.fetched_percentage:
                     self.set_percentage.add(i[0])
-                print(self.set_percentage)
+
                 self.collect_data()
                 self.result_pdf()
                 self.report_pdf()
-                del data[self.cb1.get()]
-                del mark[self.cb1.get()]
+                del self.data[self.cb1.get()]
+                del self.mark[self.cb1.get()]
 
-                j_mark = json.dumps(mark)
-                j_data = json.dumps(data)
+                j_mark = json.dumps(self.mark)
+                j_data = json.dumps(self.data)
                 query = """update exams set data=(?), marks=(?)"""
                 self.conn.execute(query, (j_data, j_mark))
                 self.conn.commit()
@@ -91,16 +159,19 @@ class Percentage(Toplevel):
                 self.conn.commit()
                 self.combo_maintain()
                 messagebox.showinfo("School Software","Your Result for Exam '{}' is Generated Succesfully !".format(self.cb1.get()))
+                self.preview_btn.destroy()
+                self.generate_btn.destroy()
                 self.cb1.set("Select")
             else:
-                messagebox.showerror("School Software", "Mark Entry of All Students for Exam '{}' is not Done.".format(self.cb1.get()))
-                self.cb1.set("Select")
                 return
         elif m == False:
             self.combo_var.set('Select')
+            self.preview_btn.destroy()
+            self.generate_btn.destroy()
             return
         else:
             return
+
     def collect_data(self):
         query = "select * from '{}' order by rollno".format(self.subject[-1])
         self.all_details_marks = self.conn.execute(query).fetchall()
@@ -139,7 +210,7 @@ class Percentage(Toplevel):
         pdf.setFont("Courier-Bold", 15)
         heading = self.cb1.get().split("_")
 
-        pdf.drawString(230, 870, "Exam Report : {}".format(heading[0]))
+        pdf.drawString(215, 885, "Exam Report : {}".format(heading[0]))
         pdf.drawString(50, 870, "Standard : {}".format(heading[1]))
         pdf.drawString(430, 870, "Date : {}".format(heading[2]))
 
@@ -151,13 +222,13 @@ class Percentage(Toplevel):
         head_side += diff
         for i in range(len(self.subject)-1):
             if i%2 ==0:
-                pdf.drawString(head_side,820,self.subject[i])
+                pdf.drawString(head_side,825,self.subject[i])
             else:
                 pdf.drawString((head_side+10),820,"Int.")
             pdf.drawString((side+diff),805,'({})'.format(self.mark_list[i]))
             side += diff
             head_side += diff
-        pdf.drawString(head_side, 820, "Percentage")
+        pdf.drawString(head_side, 825, "Percentage")
         pdf.setFont("Courier-Bold", 12)
         side = 50
         for i in range(length_cols):
@@ -291,8 +362,7 @@ class Percentage(Toplevel):
                     x += int(mark_detail[j])
                     subject_obtained.append(x)
                     x = 0
-                    print(mark_detail[j])
-                    print(float((int(mark_detail[j])*33)/100))
+
                     if float(mark_detail[j]) < float((int(self.mark_list[j-2])*33)/100):
                         result = False
             top = 500
@@ -308,7 +378,7 @@ class Percentage(Toplevel):
             pdf.drawString(60, 125, "TOTAL : {}  / {}".format(sum, self.total_exam_mark))
             query = "select percentage from '{}' where rollno = {}".format(self.subject[-1], i[1])
             per = self.conn.execute(query).fetchone()
-            pdf.drawString(60, 155, "Percentage : {}".format(per[0]))
+            pdf.drawString(60, 155, "Percentage : {}".format(round(float(per[0]),2)))
             if result:
                 pdf.drawString(450, 155, "Result : PASS")
             else:
