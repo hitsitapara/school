@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import ttk, messagebox
 import sqlite3
 from PIL import Image, ImageTk
-
+from updatedivision import Updatedivision
 
 class Division(Toplevel):
 
@@ -16,6 +16,10 @@ class Division(Toplevel):
             self.main_root.destroy()
         else:
             return
+
+    def updatediv(self,event=""):
+        self.withdraw()
+        Updatedivision(self, self.main_root)
 
     def rollno(self, event=""):
 
@@ -90,11 +94,11 @@ class Division(Toplevel):
             self.diventry.focus_set()
             return
 
-        query = """ update master set standard = ? where rollno=?"""
+        query = """ update master set standard = ?, div = ? where rollno=? and standard = ?"""
         y = self.rnobox.curselection()
         for item in y:
             self.rollnumber = self.rno[item]
-            self.conn.execute(query,(self.updatestd, self.rollnumber[0]))
+            self.conn.execute(query,(self.updatestd, 1 ,self.rollnumber[0], self.classbox.get()))
             self.conn.commit()
         self.d_iventry.set("")
         self.rollno()
@@ -104,7 +108,7 @@ class Division(Toplevel):
             self.classbox.config(state="disabled")
         else:
             self.destroy()
-            self.__init__(self,root)
+            self.__init__(self, self.main_root)
 
 
     def __init__(self, root, main_root):
@@ -179,7 +183,7 @@ class Division(Toplevel):
         self.divisionbutton = Button(self.lf2, text="Create Division", bd=5, font=(self.f2, 15), command=self.div)
         self.divisionbutton.place(x=1000, y=100, height=25)
 
-        self.updatedivbutton = Button(self.lf2, text="Update Division", bd=5, font=(self.f2, 15))
+        self.updatedivbutton = Button(self.lf2, text="Update Division", bd=5, font=(self.f2, 15), command=self.updatediv)
         self.updatedivbutton.place(x=1000, y=225, height=25)
 
         self.protocol("WM_DELETE_WINDOW", self.c_w)
