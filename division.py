@@ -86,7 +86,7 @@ class Division(Toplevel):
             for i in b:
                 if (str(i[0])):
                     self.updatecals.append(i[0])
-            self.updatestd = self.classbox.get() +"_"+ self.diventry.get()
+            self.updatestd = self.classbox.get() +"-"+ self.diventry.get()
             if self.updatestd in self.updatecals:
                 raise ValueError
         except:

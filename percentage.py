@@ -33,13 +33,13 @@ class Percentage(Toplevel):
             get_std_from_table_name = str(self.subject[-1])
             self.get_std_list = get_std_from_table_name.split("_")
 
-            query = "select count(*) from master where standard = {}".format(self.get_std_list[1])
+            query = "select count(*) from master where standard = '{}'".format((self.get_std_list[1]))
             self.roll_from_master = self.conn.execute(query).fetchone()
-            query = "select count(*) from '{}' where std = {}".format(self.subject[-1],self.get_std_list[1])
+            query = "select count(*) from '{}' where std = '{}'".format(self.subject[-1],(self.get_std_list[1]))
             self.roll_from_result = self.conn.execute(query).fetchone()
 
             if self.roll_from_master[0] == self.roll_from_result[0]:
-                query = "select * from '{}' where std = {}".format(self.subject[-1],self.get_std_list[1])
+                query = "select * from '{}' where std = '{}'".format(self.subject[-1],(self.get_std_list[1]))
                 fetched_result = self.conn.execute(query).fetchall()
                 self.get_mark = []
 
@@ -104,7 +104,7 @@ class Percentage(Toplevel):
     def collect_data(self):
         query = "select * from '{}' order by rollno".format(self.subject[-1])
         self.all_details_marks = self.conn.execute(query).fetchall()
-        query = "select * from master where standard = {} order by rollno".format(self.get_std_list[1])
+        query = "select * from master where standard = '{}' order by rollno".format((self.get_std_list[1]))
         self.all_details_student = self.conn.execute(query).fetchall()
         self.rankers = set()
         for i in self.all_details_marks:
@@ -232,8 +232,6 @@ class Percentage(Toplevel):
             pdf.line(20, 110, 20, 180)
             pdf.line(570, 110, 570, 180)
 
-            pdf.drawString(60, 125, "TOTAL : {}  / {}".format(self.got,self.total_exam_mark))
-
             pdf.line(460, 40, 580, 40)
             pdf.drawString(450, 20, "Principal Signature")
 
@@ -247,15 +245,15 @@ class Percentage(Toplevel):
             result = True
             #=========Fetching Marks==================================
 
-            top = 550
+            top = 500
             sr = 1
             for j in range(0,len(self.subject)-1,2):
                 pdf.drawString(130,top,str(self.subject[j]))
                 pdf.drawString(30, top,str(sr))
                 sr += 1
-                top -= 15
-            top_e_m = 550
-            top_i_m = 550
+                top -= 25
+            top_e_m = 500
+            top_i_m = 500
             subject_total = []
 
             #this is mark calculation counter for subject total
@@ -263,11 +261,11 @@ class Percentage(Toplevel):
             for j in range(len(self.mark_list)):
                 if j%2 ==0 :
                     pdf.drawString(293, top_e_m, str(self.mark_list[j]))
-                    top_e_m -= 15
+                    top_e_m -= 25
                     x += int(self.mark_list[j])
                 else:
                     pdf.drawString(389, top_i_m, str(self.mark_list[j]))
-                    top_i_m -= 15
+                    top_i_m -= 25
                     x += int(self.mark_list[j])
                     subject_total.append(x)
                     x=0
@@ -278,18 +276,18 @@ class Percentage(Toplevel):
             # this is mark calculation counter for obtained
             x = 0
             subject_obtained = []
-            top_e_m = 550
-            top_i_m = 550
+            top_e_m = 500
+            top_i_m = 500
             for j in range(2,len(mark_detail)-1):
                 if j%2 == 0:
                     pdf.drawString(343, top_e_m, str(mark_detail[j]))
-                    top_e_m -= 15
+                    top_e_m -= 25
                     x += int(mark_detail[j])
                     if float(mark_detail[j]) < float((int(self.mark_list[j-2])*33)/100):
                         result = False
                 else:
                     pdf.drawString(443, top_i_m, str(mark_detail[j]))
-                    top_i_m -= 15
+                    top_i_m -= 25
                     x += int(mark_detail[j])
                     subject_obtained.append(x)
                     x = 0
@@ -297,12 +295,18 @@ class Percentage(Toplevel):
                     print(float((int(mark_detail[j])*33)/100))
                     if float(mark_detail[j]) < float((int(self.mark_list[j-2])*33)/100):
                         result = False
-            top = 550
+            top = 500
             for j in range(len(subject_obtained)):
                 pdf.drawString(490, top, str(subject_total[j]))
                 pdf.drawString(540, top, str(subject_obtained[j]))
-                top -= 15
-            query = "select percentage from '{}' where rollno = {}".format(self.subject[-1], str(i[1]))
+                top -= 25
+
+            sum = 0
+            for j in range(len(subject_obtained)):
+                sum += subject_obtained[j]
+
+            pdf.drawString(60, 125, "TOTAL : {}  / {}".format(sum, self.total_exam_mark))
+            query = "select percentage from '{}' where rollno = {}".format(self.subject[-1], i[1])
             per = self.conn.execute(query).fetchone()
             pdf.drawString(60, 155, "Percentage : {}".format(per[0]))
             if result:

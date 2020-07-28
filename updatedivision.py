@@ -29,10 +29,10 @@ class Updatedivision(Toplevel):
             query = """ select standard from master where div = 1"""
             databasefecthingvariable = self.conn.execute(query).fetchall()
             setofclass = set(databasefecthingvariable)
-            temp_fromclassentrysplit = self.fromclassbox.get().split('_')
+            temp_fromclassentrysplit = self.fromclassbox.get().split('-')
             self.toclass = []
             for item in setofclass:
-                splittoclass=item[0].split('_')
+                splittoclass=item[0].split('-')
                 if splittoclass[0] == temp_fromclassentrysplit[0]:
                     self.toclass.append(item[0])
             self.toclass.remove(self.fromclassbox.get())

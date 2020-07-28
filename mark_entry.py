@@ -37,7 +37,7 @@ class Mark_Entry(Toplevel):
         get_std_from_table_name = str(self.subject[-1])
         self.get_std_list = get_std_from_table_name.split("_")
 
-        self.standard_entry_var.set(self.get_std_list[1])
+        self.standard_entry_var.set((self.get_std_list[1]))
 
         self.var = []
         self.mark_ent = []
@@ -98,7 +98,7 @@ class Mark_Entry(Toplevel):
         query = "select count(*) from '{}' ".format(self.subject[-1])
         self.count = self.conn.execute(query).fetchone()
         # =========Get Roll Numbers from master Table====================
-        query = "select rollno from master where standard = '{}'".format(self.get_std_list[1])
+        query = "select rollno from master where standard = '{}'".format((self.get_std_list[1]))
         self.remaining_roll = self.conn.execute(query).fetchall()
         self.roll_from_master = []
         for i in self.remaining_roll:
@@ -109,7 +109,7 @@ class Mark_Entry(Toplevel):
 
         else:
 
-            query = "select rollno from '{}' where std = '{}'".format(self.subject[-1], self.get_std_list[1])
+            query = "select rollno from '{}' where std = '{}'".format(self.subject[-1], (self.get_std_list[1]))
 
             self.inserted_roll = self.conn.execute(query).fetchall()
             self.roll_from_result = []

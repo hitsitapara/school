@@ -120,7 +120,7 @@ class Update_Mark(Toplevel):
         get_std_from_table_name = str(self.subject[-1])
         self.get_std_list = get_std_from_table_name.split("_")
 
-        self.standard_entry_var.set(self.get_std_list[1])
+        self.standard_entry_var.set((self.get_std_list[1]))
 
         self.var = []
         self.mark_ent = []
@@ -158,7 +158,7 @@ class Update_Mark(Toplevel):
 
     def set_exist_values(self,event):
 
-        query = "select * from '{}' where std = '{}' and rollno = '{}'".format(self.subject[-1],self.get_std_list[1],self.combo_roll.get())
+        query = "select * from '{}' where std = '{}' and rollno = '{}'".format(self.subject[-1],(self.get_std_list[1]),self.combo_roll.get())
         self.fetch_value = self.conn.execute(query).fetchall()
         for i in range(2,len(self.fetch_value[0])):
             self.var[i-2].set(self.fetch_value[0][i])
