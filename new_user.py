@@ -69,5 +69,3 @@ class NewUser(Toplevel):
         remove_user = Button(self, text="Remove User", command=self.remove_user)
         remove_user.pack()
         self.protocol("WM_DELETE_WINDOW", self.c_w)
-
-

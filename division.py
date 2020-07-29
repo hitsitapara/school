@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import ttk, messagebox
 import sqlite3
 from PIL import Image, ImageTk
-
+from updatedivision import Updatedivision
 
 class Division(Toplevel):
 
@@ -16,6 +16,10 @@ class Division(Toplevel):
             self.main_root.destroy()
         else:
             return
+
+    def updatediv(self,event=""):
+        self.withdraw()
+        Updatedivision(self, self.main_root)
 
     def rollno(self, event=""):
 
@@ -49,7 +53,7 @@ class Division(Toplevel):
             self.rollcounter = 0
             self.rollno()
 
-    def div(self, event=""):
+    def add(self, event=""):
 
         try:
             if(self.classbox.get() == "CLASS"):
@@ -82,7 +86,7 @@ class Division(Toplevel):
             for i in b:
                 if (str(i[0])):
                     self.updatecals.append(i[0])
-            self.updatestd = self.classbox.get() +"_"+ self.diventry.get()
+            self.updatestd = self.classbox.get() +"-"+ self.diventry.get()
             if self.updatestd in self.updatecals:
                 raise ValueError
         except:
@@ -90,22 +94,33 @@ class Division(Toplevel):
             self.diventry.focus_set()
             return
 
-        query = """ update master set standard = ? where rollno=?"""
+        query = """ update master set standard = ?, div = ? where rollno=? and standard = ?"""
         y = self.rnobox.curselection()
         for item in y:
             self.rollnumber = self.rno[item]
-            self.conn.execute(query,(self.updatestd, self.rollnumber[0]))
-            self.conn.commit()
+            self.conn.execute(query,(self.updatestd, 1 ,self.rollnumber[0], self.classbox.get()))
         self.d_iventry.set("")
         self.rollno()
         query1 = """select rollno from master where standard=?"""
         x = self.conn.execute(query1,(self.classbox.get(),)).fetchall()
         if x != []:
             self.classbox.config(state="disabled")
+            self.divisionbutton.config(state="disabled")
         else:
-            self.destroy()
-            self.__init__(self,root)
+            self.divisionbutton.config(state="normal")
 
+    def division(self, event=""):
+        m = messagebox.askyesnocancel("School Software","Are you wantsave changes", parent=self)
+        if m == True:
+            self.conn.commit()
+            self.destroy()
+            self.__init__(self, self.main_root)
+        elif m == False:
+            self.conn.rollback()
+            self.destroy()
+            self.__init__(self, self.main_root)
+        elif m == None:
+            return
 
     def __init__(self, root, main_root):
 
@@ -175,12 +190,15 @@ class Division(Toplevel):
         self.d_iventry = StringVar()
         self.diventry = Entry(self.lf2, textvariable=self.d_iventry, font=(self.f1, 15))
         self.diventry.place(x=50, y=300, height=25, width=100)
+        self.divisionbutton = Button(self.lf2, text="Create Division", bd=5, font=(self.f2, 15), command=self.division)
+        self.divisionbutton.place(x=1000, y=225, height=25)
+        self.divisionbutton.config(state="disabled")
 
-        self.divisionbutton = Button(self.lf2, text="Create Division", bd=5, font=(self.f2, 15), command=self.div)
-        self.divisionbutton.place(x=1000, y=100, height=25)
+        self.updatedivbutton = Button(self.lf2, text="Update Division", bd=5, font=(self.f2, 15), command=self.updatediv)
+        self.updatedivbutton.place(x=1000, y=350, height=25)
 
-        self.updatedivbutton = Button(self.lf2, text="Update Division", bd=5, font=(self.f2, 15))
-        self.updatedivbutton.place(x=1000, y=225, height=25)
+        self.addbutton = Button(self.lf2, text="ADD", bd=5, font=(self.f2, 15), command=self.add)
+        self.addbutton.place(x=1000, y=100, height=25)
 
         self.protocol("WM_DELETE_WINDOW", self.c_w)
 
