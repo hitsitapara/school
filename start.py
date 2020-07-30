@@ -64,8 +64,9 @@ class start:
                         self.usernamevar.set("")
                         self.passwordvar.set("")
                         self.adminvar.set(0)
-                        Main1(self.root,self.main_root)
                         self.root.withdraw()
+                        Main1(self.root,self.main_root)
+
         if c == 0:
             messagebox.showerror("School Software", "User not Found!Enter valid Username")
             self.usernamevar.set("")
