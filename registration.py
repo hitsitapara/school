@@ -246,8 +246,8 @@ class Registration(Toplevel):
         self.addressentry.place(x=970,y=352)
 
         self.adminvar = IntVar()
-        self.admin = Checkbutton(self.lf2, text='admin',variable=self.adminvar, bd=2, bg="black", fg="white", font=(self.f1, 15),
-                                relief=GROOVE)
+        self.admin = Checkbutton(self.lf2, text='admin',variable=self.adminvar
+                                )
         self.admin.place(x=175, y=402)
         self.authority_value = "abcd"
 

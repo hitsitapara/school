@@ -100,7 +100,7 @@ class Staffatreport(Toplevel):
             self.staff_pdf_report()
 
     def staff_pdf_report_all(self):
-        pdf = canvas.Canvas("C:\\Attendence\\Staff\\report_all_{}_to_{}.pdf".format(self.fromcal.get_date(), self.tocal.get_date()))
+        pdf = canvas.Canvas("C:\\Reports\\Attendence\\Staff\\report_all_{}_to_{}.pdf".format(self.fromcal.get_date(), self.tocal.get_date()))
         pdf.setPageSize((600, 900))
         pdf.setFont("Courier-Bold", 20)
         pdf.drawString(200, 880, "Attendence Report")
@@ -134,12 +134,12 @@ class Staffatreport(Toplevel):
 
         print("Successful")
         pdf.save()
-        webbrowser.open("C:\\Attendence\\Staff\\report_all_{}_to_{}.pdf".format(self.fromcal.get_date(), self.tocal.get_date()))
+        webbrowser.open("C:\\Reports\\Attendence\\Staff\\report_all_{}_to_{}.pdf".format(self.fromcal.get_date(), self.tocal.get_date()))
 
 
     def staff_pdf_report(self):
 
-        pdf = canvas.Canvas("C:\\Attendence\\Staff\\report_{}.pdf".format(self.empno[0]))
+        pdf = canvas.Canvas("C:\\Reports\\Attendence\\Staff\\report_{}_{}_to_{}.pdf".format(self.empno[0], self.fromcal.get_date(), self.tocal.get_date()))
         pdf.setPageSize((600, 900))
         pdf.line(10, 700, 590, 700)
         pdf.line(10, 860, 590, 860)
@@ -173,7 +173,7 @@ class Staffatreport(Toplevel):
 
         pdf.save()
         print("succesfull")
-        webbrowser.open("C:\\Attendence\\Staff\\report_{}.pdf".format(self.empno[0]))
+        webbrowser.open("C:\\Reports\\Attendence\\Staff\\report_{}_{}_to_{}.pdf".format(self.empno[0], self.fromcal.get_date(), self.tocal.get_date()))
 
     def __init__(self, root, main_root):
 

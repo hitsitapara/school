@@ -116,8 +116,8 @@ class start:
         except:
             messagebox.showerror("School Software", "There is some error in connection of Database")
         try:
-            os.makedirs("C:\\Attendence\\Staff")
-            os.makedirs("C:\\Attendence\\Student")
+            os.makedirs("C:\\Reports\\Attendence\\Staff")
+            os.makedirs("C:\\Reports\\Attendence\\Student")
             os.makedirs("C:\\Reports\\Exams")
             os.mkdir("C:\\Fees")
 
@@ -163,8 +163,8 @@ class start:
         self.passwordentry.place(x=770, y=200)
 
         self.adminvar = IntVar()
-        self.admin = Checkbutton(self.lf2, text="Log-in as an admin", variable=self.adminvar, bd=2, bg="black",
-                                 fg="white", font=(self.f1, 15), relief=GROOVE)
+        self.admin = Checkbutton(self.lf2, text="Log-in as an admin", variable=self.adminvar
+                                 )
         self.admin.place(x=300, y=275)
 
         self.login_button = Button(self.lf2, text="Log-in", bd=5, font=(self.f2, 20), command=self.login_method)

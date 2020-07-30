@@ -113,6 +113,7 @@ class Percentage(Toplevel):
         messagebox.showinfo("School Software",
                             "Your Preview for Exam '{}' is Generated Succesfully !\n".format(self.cb1.get()))
         webbrowser.open("C:\\Reports\\Exams\\report_{}.pdf".format(self.cb1.get()))
+    
     def generate_result(self):
         m = messagebox.askyesnocancel("School Software", "Before Generating Result Please Ensure that you have Entered Correct Marks for all Students, After Generating Result you can't Update Marks.\nFor Mark Details Please See Preview.\nAre You really Want to Generate Result of Exam : '{}' ?".format(self.cb1.get()))
         if m == True:
@@ -188,6 +189,7 @@ class Percentage(Toplevel):
         self.rank_list = []
         for i in range(1):
             self.rank_list.append(self.ranks[i])
+    
     def combo_maintain(self):
         query = "select data from exams"
         j_data = self.conn.execute(query).fetchone()
@@ -238,6 +240,7 @@ class Percentage(Toplevel):
             top -= 10
             side = 50
         pdf.save()
+    
     def result_pdf(self):
         for i in self.all_details_student:
 
@@ -306,9 +309,9 @@ class Percentage(Toplevel):
             pdf.line(460, 40, 580, 40)
             pdf.drawString(450, 20, "Principal Signature")
 
-            #===========================================
+            #==================================================
 
-            pdf.drawString(60, 680, "Student Name : {}".format(str(i[3])))
+            pdf.drawString(60, 680, "Student Name : {} {} {}".format( str(i[4]), str(i[5]), str(i[6]) ))
             pdf.drawString(60, 665, "Standard : {}".format(str(i[2])))
             pdf.drawString(60, 650, "Gr. No. : {}".format(str(i[0])))
             pdf.drawString(60, 635, "Roll No. : {}".format(str(i[1])))
