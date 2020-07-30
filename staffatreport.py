@@ -122,8 +122,12 @@ class Staffatreport(Toplevel):
                     pdf.drawString(50, top, emp)
                 if str(self.fromcal.get_date()) <= str(self.abdate_all[i][j]) and str(self.tocal.get_date()) >= str(self.abdate_all[i][j]):
                     line = True
-                    pdf.drawString(320, top, str(self.abdate_all[i][j]))
-                    top -= 15
+                    if top<30:
+                        pdf.showPage()
+                        top = 850
+                    else:
+                        pdf.drawString(320, top, str(self.abdate_all[i][j]))
+                        top -= 15
             if line:
                 pdf.line(50,top , 560 ,top)
                 top -= 15
