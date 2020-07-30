@@ -1,5 +1,5 @@
 from tkinter import *
-from tkinter import ttk,messagebox
+from tkinter import messagebox
 import sqlite3
 from PIL import Image, ImageTk
 from result import r1
@@ -78,7 +78,7 @@ class Main1(Toplevel):
         self.lf1 = LabelFrame(self, text="NAME", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
         self.lf1.place(x=0, y=0, height=150, width=1350)
 
-        bb = Button(self.lf1, image=imgl, bd=5, font=(self.f1, 20), bg="white", command=self.backf)
+        bb = Button(self.lf1, text="Back", bd=5, font=(self.f1, 20), bg="white", command=self.backf)
         bb.place(x=10, y=10)
 
         self.lf2 = LabelFrame(self, text="Buttons", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
@@ -109,3 +109,4 @@ class Main1(Toplevel):
         stbutton.place(x=950, y=300, height=175, width=350)
 
         self.protocol("WM_DELETE_WINDOW", self.c_w)
+        self.mainloop()

@@ -47,8 +47,8 @@ class start:
                             self.usernamevar.set("")
                             self.passwordvar.set("")
                             self.adminvar.set(0)
-                            self.root.withdraw()
                             Main1(self.root, self.main_root)
+                            self.root.withdraw()
 
                         else:
                             messagebox.showerror("School Software","You are not appoint as admin so login as staff member")
@@ -64,8 +64,8 @@ class start:
                         self.usernamevar.set("")
                         self.passwordvar.set("")
                         self.adminvar.set(0)
-                        self.root.withdraw()
                         Main1(self.root,self.main_root)
+                        self.root.withdraw()
         if c == 0:
             messagebox.showerror("School Software", "User not Found!Enter valid Username")
             self.usernamevar.set("")
@@ -98,8 +98,8 @@ class start:
                     self.conn.execute(query1)
                     self.conn.commit()
                     self.passwordvar.set("")
-                    self.root.withdraw()
                     ChangePassword(self.root,self.main_root)
+                    self.root.withdraw()
 
         if c == 0:
             messagebox.showerror("School Software", "User not Found!Enter valid Username")
@@ -121,8 +121,11 @@ class start:
         except:
             messagebox.showerror("School Software", "There is some error in connection of Database")
         try:
+            os.makedirs("C:\\Attendence\\Staff")
+            os.makedirs("C:\\Attendence\\Student")
             os.makedirs("C:\\Reports\\Exams")
             os.mkdir("C:\\Fees")
+
         except:
             pass
         rowcounter = "select count(*) from staff;"

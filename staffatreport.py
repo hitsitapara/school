@@ -5,6 +5,9 @@ from PIL import Image, ImageTk
 from tkcalendar import DateEntry
 import json
 from datetime import date, timedelta
+from reportlab.pdfgen import canvas
+import webbrowser
+
 
 class Staffatreport(Toplevel):
 
@@ -45,11 +48,11 @@ class Staffatreport(Toplevel):
 
         query = """ select abdate from staff """
         a = self.conn.execute(query).fetchall()
-        self.abdate = []
+        self.abdate_all = []
         for item in a:
-            self.abdate.append(item[0])
-        for i in self.abdate:
-            print(i)
+            fetched_list = json.loads(item[0])
+            self.abdate_all.append(fetched_list)
+        self.staff_pdf_report_all()
 
     def spreport(self, event=""):
 
@@ -91,9 +94,82 @@ class Staffatreport(Toplevel):
             self.empno = self.staffinfo[y[0]]
             query = """ select abdate from staff where empno= ? """
             a = self.conn.execute(query, (self.empno[0], )).fetchone()
-            self.abdate = []
-            for item in a:
-                print(item)
+            print(type(a[0]))
+            self.abdate = json.loads(a[0])
+
+            self.staff_pdf_report()
+
+    def staff_pdf_report_all(self):
+        pdf = canvas.Canvas("C:\\Attendence\\Staff\\report_all_{}_to_{}.pdf".format(self.fromcal.get_date(), self.tocal.get_date()))
+        pdf.setPageSize((600, 900))
+        pdf.setFont("Courier-Bold", 20)
+        pdf.drawString(200, 880, "Attendence Report")
+        pdf.setFont("Courier-Bold", 15)
+        pdf.drawString(30, 815, "Emp. no ")
+        pdf.drawString(300, 815, "Absent Dates")
+        pdf.drawString(30, 860, "From Date : {}".format(self.fromcal.get_date()))
+        pdf.drawString(350, 860, "To Date : {}".format(self.tocal.get_date()))
+
+        pdf.line(30, 800, 580, 800)
+        top = 760
+        line = False
+        total_length = len(self.abdate_all)
+        for i in range(total_length):
+            x = len(self.abdate_all[i])
+            for j in range(x):
+                if j == 0:
+                    emp = "{}-{}".format(self.staffinfo[i][0], self.staffinfo[i][1])
+                    pdf.drawString(50, top, emp)
+                if str(self.fromcal.get_date()) <= str(self.abdate_all[i][j]) and str(self.tocal.get_date()) >= str(self.abdate_all[i][j]):
+                    line = True
+                    pdf.drawString(320, top, str(self.abdate_all[i][j]))
+                    top -= 15
+            if line:
+                pdf.line(50,top , 560 ,top)
+                top -= 15
+
+        print("Successful")
+        pdf.save()
+        webbrowser.open("C:\\Attendence\\Staff\\report_all_{}_to_{}.pdf".format(self.fromcal.get_date(), self.tocal.get_date()))
+
+
+    def staff_pdf_report(self):
+
+        pdf = canvas.Canvas("C:\\Attendence\\Staff\\report_{}.pdf".format(self.empno[0]))
+        pdf.setPageSize((600, 900))
+        pdf.line(10, 700, 590, 700)
+        pdf.line(10, 860, 590, 860)
+        pdf.line(20, 690, 20, 870)
+        pdf.line(580, 690, 580, 870)
+        pdf.setFont("Courier-Bold", 20)
+        pdf.drawString(200, 880, "Attendence Report")
+        pdf.setFont("Courier-Bold", 15)
+        pdf.drawString(30, 840, "Employee Name : {} {} {}".format(self.empno[1], self.empno[2], self.empno[3]))
+        pdf.drawString(30, 815, "Emp. no : ".format(self.empno[0]))
+        pdf.drawString(50, 650, "Sr. No")
+        pdf.drawString(300, 650, "Absent Dates")
+        pdf.drawString(30, 790, "From Date : {}".format(self.fromcal.get_date()))
+        pdf.drawString(30, 765, "To Date : {}".format(self.tocal.get_date()))
+        sr = 1
+        side_sr = 55
+        side_date = 320
+        top = 600
+        print(type(self.fromcal.get_date()))
+        for i in self.abdate:
+            if top<30:
+                pdf.showPage()
+                top = 800
+            else:
+                if str(self.fromcal.get_date()) <= i and str(self.tocal.get_date()) >= i:
+                    pdf.drawString(side_sr, top, str(sr))
+                    pdf.drawString(side_date, top, str(i))
+                    top -= 15
+                    sr += 1
+
+
+        pdf.save()
+        print("succesfull")
+        webbrowser.open("C:\\Attendence\\Staff\\report_{}.pdf".format(self.empno[0]))
 
     def __init__(self, root, main_root):
 
@@ -181,7 +257,3 @@ class Staffatreport(Toplevel):
         self.spreportbutton.place(x=400, y=450, height=25)
 
         self.protocol("WM_DELETE_WINDOW", self.c_w)
-
-root = Tk()
-Staffatreport(root, root)
-root.mainloop()

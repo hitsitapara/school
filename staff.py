@@ -1,6 +1,5 @@
 from tkinter import *
 from tkinter import ttk, messagebox
-from tkinter.ttk import *
 from remove_user import RemoveUser
 import sqlite3
 from PIL import Image, ImageTk
