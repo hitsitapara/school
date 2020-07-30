@@ -5,7 +5,7 @@ from PIL import Image, ImageTk
 from result import r1
 from attendance import Attedance1
 from fee import fee1
-from new_user import NewUser
+from staff import NewUser
 
 class Main1(Toplevel):
 

@@ -84,6 +84,14 @@ class Attedance1(Toplevel):
             self.classbox.focus_set()
             return
 
+        try:
+            if(self.rnobox.curselection() == None):
+                raise ValueError
+        except:
+            m = messagebox.showerror("School Software", "first select roll no  than mark absent", parent= self)
+            self.rnobox.focus_set()
+            return
+
         y = self.rnobox.curselection()
         for item in y:
 
@@ -108,6 +116,7 @@ class Attedance1(Toplevel):
                 query1 = """ update master set abday = ? where standard =? and rollno=?"""
                 self.conn.execute(query1, (p, self.classbox.get(), self.rno[item]))
                 self.conn.commit()
+        m = messagebox.showinfo("School Software", "Successfuly enter absent date", parent=self)
         self.frame.destroy()
         self.rolllabel.destroy()
         self.rnobox.destroy()
@@ -141,6 +150,7 @@ class Attedance1(Toplevel):
                 query1 = """ update master set abday = ? where standard =? and rollno=?"""
                 self.conn.execute(query1, (p, self.classbox.get(), self.rno[item]))
                 self.conn.commit()
+        m = messagebox.showinfo("School Software", "Successfuly remove absent date", parent=self)
         self.frame.destroy()
         self.rolllabel.destroy()
         self.rnobox.destroy()

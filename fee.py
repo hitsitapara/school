@@ -34,7 +34,7 @@ class fee1(Toplevel):
             self.rno.sort()
             self.r_ollbox = StringVar()
             self.rollbox = ttk.Combobox(self.lf2, state="readonly", textvariable=self.r_ollbox, font=(self.f1, 10))
-            self.rollbox.place(x=300, y=150, height=25, width=100)
+            self.rollbox.place(x=300, y=150, height=25, width=300)
             self.rollbox['values'] = self.rno
             self.rollbox.set("Select")
             self.rollbox.bind("<<ComboboxSelected>>", self.amountoffee)
@@ -310,7 +310,7 @@ class fee1(Toplevel):
         b = set(a)
         self.cals = []
         for i in b:
-            self.cals.append(i[0])
+            self.cals.append(str(i[0]))
         self.cals.sort()
 
         self.c_lassbox = StringVar()
