@@ -6,6 +6,11 @@ from validate_email import validate_email
 
 
 class Registration(Toplevel):
+    
+    def backf(self, event=""):
+        self.destroy()
+        self.root.deiconify()
+
 
     def c_w(self, event=""):
         m = messagebox.askyesno("School Software", "Are you Want to Close Application?", parent=self)
@@ -153,56 +158,75 @@ class Registration(Toplevel):
 
         self.main_root = main_root
         self.root = root
-        Toplevel.__init__(self)
-        imagler = Image.open("right-arrow.png")
-        imagler = imagler.resize((60, 15))
-        imgr = ImageTk.PhotoImage(imagler)
-
-        self.bgimg = ImageTk.PhotoImage(file="dark-blue-blur-gradation-wallpaper-preview.jpg")
-        self.lbl = Label(root, image=self.bgimg)
-        self.lbl.place(x=0, y=0, relwidth=1, relheight=1)
         try:
             self.conn = sqlite3.connect('sinfo.db')
         except:
             messagebox.showerror("School Software", "Database Connection Error.")
+        Toplevel.__init__(self)
+
+        self.lift()
+        self.focus_force()
+        self.grab_set()
+        self.grab_release()
         self.bgclr1 = "#0080c0"
         self.bgclr2 = "#e7d95a"
         self.f1 = "Arial Bold"
         self.f2 = "times new roman"
-        self.title("WINDOW1")
-
+        self.title("FEES")
+        self.config(background=self.bgclr1)
         self.geometry("1350x700+0+0")
         self.resizable(False, False)
+        ##===================================================frame 1====================================================
+        imagel = Image.open("left-arrow.png")
+        imagel = imagel.resize((60, 15))
 
-        self.fr = LabelFrame(self,text="sign-up",font=150)
+        imgl = ImageTk.PhotoImage(imagel)
+
+        self.lf1 = LabelFrame(self, text="NAME", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
+        self.lf1.place(x=0, y=0, height=150, width=1350)
+
+        bb = Button(self.lf1, image=imgl, bd=5, font=(self.f1, 20), command=self.backf)
+        bb.place(x=10, y=10)
+        ##=============================================frame 2==========================================================
+        self.lf2 = LabelFrame(self, text="Staff Entry", bd=2, bg="black", fg="white", font=(self.f1, 20),
+                              relief=GROOVE)
+        self.lf2.place(x=0, y=150, height=600, width=1350)
 
         rowcounter = "select count(*) from staff;"
         rc = self.conn.execute(rowcounter).fetchone()
 
-        self.firstname = Label(self.fr,text='firstname',font=50,pady=5)
-        self.middlename = Label(self.fr,text='middlename',font=50,pady=5)
-        self.lastname = Label(self.fr,text='lastname',font=50,pady=5)
-        self.salary = Label(self.fr,text='salary',font=50,pady=5)
-        self.phoneno = Label(self.fr,text='phoneno',font=50,pady=5)
-        self.address = Label(self.fr,text='address',font=50,pady=5)
-        self.email = Label(self.fr,text='email',font=50,pady=5)
-        self.password = Label(self.fr,text='password',font=50,pady=5)
+        self.firstname = Label(self.lf2,text='firstname',bd=2, bg="black", fg="white", font=(self.f1, 15),
+                                relief=GROOVE)
+        self.middlename = Label(self.lf2,text='middlename',bd=2, bg="black", fg="white", font=(self.f1, 15),
+                                relief=GROOVE)
+        self.lastname = Label(self.lf2,text='lastname',bd=2, bg="black", fg="white", font=(self.f1, 15),
+                                relief=GROOVE)
+        self.salary = Label(self.lf2,text='salary',bd=2, bg="black", fg="white", font=(self.f1, 15),
+                                relief=GROOVE)
+        self.phoneno = Label(self.lf2,text='phoneno',bd=2, bg="black", fg="white", font=(self.f1, 15),
+                                relief=GROOVE)
+        self.address = Label(self.lf2,text='address',bd=2, bg="black", fg="white", font=(self.f1, 15),
+                                relief=GROOVE)
+        self.email = Label(self.lf2,text='email',bd=2, bg="black", fg="white", font=(self.f1, 15),
+                                relief=GROOVE)
+        self.password = Label(self.lf2,text='password',bd=2, bg="black", fg="white", font=(self.f1, 15),
+                                relief=GROOVE)
 
         self.firstnamevar = StringVar()
-        self.firstnameentry = Entry(self.fr,textvariable = self.firstnamevar,font=50)
+        self.firstnameentry = Entry(self.lf2,textvariable = self.firstnamevar,font=50)
         self.middlenamevar = StringVar()
-        self.middlenameentry = Entry(self.fr,textvariable = self.middlenamevar,font=50)
+        self.middlenameentry = Entry(self.lf2,textvariable = self.middlenamevar,font=50)
         self.lastnamevar = StringVar()
-        self.lastnameentry = Entry(self.fr,textvariable = self.lastnamevar,font=50)
+        self.lastnameentry = Entry(self.lf2,textvariable = self.lastnamevar,font=50)
         self.salaryvar = StringVar()
-        self.salaryentry = Entry(self.fr,textvariable = self.salaryvar,font=50)
+        self.salaryentry = Entry(self.lf2,textvariable = self.salaryvar,font=50)
         self.phonenovar = StringVar()
-        self.phonenoentry = Entry(self.fr,textvariable = self.phonenovar,font=50)
+        self.phonenoentry = Entry(self.lf2,textvariable = self.phonenovar,font=50)
         self.emailvar = StringVar()
-        self.emailentry = Entry(self.fr,textvariable = self.emailvar,font=50)
+        self.emailentry = Entry(self.lf2,textvariable = self.emailvar,font=50)
         self.passwordvar = StringVar()
-        self.passwordentry = Entry(self.fr, textvariable=self.passwordvar, font=50, show="*")
-        self.addressentry = Text(self.fr,width=20, height=3, font=50)
+        self.passwordentry = Entry(self.lf2, textvariable=self.passwordvar, font=50, show="*")
+        self.addressentry = Text(self.lf2,width=20, height=3, font=50)
 
         self.firstname.place(x=175,y=2)
         self.firstnameentry.place(x=970,y=2)
@@ -222,7 +246,8 @@ class Registration(Toplevel):
         self.addressentry.place(x=970,y=352)
 
         self.adminvar = IntVar()
-        self.admin = Checkbutton(self.fr, text='admin',variable=self.adminvar)
+        self.admin = Checkbutton(self.lf2, text='admin',variable=self.adminvar, bd=2, bg="black", fg="white", font=(self.f1, 15),
+                                relief=GROOVE)
         self.admin.place(x=175, y=402)
         self.authority_value = "abcd"
 
@@ -235,13 +260,11 @@ class Registration(Toplevel):
         else:
             self.authority_value = "staff"
 
-        self.login = Button(self.fr,text="Register",font=60,command=self.register)
+        self.login = Button(self.lf2,text="Register",font=60,command=self.register)
         self.login.place(x=500,y=452)
 
-        self.reset_btn = Button(self.fr, text="Reset", font=60,command=self.reset)
+        self.reset_btn = Button(self.lf2, text="Reset", font=60,command=self.reset)
         self.reset_btn.place(x=645, y=452)
 
-        self.fr.place(x=0,y=200,relwidth=1,relheight=1)
-
-
         self.protocol("WM_DELETE_WINDOW", self.c_w)
+        self.mainloop()

@@ -289,17 +289,13 @@ class r1(Toplevel):
         ##======================================================frame 1================================================
         imagel = Image.open("left-arrow.png")
         imagel = imagel.resize((60, 15))
-        imager = Image.open("right-arrow.png")
-        imager = imager.resize((60, 15))
-
         imgl = ImageTk.PhotoImage(imagel)
-        imgr = ImageTk.PhotoImage(imager)
 
         self.lf1 = LabelFrame(self, text="NAME", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
         self.lf1.place(x=0, y=0, height=150, width=1350)
 
-        bb = Button(self.lf1, text="BACK", bd=5, font=(self.f1, 10), command=self.backf)
-        bb.place(x=10, y=10, height=20)
+        bb = Button(self.lf1, image=imgl, bd=5, font=(self.f1, 10), command=self.backf)
+        bb.place(x=10, y=10)
         ##=====================================================frame 2================================================
         self.lf2 = LabelFrame(self, text="CREATE EXAM", bd=2, bg="black", fg="white", font=(self.f1, 20),
                               relief=GROOVE)
@@ -373,3 +369,4 @@ class r1(Toplevel):
         btn.place(x=290, y=275, height=25)
 
         self.protocol("WM_DELETE_WINDOW", self.c_w)
+        self.mainloop()

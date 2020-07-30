@@ -92,17 +92,22 @@ class Delete_Exam(Toplevel):
         self.config(background=self.bgclr1)
         self.geometry("1350x700+0+0")
         self.resizable(False, False)
-
+        ##======================================================frame1==================================================
         imagel = Image.open("left-arrow.png")
-        imagel = imagel.resize((50, 50))
-
+        imagel = imagel.resize((60, 15))
         imgl = ImageTk.PhotoImage(imagel)
 
-        bb = Button(self, image = imgl, bd=5, font=(self.f1, 20), bg=self.bgclr2, command=self.backf)
-        bb.pack()
+        self.lf1 = LabelFrame(self, text="NAME", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
+        self.lf1.place(x=0, y=0, height=150, width=1350)
 
+        bb = Button(self.lf1, image=imgl, bd=5, font=(self.f1, 20), command=self.backf)
+        bb.place(x=10, y=10)
+        ##======================================================frame 2=================================================
+        self.lf2 = LabelFrame(self, text="DELETE EXAM WINDOW", bd=2, bg="black", fg="white", font=(self.f1, 20),
+                              relief=GROOVE)
+        self.lf2.place(x=0, y=150, height=600, width=1350)
         self.combo_get_exam_var = StringVar()
-        self.combo_get_exam = Combobox(self, state="readonly", textvariable=self.combo_get_exam_var, font=("Arial Bold", 15))
+        self.combo_get_exam = Combobox(self.lf2, state="readonly", textvariable=self.combo_get_exam_var, font=("Arial Bold", 15))
         self.combo_get_exam.place(x=220, y=420)
         query = "select data from exams"
         j_data = self.conn.execute(query).fetchone()
@@ -115,8 +120,8 @@ class Delete_Exam(Toplevel):
         self.combo_get_exam.set("Select")
         self.combo_get_exam.bind("<<ComboboxSelected>>", self.get_exam_details)
         self.protocol("WM_DELETE_WINDOW", self.c_w)
-        self.reset_btn = Button(self, text="RESET", command=self.reset)
+        self.reset_btn = Button(self.lf2, text="RESET", command=self.reset)
         self.reset_btn.place(x=50,y=50)
-        self.reset_btn = Button(self, text="DELETE", command=self.del_exam)
+        self.reset_btn = Button(self.lf2, text="DELETE", command=self.del_exam)
         self.reset_btn.place(x=150, y=50)
         self.mainloop()

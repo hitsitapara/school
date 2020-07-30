@@ -227,7 +227,7 @@ class fee1(Toplevel):
             query = """update master set hisfee=? where standard=? and rollno=?"""
             self.conn.execute(query,(p, self.classbox.get(), self.r[0]))
             self.conn.commit()
-        query = "select * from master where standard={} and rollno={}".format(self.classbox.get(), self.r[0])
+        query = """select * from master where standard="{}" and rollno="{}" """.format(self.classbox.get(), self.r[0])
         self.data = self.conn.execute(query).fetchone()
         pdf = canvas.Canvas("C:\\Fees\\fee_1_{}_{}.pdf".format(self.classbox.get(),self.data[3]))
         pdf.setPageSize((600, 450))
@@ -333,3 +333,4 @@ class fee1(Toplevel):
         self.lf3.place(x=675, y=150, height=600, width=675)
 
         self.protocol("WM_DELETE_WINDOW", self.c_w)
+        self.mainloop()
