@@ -412,21 +412,28 @@ class Percentage(Toplevel):
         self.bgclr2 = "#e7d95a"
         self.f1 = "Arial Bold"
         self.f2 = "times new roman"
-        self.title("WINDOW10")
+        self.title("Genrate Result ")
         self.config(background=self.bgclr1)
         self.geometry("1350x700+0+0")
         self.resizable(False, False)
 
+        ##===================================================frame1 ====================================================
         imagel = Image.open("left-arrow.png")
-        imagel = imagel.resize((50, 50))
-
+        imagel = imagel.resize((60, 15))
         imgl = ImageTk.PhotoImage(imagel)
 
-        bb = Button(self, image = imgl, bd=5, font=(self.f1, 20), bg=self.bgclr2, command=self.backf)
-        bb.pack()
+        self.lf1 = LabelFrame(self, text="NAME", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
+        self.lf1.place(x=0, y=0, height=150, width=1350)
+
+        bb = Button(self.lf1, image=imgl, bd=5, font=(self.f1, 20), bg="white", command=self.backf)
+        bb.place(x=10, y=10)
+        ##===============================================frame 2========================================================
+        self.lf2 = LabelFrame(self, text="Buttons", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
+        self.lf2.place(x=0, y=150, height=600, width=1350)
+
 
         self.combo_var = StringVar()
-        self.cb1 = Combobox(self, state="readonly", textvariable=self.combo_var, font=("Arial Bold", 15))
+        self.cb1 = Combobox(self.lf2, state="readonly", textvariable=self.combo_var, font=("Arial Bold", 15))
         self.cb1.pack()
         query = "select data from exams"
         j_data = self.conn.execute(query).fetchone()
@@ -441,3 +448,4 @@ class Percentage(Toplevel):
 
 
         self.protocol("WM_DELETE_WINDOW", self.c_w)
+        self.mainloop()

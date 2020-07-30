@@ -1,6 +1,5 @@
 from tkinter import *
 from tkinter import ttk, messagebox
-from tkinter.ttk import *
 import sqlite3
 from PIL import Image, ImageTk
 
@@ -50,22 +49,22 @@ class RemoveUser(Toplevel):
             return
 
     def remove_combo_method(self,event=""):
-        self.firstname = Label(self, text='firstname')
-        self.middlename = Label(self, text='middlename')
-        self.lastname = Label(self, text='lastname')
-        self.salary = Label(self, text='salary')
-        self.phoneno = Label(self, text='phoneno')
+        self.firstname = Label(self.lf2, text='firstname')
+        self.middlename = Label(self.lf2, text='middlename')
+        self.lastname = Label(self.lf2, text='lastname')
+        self.salary = Label(self.lf2, text='salary')
+        self.phoneno = Label(self.lf2, text='phoneno')
 
         self.firstnamevar = StringVar()
-        self.firstnameentry = Entry(self, textvariable=self.firstnamevar)
+        self.firstnameentry = Entry(self.lf2, textvariable=self.firstnamevar)
         self.middlenamevar = StringVar()
-        self.middlenameentry = Entry(self, textvariable=self.middlenamevar)
+        self.middlenameentry = Entry(self.lf2, textvariable=self.middlenamevar)
         self.lastnamevar = StringVar()
-        self.lastnameentry = Entry(self, textvariable=self.lastnamevar)
+        self.lastnameentry = Entry(self.lf2, textvariable=self.lastnamevar)
         self.salaryvar = StringVar()
-        self.salaryentry = Entry(self, textvariable=self.salaryvar)
+        self.salaryentry = Entry(self.lf2, textvariable=self.salaryvar)
         self.phonenovar = StringVar()
-        self.phonenoentry = Entry(self, textvariable=self.phonenovar)
+        self.phonenoentry = Entry(self.lf2, textvariable=self.phonenovar)
 
         self.firstname.place(x=175, y=202)
         self.firstnameentry.place(x=970, y=202)
@@ -102,8 +101,8 @@ class RemoveUser(Toplevel):
         self.salaryentry.config(state="disabled")
         self.phonenoentry.config(state="disabled")
 
-        self.remove_user_button = Button(self,text="remove",command=self.remove_button_method)
-        self.remove_user_button.place(x=550,y=552)
+        self.remove_user_button = Button(self.lf2,text="remove",command=self.remove_button_method)
+        self.remove_user_button.place(x=550,y=450)
 
     def __init__(self, root, main_root):
         self.main_root = main_root
@@ -126,24 +125,28 @@ class RemoveUser(Toplevel):
         self.geometry("1350x700+0+0")
         self.resizable(False, False)
 
+        ##===================================================frame1 ====================================================
         imagel = Image.open("left-arrow.png")
-        imagel = imagel.resize((50, 50))
-
+        imagel = imagel.resize((60, 15))
         imgl = ImageTk.PhotoImage(imagel)
 
-        bb = Button(self, image=imgl, command=self.backf)
-        bb.pack()
+        self.lf1 = LabelFrame(self, text="NAME", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
+        self.lf1.place(x=0, y=0, height=150, width=1350)
+
+        bb = Button(self.lf1, image=imgl, bd=5, font=(self.f1, 20), bg="white", command=self.backf)
+        bb.place(x=10, y=10)
+        ##===============================================frame 2========================================================
+        self.lf2 = LabelFrame(self, text="Remove User", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
+        self.lf2.place(x=0, y=150, height=600, width=1350)
 
         query1 = "select empno from staff where currentuser=0;"
         list1 = self.conn.execute(query1).fetchall()
         my_list = []
         for i in list1:
             my_list.append(i)
-        self.remove_user_combo = Combobox(self, values=my_list, height=10)
-        # self.remove_user_combo.set("select user to remove")
+        self.remove_user_combo = ttk.Combobox(self.lf2, values=my_list, height=10)
         self.remove_user_combo.bind("<<ComboboxSelected>>", self.remove_combo_method)
         self.remove_user_combo.pack()
 
         self.protocol("WM_DELETE_WINDOW", self.c_w)
-
-
+        self.mainloop()

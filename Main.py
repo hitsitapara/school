@@ -70,7 +70,7 @@ class Main1(Toplevel):
         self.config(background=self.bgclr1)
         self.geometry("1350x700+0+0")
         self.resizable(False, False)
-
+        ##===================================================frame1 ====================================================
         imagel = Image.open("left-arrow.png")
         imagel = imagel.resize((60, 15))
         imgl = ImageTk.PhotoImage(imagel)
@@ -80,7 +80,7 @@ class Main1(Toplevel):
 
         bb = Button(self.lf1, text="Back", bd=5, font=(self.f1, 20), bg="white", command=self.backf)
         bb.place(x=10, y=10)
-
+        ##===============================================frame 2========================================================
         self.lf2 = LabelFrame(self, text="Buttons", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
         self.lf2.place(x=0, y=150, height=600, width=1350)
 
@@ -109,4 +109,5 @@ class Main1(Toplevel):
         stbutton.place(x=950, y=300, height=175, width=350)
 
         self.protocol("WM_DELETE_WINDOW", self.c_w)
+        self.mainloop()
         self.mainloop()

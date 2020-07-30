@@ -5,6 +5,7 @@ from PIL import Image, ImageTk
 from tkcalendar import DateEntry
 import json
 from datetime import date, timedelta
+import datetime
 
 class Attendancestaff(Toplevel):
 
@@ -25,6 +26,17 @@ class Attendancestaff(Toplevel):
                 raise ValueError
         except:
             m = messagebox.showerror("School Software", "You can not enter future attendance", parent=self)
+            self.cal.focus_set()
+            return
+
+        year , month, day = str(self.cal.get_date()).split("-")
+        date_name = datetime.date(int(year), int(month), int(day))
+        day_name = date_name.strftime("%A")
+        try:
+            if day_name == "Sunday":
+                raise ValueError
+        except:
+            m= messagebox.showerror("School Software","You can not enter Sunday Attendance")
             self.cal.focus_set()
             return
 
@@ -190,3 +202,4 @@ class Attendancestaff(Toplevel):
         self.lf3.place(x=675, y=150, height=550, width=675)
 
         self.protocol("WM_DELETE_WINDOW", self.c_w)
+        self.mainloop()

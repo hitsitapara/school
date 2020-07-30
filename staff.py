@@ -96,3 +96,4 @@ class NewUser(Toplevel):
         staffat_report.place(x=500, y=350, height=30, )
 
         self.protocol("WM_DELETE_WINDOW", self.c_w)
+        self.mainloop()

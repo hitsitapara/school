@@ -65,34 +65,43 @@ class ChangePassword(Toplevel):
         self.geometry("1350x700+0+0")
         self.resizable(False, False)
 
-        self.fr = LabelFrame(self,text="Change Password",font=150)
-        self.new_password = Label(self.fr,text="New Password",font=70)
+        ##======================================================frame 1=================================================
+        imagel = Image.open("left-arrow.png")
+        imagel = imagel.resize((60, 15))
+        imgl = ImageTk.PhotoImage(imagel)
+
+        self.lf1 = LabelFrame(self, text="NAME", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
+        self.lf1.place(x=0, y=0, height=150, width=1350)
+
+        bb = Button(self.lf1, image=imgl, command=self.backf)
+        bb.place(x=10, y=10)
+        ##=============================================frame 2==========================================================
+        self.lf2 = LabelFrame(self, text="Change Password", bd=2, bg="black", fg="white", font=(self.f1, 20),
+                              relief=GROOVE)
+        self.lf2.place(x=0, y=150, height=600, width=1350)
+
+        self.new_password = Label(self.lf2,text="New Password", bg="Black", fg="white", font=(self.f1,15), relief=GROOVE)
         self.new_password_var = StringVar()
-        self.new_password_entry=Entry(self.fr,textvariable=self.new_password_var,font=70,show='*')
-        self.new_password.place(x=275,y=100)
+        self.new_password_entry=Entry(self.lf2,textvariable=self.new_password_var,font=70,show='*')
+        self.new_password.place(x=275,y=100, height=25)
         self.new_password_entry.place(x=770,y=100)
 
-        self.re_password =Label(self.fr,text="Re-type new password",font=70)
+        self.re_password =Label(self.lf2,text="Re-type new password", bg="Black", fg="white", font=(self.f1,15), relief=GROOVE)
         self.re_password_var = StringVar()
-        self.re_password_entry =Entry(self.fr,textvariable=self.re_password_var,font=70,show='*')
+        self.re_password_entry =Entry(self.lf2,textvariable=self.re_password_var,font=70,show='*')
         self.re_password.place(x=275,y=200)
         self.re_password_entry.place(x=770,y=200)
 
 
-        self.change_button = Button(self.fr,text="Change",font=70,command=self.change_method)
-        self.cancel_button = Button(self.fr,text="cancel",font=70,command=self.cancel_method)
+        self.change_button = Button(self.lf2,text="Change", bd=5, font=(self.f2, 20), command=self.change_method)
+        self.cancel_button = Button(self.lf2,text="cancel", bd=5, font=(self.f2, 20), command=self.cancel_method)
 
         self.change_button.place(x=475, y=400)
         self.cancel_button.place(x=625, y=400)
 
-        self.fr.place(x=0, y=200, relwidth=1, relheight=1)
-
-        imagel = Image.open("left-arrow.png")
-        imagel = imagel.resize((50, 50))
-        imgl = ImageTk.PhotoImage(imagel)
-
 
 
         self.protocol("WM_DELETE_WINDOW", self.c_w)
+        self.mainloop()
 
 
