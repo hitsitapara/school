@@ -249,4 +249,3 @@ class Mark_Entry(Toplevel):
         self.cb1.set("Select")
 
         self.protocol("WM_DELETE_WINDOW", self.c_w)
-        self.mainloop()

@@ -109,5 +109,3 @@ class Main1(Toplevel):
         stbutton.place(x=950, y=300, height=175, width=350)
 
         self.protocol("WM_DELETE_WINDOW", self.c_w)
-
-        self.mainloop()

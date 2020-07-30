@@ -233,8 +233,4 @@ class Update_Mark(Toplevel):
         self.combo_get_exam.set("Select")
         self.combo_get_exam.bind("<<ComboboxSelected>>", self.get_exam_details)
 
-
-
         self.protocol("WM_DELETE_WINDOW", self.c_w)
-
-        self.mainloop()

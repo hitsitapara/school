@@ -441,5 +441,3 @@ class Percentage(Toplevel):
 
 
         self.protocol("WM_DELETE_WINDOW", self.c_w)
-
-        self.mainloop()

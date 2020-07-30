@@ -309,5 +309,3 @@ class UpdateUser(Toplevel):
         self.select_user_combo.pack()
 
         self.protocol("WM_DELETE_WINDOW", self.c_w)
-
-

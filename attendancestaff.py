@@ -19,15 +19,6 @@ class Attendancestaff(Toplevel):
         else:
             return
 
-    def calselect(self):
-        if (self.calcount == 0):
-            self.cal.place(x=300, y=10)
-            self.calcount = 1
-        else:
-            self.cal.place_forget()
-            self.calcount = 0
-            self.calselect()
-
     def addat(self, event=""):
         try:
             if self.cal.get_date() > date.today() :
@@ -199,5 +190,3 @@ class Attendancestaff(Toplevel):
         self.lf3.place(x=675, y=150, height=550, width=675)
 
         self.protocol("WM_DELETE_WINDOW", self.c_w)
-
-        self.mainloop()

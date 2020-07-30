@@ -239,5 +239,3 @@ class Attedance1(Toplevel):
         self.lf3.place(x=675, y=150, height=600, width=675)
 
         self.protocol("WM_DELETE_WINDOW", self.c_w)
-
-        self.mainloop()
