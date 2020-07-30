@@ -6,6 +6,8 @@ from result import r1
 from attendance import Attedance1
 from fee import fee1
 from staff import NewUser
+from new_student import NewStudent
+
 
 class Main1(Toplevel):
 
@@ -29,7 +31,8 @@ class Main1(Toplevel):
         fee1(self, self.main_root)
 
     def sinfo(self, event=""):
-        pass
+        self.withdraw()
+        NewStudent(self,self.main_root)
 
     def result(self, event=""):
         self.withdraw()

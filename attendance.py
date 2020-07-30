@@ -6,6 +6,7 @@ from tkcalendar import DateEntry
 import json
 from datetime import date, timedelta
 import datetime
+from student_attendance_report import StudentAttendanceReport
 
 
 class Attedance1(Toplevel):
@@ -20,6 +21,10 @@ class Attedance1(Toplevel):
             self.main_root.destroy()
         else:
             return
+
+    def stud_atten_report_method(self):
+        self.withdraw()
+        StudentAttendanceReport(self,self.main_root)
 
     def calselect(self):
         if (self.calcount == 0):
@@ -249,6 +254,9 @@ class Attedance1(Toplevel):
         self.lf3 = LabelFrame(self, text="ATTENDANCE PREVIEW", bd=2, bg="black", fg="white", font=(self.f1, 20),
                               relief=GROOVE)
         self.lf3.place(x=675, y=150, height=600, width=675)
+
+        self.stud_atten_report_btn = Button(self.lf3,text="STUDENT ATTENDANCE REPORT",command=self.stud_atten_report_method)
+        self.stud_atten_report_btn.place(x=337.5,y=300)
 
         self.protocol("WM_DELETE_WINDOW", self.c_w)
         self.mainloop()

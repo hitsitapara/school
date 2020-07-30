@@ -175,6 +175,10 @@ class UpdateUser(Toplevel):
 
     def select_combo_method(self,event=""):
         # form lakhay ne aavse.,';
+        self.lf2 = LabelFrame(self, text="Update User", bd=2, bg="black", fg="white", font=(self.f1, 20),
+                              relief=GROOVE)
+        self.lf2.place(x=0, y=200, height=500, width=1350)
+
         self.firstname = Label(self.lf2, text='firstname', bd=2, bg="black", fg="white", font=(self.f1, 15),
                                relief=GROOVE)
         self.middlename = Label(self.lf2, text='middlename', bd=2, bg="black", fg="white", font=(self.f1, 15),
@@ -240,7 +244,7 @@ class UpdateUser(Toplevel):
         self.lastnamevar.set(self.update_query_tuple[3])
         self.salaryvar.set(self.update_query_tuple[4])
         self.phonenovar.set(self.update_query_tuple[5])
-        self.addressentry.insert(INSERT,self.update_query_tuple[6])
+        self.addressentry.insert(END,self.update_query_tuple[6])
         self.emailvar.set(self.update_query_tuple[7])
 
         if self.update_query_tuple[8] == 'admin':
@@ -252,10 +256,10 @@ class UpdateUser(Toplevel):
         self.passwordvar.set(self.update_query_tuple[10])
 
         self.update_button = Button(self.lf2, text="Update", command=self.update_button_method)
-        self.update_button.place(x=500, y=452)
+        self.update_button.place(x=500, y=432)
 
         self.reset_btn = Button(self.lf2, text="Reset",  command=self.reset)
-        self.reset_btn.place(x=645, y=452)
+        self.reset_btn.place(x=645, y=432)
 
 
     def __init__(self, root, main_root):
@@ -292,19 +296,15 @@ class UpdateUser(Toplevel):
         bb.place(x=10, y=10, height=25)
         ##==================================================frame 2=====================================================
 
-        self.lf2 = LabelFrame(self, text="ATTENDANCE WINDOW", bd=2, bg="black", fg="white", font=(self.f1, 20),
-                              relief=GROOVE)
-        self.lf2.place(x=0, y=150, height=550, width=1350)
-
         query1 = "select empno from staff where currentuser=0;"
         list1 = self.conn.execute(query1).fetchall()
         my_list = []
         for i in list1:
             my_list.append(i)
 
-        self.select_user_combo = ttk.Combobox(self.lf2, values=my_list,height=10)
+        self.select_user_combo = ttk.Combobox(self, values=my_list,height=10)
         self.select_user_combo.bind("<<ComboboxSelected>>",self.select_combo_method)
-        self.select_user_combo.place(x=500, y=10)
+        self.select_user_combo.place(x=750, y=150)
 
         self.protocol("WM_DELETE_WINDOW", self.c_w)
         self.mainloop()
