@@ -34,7 +34,7 @@ class fee1(Toplevel):
             self.rno.sort()
             self.r_ollbox = StringVar()
             self.rollbox = ttk.Combobox(self.lf2, state="readonly", textvariable=self.r_ollbox, font=(self.f1, 10))
-            self.rollbox.place(x=300, y=150, height=25, width=100)
+            self.rollbox.place(x=300, y=150, height=25, width=300)
             self.rollbox['values'] = self.rno
             self.rollbox.set("Select")
             self.rollbox.bind("<<ComboboxSelected>>", self.amountoffee)
@@ -227,7 +227,7 @@ class fee1(Toplevel):
             query = """update master set hisfee=? where standard=? and rollno=?"""
             self.conn.execute(query,(p, self.classbox.get(), self.r[0]))
             self.conn.commit()
-        query = "select * from master where standard={} and rollno={}".format(self.classbox.get(), self.r[0])
+        query = """select * from master where standard="{}" and rollno="{}" """.format(self.classbox.get(), self.r[0])
         self.data = self.conn.execute(query).fetchone()
         pdf = canvas.Canvas("C:\\Fees\\fee_1_{}_{}.pdf".format(self.classbox.get(),self.data[3]))
         pdf.setPageSize((600, 450))
@@ -310,7 +310,7 @@ class fee1(Toplevel):
         b = set(a)
         self.cals = []
         for i in b:
-            self.cals.append(i[0])
+            self.cals.append(str(i[0]))
         self.cals.sort()
 
         self.c_lassbox = StringVar()
@@ -333,5 +333,4 @@ class fee1(Toplevel):
         self.lf3.place(x=675, y=150, height=600, width=675)
 
         self.protocol("WM_DELETE_WINDOW", self.c_w)
-
         self.mainloop()

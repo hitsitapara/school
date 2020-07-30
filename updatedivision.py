@@ -158,6 +158,4 @@ class Updatedivision(Toplevel):
                                       command=self.updatediv)
         self.updatedivbutton.place(x=1000, y=225, height=25)
 
-
         self.protocol("WM_DELETE_WINDOW", self.c_w)
-        self.mainloop()

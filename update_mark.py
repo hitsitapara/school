@@ -202,7 +202,6 @@ class Update_Mark(Toplevel):
         ##===================================================frame 1====================================================
         imagel = Image.open("left-arrow.png")
         imagel = imagel.resize((60, 15))
-
         imgl = ImageTk.PhotoImage(imagel)
 
         self.lf1 = LabelFrame(self, text="NAME", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
@@ -233,8 +232,5 @@ class Update_Mark(Toplevel):
         self.combo_get_exam.set("Select")
         self.combo_get_exam.bind("<<ComboboxSelected>>", self.get_exam_details)
 
-
-
         self.protocol("WM_DELETE_WINDOW", self.c_w)
-
         self.mainloop()

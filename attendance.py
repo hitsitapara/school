@@ -5,6 +5,7 @@ from PIL import Image, ImageTk
 from tkcalendar import DateEntry
 import json
 from datetime import date, timedelta
+import datetime
 
 
 class Attedance1(Toplevel):
@@ -67,6 +68,17 @@ class Attedance1(Toplevel):
             self.cal.focus_set()
             return
 
+        year, month, day = str(self.cal.get_date()).split("-")
+        date_name = datetime.date(int(year), int(month), int(day))
+        day_name = date_name.strftime("%A")
+        try:
+            if day_name == "Sunday":
+                raise ValueError
+        except:
+            m = messagebox.showerror("School Software", "You can not enter Sunday Attendance")
+            self.cal.focus_set()
+            return
+
         try:
             datelimit = date.today() - timedelta(days=7)
             if datelimit > self.cal.get_date():
@@ -82,6 +94,14 @@ class Attedance1(Toplevel):
         except:
             m = messagebox.showerror("School Software", "First select Standard", parent=self)
             self.classbox.focus_set()
+            return
+
+        try:
+            if self.rnobox.curselection() == ():
+                raise ValueError
+        except:
+            m = messagebox.showerror("School Software", "first select roll no  than mark absent", parent= self)
+            self.rnobox.focus_set()
             return
 
         y = self.rnobox.curselection()
@@ -108,6 +128,7 @@ class Attedance1(Toplevel):
                 query1 = """ update master set abday = ? where standard =? and rollno=?"""
                 self.conn.execute(query1, (p, self.classbox.get(), self.rno[item]))
                 self.conn.commit()
+        m = messagebox.showinfo("School Software", "Successfuly enter absent date", parent=self)
         self.frame.destroy()
         self.rolllabel.destroy()
         self.rnobox.destroy()
@@ -141,6 +162,7 @@ class Attedance1(Toplevel):
                 query1 = """ update master set abday = ? where standard =? and rollno=?"""
                 self.conn.execute(query1, (p, self.classbox.get(), self.rno[item]))
                 self.conn.commit()
+        m = messagebox.showinfo("School Software", "Successfuly remove absent date", parent=self)
         self.frame.destroy()
         self.rolllabel.destroy()
         self.rnobox.destroy()
@@ -229,5 +251,4 @@ class Attedance1(Toplevel):
         self.lf3.place(x=675, y=150, height=600, width=675)
 
         self.protocol("WM_DELETE_WINDOW", self.c_w)
-
         self.mainloop()

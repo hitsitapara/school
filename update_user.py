@@ -1,6 +1,5 @@
 from tkinter import *
 from tkinter import ttk, messagebox
-from tkinter.ttk import *
 import sqlite3
 from PIL import Image, ImageTk
 from validate_email import validate_email
@@ -24,12 +23,8 @@ class UpdateUser(Toplevel):
 
     def update_button_method(self):
         #   """" ''' """     form  mathi  data -> database  ma  jase     """ ''' """
-        print(type(self.addressentry.get(1.0, END)))
-        print(self.addressentry.get(1.0, END))
         try:
             a = self.firstnameentry.get().isalpha()
-            print(a)
-
             if a:
                 pass
             else:
@@ -40,7 +35,6 @@ class UpdateUser(Toplevel):
             return
         try:
             a = self.middlenameentry.get().isalpha()
-            print(a)
             if a:
                 pass
             else:
@@ -51,7 +45,6 @@ class UpdateUser(Toplevel):
             return
         try:
             a = self.lastnameentry.get().isalpha()
-            print(a)
             if a:
                 pass
             else:
@@ -127,7 +120,6 @@ class UpdateUser(Toplevel):
         if self.answer>0:
             if(self.update_query_tuple[1]!=self.firstnameentry.get()):
                 update_query1 = "Update staff set fname = '"+self.firstnameentry.get()+"' where empno="+str(self.select_user_combo.get())
-                print(update_query1)
                 self.conn.execute(update_query1)
 
             if (self.update_query_tuple[2]!= self.middlenameentry.get()):
@@ -165,7 +157,7 @@ class UpdateUser(Toplevel):
             self.conn.commit()
             messagebox.showinfo("School Software","Operation Successful")
             self.select_user_combo.set("")
-            self.fr.destroy()
+            self.lf2.destroy()
         else:
             return
 
@@ -183,32 +175,37 @@ class UpdateUser(Toplevel):
 
     def select_combo_method(self,event=""):
         # form lakhay ne aavse.,';
-        self.fr = LabelFrame(self, text="sign-up")
-
-        self.firstname = Label(self.fr, text='firstname')
-        self.middlename = Label(self.fr, text='middlename')
-        self.lastname = Label(self.fr, text='lastname')
-        self.salary = Label(self.fr, text='salary')
-        self.phoneno = Label(self.fr, text='phoneno')
-        self.address = Label(self.fr, text='address')
-        self.email = Label(self.fr, text='email')
-        self.password = Label(self.fr, text='password')
+        self.firstname = Label(self.lf2, text='firstname', bd=2, bg="black", fg="white", font=(self.f1, 15),
+                               relief=GROOVE)
+        self.middlename = Label(self.lf2, text='middlename', bd=2, bg="black", fg="white", font=(self.f1, 15),
+                                relief=GROOVE)
+        self.lastname = Label(self.lf2, text='lastname', bd=2, bg="black", fg="white", font=(self.f1, 15),
+                              relief=GROOVE)
+        self.salary = Label(self.lf2, text='salary', bd=2, bg="black", fg="white", font=(self.f1, 15),
+                            relief=GROOVE)
+        self.phoneno = Label(self.lf2, text='phoneno', bd=2, bg="black", fg="white", font=(self.f1, 15),
+                             relief=GROOVE)
+        self.address = Label(self.lf2, text='address', bd=2, bg="black", fg="white", font=(self.f1, 15),
+                             relief=GROOVE)
+        self.email = Label(self.lf2, text='email', bd=2, bg="black", fg="white", font=(self.f1, 15), relief=GROOVE)
+        self.password = Label(self.lf2, text='password', bd=2, bg="black", fg="white", font=(self.f1, 15),
+                              relief=GROOVE)
 
         self.firstnamevar = StringVar()
-        self.firstnameentry = Entry(self.fr, textvariable=self.firstnamevar)
+        self.firstnameentry = Entry(self.lf2, textvariable=self.firstnamevar, font=(self.f1, 10))
         self.middlenamevar = StringVar()
-        self.middlenameentry = Entry(self.fr, textvariable=self.middlenamevar)
+        self.middlenameentry = Entry(self.lf2, textvariable=self.middlenamevar, font=(self.f1, 10))
         self.lastnamevar = StringVar()
-        self.lastnameentry = Entry(self.fr, textvariable=self.lastnamevar)
+        self.lastnameentry = Entry(self.lf2, textvariable=self.lastnamevar, font=(self.f1, 10))
         self.salaryvar = StringVar()
-        self.salaryentry = Entry(self.fr, textvariable=self.salaryvar)
+        self.salaryentry = Entry(self.lf2, textvariable=self.salaryvar, font=(self.f1, 10))
         self.phonenovar = StringVar()
-        self.phonenoentry = Entry(self.fr, textvariable=self.phonenovar)
+        self.phonenoentry = Entry(self.lf2, textvariable=self.phonenovar, font=(self.f1, 10))
         self.emailvar = StringVar()
-        self.emailentry = Entry(self.fr, textvariable=self.emailvar)
+        self.emailentry = Entry(self.lf2, textvariable=self.emailvar, font=(self.f1, 10))
         self.passwordvar = StringVar()
-        self.passwordentry = Entry(self.fr, textvariable=self.passwordvar,  show="*")
-        self.addressentry = Text(self.fr, width=20, height=3,wrap=WORD)
+        self.passwordentry = Entry(self.lf2, textvariable=self.passwordvar,  show="*", font=(self.f1, 10))
+        self.addressentry = Text(self.lf2, width=20, height=3,wrap=WORD)
 
         self.firstname.place(x=175, y=2)
         self.firstnameentry.place(x=970, y=2)
@@ -229,17 +226,14 @@ class UpdateUser(Toplevel):
 
         rowcounter = "select count(*) from staff;"
         rc = self.conn.execute(rowcounter).fetchone()
-        print("vvp")
-        print(rc[0])
-
         self.adminvar = IntVar()
-        self.admin = Checkbutton(self.fr, text='admin', variable=self.adminvar)
+        self.admin = Checkbutton(self.lf2, text='admin', variable=self.adminvar, bd=2, bg="black", fg="white",
+                                 font=(self.f1, 15), relief=GROOVE)
         self.admin.place(x=175, y=402)
         self.authority_value = "abcd"
 
         self.update_query="select * from staff where empno="+str(self.select_user_combo.get())
         self.update_query_tuple = self.conn.execute(self.update_query).fetchone()
-        print(self.update_query_tuple)
 
         self.firstnamevar.set(self.update_query_tuple[1])
         self.middlenamevar.set(self.update_query_tuple[2])
@@ -257,13 +251,12 @@ class UpdateUser(Toplevel):
             self.adminvar.set(0)
         self.passwordvar.set(self.update_query_tuple[10])
 
-        self.update_button = Button(self.fr, text="Update", command=self.update_button_method)
+        self.update_button = Button(self.lf2, text="Update", command=self.update_button_method)
         self.update_button.place(x=500, y=452)
 
-        self.reset_btn = Button(self.fr, text="Reset",  command=self.reset)
+        self.reset_btn = Button(self.lf2, text="Reset",  command=self.reset)
         self.reset_btn.place(x=645, y=452)
 
-        self.fr.place(x=0, y=200, relwidth=1, relheight=1)
 
     def __init__(self, root, main_root):
         self.main_root = main_root
@@ -282,32 +275,36 @@ class UpdateUser(Toplevel):
         self.bgclr2 = "#e7d95a"
         self.f1 = "Arial Bold"
         self.f2 = "times new roman"
-        self.title("WINDOW10")
+        self.title("Update User")
         self.config(background=self.bgclr1)
         self.geometry("1350x700+0+0")
         self.resizable(False, False)
 
-        imagel = Image.open("left-arrow.png")
-        imagel = imagel.resize((50, 50))
+        ##====================================================frame 1===================================================
 
+        imagel = Image.open("left-arrow.png")
+        imagel = imagel.resize((60, 15))
         imgl = ImageTk.PhotoImage(imagel)
 
-        bb = Button(self, image = imgl, command=self.backf)
-        bb.pack()
+        self.lf1 = LabelFrame(self, text="NAME", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
+        self.lf1.place(x=0, y=0, height=150, width=1350)
+        bb = Button(self.lf1, image=imgl, bd=5, font=(self.f1, 15), command=self.backf)
+        bb.place(x=10, y=10, height=25)
+        ##==================================================frame 2=====================================================
+
+        self.lf2 = LabelFrame(self, text="ATTENDANCE WINDOW", bd=2, bg="black", fg="white", font=(self.f1, 20),
+                              relief=GROOVE)
+        self.lf2.place(x=0, y=150, height=550, width=1350)
 
         query1 = "select empno from staff where currentuser=0;"
         list1 = self.conn.execute(query1).fetchall()
         my_list = []
         for i in list1:
             my_list.append(i)
-        print("school")
-        print(my_list)
 
-        self.select_user_combo = Combobox(self, values=my_list,height=10)
-        # self.select_user.set("select user to update")
+        self.select_user_combo = ttk.Combobox(self.lf2, values=my_list,height=10)
         self.select_user_combo.bind("<<ComboboxSelected>>",self.select_combo_method)
-        self.select_user_combo.pack()
+        self.select_user_combo.place(x=500, y=10)
 
         self.protocol("WM_DELETE_WINDOW", self.c_w)
-
-
+        self.mainloop()
