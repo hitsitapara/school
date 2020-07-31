@@ -505,7 +505,3 @@ class InsertStudent(Toplevel):
         # ====================================================================================================================
         self.protocol("WM_DELETE_WINDOW", self.c_w)
         self.mainloop()
-
-root = Tk()
-InsertStudent(root, root)
-root.mainloop()
