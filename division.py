@@ -172,10 +172,8 @@ class Division(Toplevel):
         b = set(a)
         self.cals = []
         for i in b:
-            if(str(i[0]).isdecimal()):
+            if("-" not in str(i[0])):
                 self.cals.append(i[0])
-
-        self.cals.sort()
 
         self.c_lassbox = StringVar()
         self.classbox = ttk.Combobox(self.lf2, state="readonly", textvariable=self.c_lassbox, font=(self.f1, 10))

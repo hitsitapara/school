@@ -3,7 +3,7 @@ from tkinter import ttk, messagebox
 import sqlite3
 from PIL import Image, ImageTk
 from validate_email import validate_email
-from registration import Registration
+from insert_staff import Registration
 
 class UpdateUser(Toplevel):
 

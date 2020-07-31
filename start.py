@@ -3,7 +3,7 @@ from tkinter import messagebox, ttk
 import sqlite3
 from Main import Main1
 from PIL import Image, ImageTk
-from registration import Registration
+from insert_staff import Registration
 from change_password import ChangePassword
 import os
 

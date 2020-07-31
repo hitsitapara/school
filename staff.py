@@ -1,10 +1,10 @@
 from tkinter import *
 from tkinter import ttk, messagebox
-from remove_user import RemoveUser
+from remove_staff import RemoveUser
 import sqlite3
 from PIL import Image, ImageTk
-from registration import Registration
-from update_user import UpdateUser
+from insert_staff import Registration
+from update_staff import UpdateUser
 from attendancestaff import Attendancestaff
 from staffatreport import Staffatreport
 from salaryofstaff import Salary

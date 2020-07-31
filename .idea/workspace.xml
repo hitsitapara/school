@@ -21,9 +21,30 @@
   <component name="ChangeListManager">
     <list default="true" id="b6fa978f-a5ca-418e-8aaf-ca0ddae5d7a9" name="Default Changelist" comment="gui of student">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insert_student.py" beforeDir="false" afterPath="$PROJECT_DIR$/insert_student.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/50-Beautiful-and-Minimalist-Presentation-Backgrounds-035.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SzsUyC.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/calendar-icon-vector-22895109.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dark-blue-blur-gradation-wallpaper-preview.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/division.py" beforeDir="false" afterPath="$PROJECT_DIR$/division.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/download (2).jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/download (3).jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/download.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/e2ddfa9dbf788ee9120b1d18311d8a47.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/registration.py" beforeDir="false" afterPath="$PROJECT_DIR$/insert_staff.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/remove_user.py" beforeDir="false" afterPath="$PROJECT_DIR$/remove_staff.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/result.py" beforeDir="false" afterPath="$PROJECT_DIR$/new_exam.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/right-arrow.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/sinfo.db" beforeDir="false" afterPath="$PROJECT_DIR$/sinfo.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/staffatreport.py" beforeDir="false" afterPath="$PROJECT_DIR$/staffatreport.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/staff.py" beforeDir="false" afterPath="$PROJECT_DIR$/staff.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/start.py" beforeDir="false" afterPath="$PROJECT_DIR$/start.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/update_user.py" beforeDir="false" afterPath="$PROJECT_DIR$/update_staff.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/updatedivision.py" beforeDir="false" afterPath="$PROJECT_DIR$/updatedivision.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/w6.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/w7.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/w8.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/w9.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -198,9 +219,9 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.start" />
+        <item itemvalue="Python.division" />
         <item itemvalue="Python.insert_student" />
         <item itemvalue="Python.salaryofstaff" />
-        <item itemvalue="Python.division" />
         <item itemvalue="Python.w1" />
       </list>
     </recent_temporary>
@@ -210,7 +231,7 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="2ab67184-dac8-454d-8984-76e6343e26b6" name="Default Changelist" comment="" />
+      <changelist id="b6fa978f-a5ca-418e-8aaf-ca0ddae5d7a9" name="Default Changelist" comment="gui of student" />
       <created>1594269833476</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -440,7 +461,14 @@
       <option name="project" value="LOCAL" />
       <updated>1596176470531</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="gui of student">
+      <created>1596176690163</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1596176690163</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -500,30 +528,34 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="363" y="98" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1366.728@0.0.1366.728" timestamp="1594696952009" />
-    <state x="413" y="109" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1595396867518">
+    <state x="413" y="109" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1596208387498">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="413" y="109" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.728@0.0.1366.728" timestamp="1595396867518" />
+    <state x="413" y="109" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.728@0.0.1366.728" timestamp="1596208387498" />
     <state x="462" y="104" key="FileChooserDialogImpl" timestamp="1594270783279">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="462" y="104" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1594270783279" />
-    <state width="1344" height="174" key="GridCell.Tab.0.bottom" timestamp="1596176641079">
+    <state width="1344" height="199" key="GridCell.Tab.0.bottom" timestamp="1596181530276">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1344" height="174" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1596176641079" />
-    <state width="1344" height="174" key="GridCell.Tab.0.center" timestamp="1596176641079">
+    <state width="1344" height="199" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1596181530276" />
+    <state width="1344" height="199" key="GridCell.Tab.0.center" timestamp="1596181530276">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1344" height="174" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1596176641079" />
-    <state width="1344" height="174" key="GridCell.Tab.0.left" timestamp="1596176641079">
+    <state width="1344" height="199" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1596181530276" />
+    <state width="1344" height="199" key="GridCell.Tab.0.left" timestamp="1596181530276">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1344" height="174" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1596176641079" />
-    <state width="1344" height="174" key="GridCell.Tab.0.right" timestamp="1596176641079">
+    <state width="1344" height="199" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1596181530276" />
+    <state width="1344" height="199" key="GridCell.Tab.0.right" timestamp="1596181530276">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1344" height="174" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1596176641079" />
+    <state width="1344" height="199" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1596181530276" />
+    <state x="0" y="0" key="MergeDialog" timestamp="1596208201030">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="0" y="0" key="MergeDialog/0.0.1366.728@0.0.1366.728" timestamp="1596208201030" />
     <state x="490" y="65" key="RollbackChangesDialog" timestamp="1594697430633">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -532,18 +564,18 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="184" y="0" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1594270369717" />
-    <state x="275" y="95" key="Vcs.Push.Dialog.v2" timestamp="1596176475711">
+    <state x="275" y="95" key="Vcs.Push.Dialog.v2" timestamp="1596176693379">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="275" y="95" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1596176475711" />
+    <state x="275" y="95" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1596176693379" />
     <state x="292" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1595395584351">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="292" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1366.728@0.0.1366.728" timestamp="1595395584351" />
-    <state x="492" y="276" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1595391109576">
+    <state x="492" y="276" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1596208182966">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="492" y="276" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.728@0.0.1366.728" timestamp="1595391109576" />
+    <state x="492" y="276" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.728@0.0.1366.728" timestamp="1596208182966" />
     <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1596172109476">
       <screen x="0" y="0" width="1366" height="728" />
     </state>

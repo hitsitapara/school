@@ -1,7 +1,8 @@
+from tkinter import *
 from tkinter import ttk, messagebox
 import sqlite3
 from PIL import Image, ImageTk
-from tkinter import *
+
 
 class Updatedivision(Toplevel):
 
@@ -122,12 +123,16 @@ class Updatedivision(Toplevel):
         self.rollcounter = 0
 
         ##======================================================frame 1=================================================
+        imagel = Image.open("left-arrow.png")
+        imagel = imagel.resize((60, 15))
+        imgl = ImageTk.PhotoImage(imagel)
 
         self.lf1 = LabelFrame(self, text="NAME", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
         self.lf1.place(x=0, y=0, height=150, width=1350)
 
-        bb = Button(self.lf1, text="BACK", bd=5, font=(self.f1, 20), command=self.backf)
+        bb = Button(self.lf1, image=imgl, bd=5, font=(self.f1, 20), bg="white", command=self.backf)
         bb.place(x=10, y=10)
+
 
         ##====================================================frame 2===================================================
 
@@ -159,3 +164,4 @@ class Updatedivision(Toplevel):
         self.updatedivbutton.place(x=1000, y=225, height=25)
 
         self.protocol("WM_DELETE_WINDOW", self.c_w)
+        self.mainloop()

@@ -2,11 +2,11 @@ from tkinter import *
 from tkinter import messagebox
 import sqlite3
 from PIL import Image, ImageTk
-from result import r1
+from new_exam import r1
 from attendance import Attedance1
 from fee import fee1
 from staff import NewUser
-from new_student import NewStudent
+from student import NewStudent
 
 
 class Main1(Toplevel):
