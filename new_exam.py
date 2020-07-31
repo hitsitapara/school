@@ -334,15 +334,9 @@ class r1(Toplevel):
         self.internal_mark_entry = Entry(self.lf2, textvariable=self.internal_mark_entry_var)
         self.internal_mark_entry.place(x=350, y=370, height=20)
 
-
-        query = "Select standard from master"
+        query = "Select distinct standard from master"
         self.stds = self.conn.execute(query).fetchall()
-        k = []
-        for i in self.stds:
-            k.append(i[0])
-        std = set(k)
-        k = list(std)
-        self.cb3['values'] = k
+        self.cb3['values'] = self.stds
         # self.cb3['values'] = ["L.K.G", "H.K.G", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, "11~Commerce", "12~Commerce",
         #                       "11~Science", "12~Science"]
         self.cb3.set("Select")

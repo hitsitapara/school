@@ -139,10 +139,9 @@ class Percentage(Toplevel):
                     self.conn.commit()
                 query = "select percentage from '{}' order by percentage desc".format(self.subject[-1])
                 self.fetched_percentage = self.conn.execute(query).fetchall()
-                self.set_percentage = set()
-                for i in self.fetched_percentage:
-                    self.set_percentage.add(i[0])
-
+                #====================
+                self.set_percentage = set(percentage)
+                #====================
                 self.collect_data()
                 self.result_pdf()
                 self.report_pdf()
@@ -178,15 +177,11 @@ class Percentage(Toplevel):
         self.all_details_marks = self.conn.execute(query).fetchall()
         query = "select * from master where standard = '{}' order by rollno".format((self.get_std_list[1]))
         self.all_details_student = self.conn.execute(query).fetchall()
-        self.rankers = set()
-        for i in self.all_details_marks:
-            self.rankers.add(i[-1])
-        self.ranks = []
-        for i in self.rankers:
-            self.ranks.append(i)
+        self.ranks = list(self.set_percentage)
         self.ranks.sort()
         self.ranks.reverse()
         self.rank_list = []
+        print(self.rank_list)
         for i in range(1):
             self.rank_list.append(self.ranks[i])
     

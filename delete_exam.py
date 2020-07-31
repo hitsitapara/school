@@ -65,6 +65,7 @@ class Delete_Exam(Toplevel):
         j_data = self.conn.execute(query).fetchone()
         data = json.loads(j_data[0])
         exams = data.keys()
+        print(type(exams))
         k = []
         for i in exams:
             k.append(i)
