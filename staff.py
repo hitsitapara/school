@@ -7,6 +7,7 @@ from registration import Registration
 from update_user import UpdateUser
 from attendancestaff import Attendancestaff
 from staffatreport import Staffatreport
+from salaryofstaff import Salary
 
 
 class NewUser(Toplevel):
@@ -44,6 +45,11 @@ class NewUser(Toplevel):
     def atreport(self,event=""):
         self.withdraw()
         Staffatreport(self, self.main_root)
+
+    def salarygenrate(self, event=""):
+        self.withdraw()
+        Salary(self, self.main_root)
+
 
     def __init__(self, root, main_root):
         self.main_root = main_root
@@ -92,8 +98,10 @@ class NewUser(Toplevel):
         remove_user.place(x=700, y=250, height=30, width=200)
         attendance_staff = Button(self.lf2,text="Attendance", font=(self.f2, 15), command=self.attendance)
         attendance_staff.place(x=1000, y=250, height=30, width=200)
-        staffat_report = Button(self.lf2, text="Attedance Report", font=(self.lf2, 15), command=self.atreport)
-        staffat_report.place(x=500, y=350, height=30, )
+        staffat_report = Button(self.lf2, text="Attedance Report", font=(self.f2, 15), command=self.atreport)
+        staffat_report.place(x=400, y=350, height=30 )
+        staffsalary = Button(self.lf2, text="Salary", font=(self.f2, 15), command=self.salarygenrate)
+        staffsalary.place(x=800, y=350, height=30)
 
         self.protocol("WM_DELETE_WINDOW", self.c_w)
         self.mainloop()

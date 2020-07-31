@@ -1,6 +1,5 @@
 from tkinter import *
 from tkinter import ttk, messagebox
-from tkinter.ttk import *
 import sqlite3
 from PIL import Image, ImageTk
 from insert_student import InsertStudent

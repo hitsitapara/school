@@ -177,7 +177,6 @@ class fee1(Toplevel):
         pdf.save()
         webbrowser.open("C:\\Fees\\fee_1_{}_{}.pdf".format(self.classbox.get(),self.data[3]))
 
-
     def pay(self,event=""):
         try:
             if self.classbox.get == "CLASS":

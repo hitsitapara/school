@@ -3,6 +3,7 @@ from tkinter import messagebox, ttk
 import sqlite3
 from PIL import Image, ImageTk
 from validate_email import validate_email
+from datetime import date
 
 
 class Registration(Toplevel):
@@ -117,8 +118,8 @@ class Registration(Toplevel):
                 self.emailentry.focus_set()
                 return
 
-            self.command = '''insert into staff (fname,mname,lname,salary,phno,address,email,password,authority) values(?,?,?,?,?,?,?,?,?)'''
-            self.conn.execute(self.command, (self.firstnameentry.get(), self.middlenameentry.get(), self.lastnameentry.get(), self.salaryentry.get(),self.phonenoentry.get(), self.addressentry.get(1.0, END), self.emailentry.get(), self.passwordentry.get(),self.authority_value))
+            self.command = '''insert into staff (fname,mname,lname,salary,phno,address,email,password,authority, jiondate) values(?,?,?,?,?,?,?,?,?,?)'''
+            self.conn.execute(self.command, (self.firstnameentry.get(), self.middlenameentry.get(), self.lastnameentry.get(), self.salaryentry.get(),self.phonenoentry.get(), self.addressentry.get(1.0, END), self.emailentry.get(), self.passwordentry.get(),self.authority_value, str(date.today())))
             self.conn.commit()
             self.adminvar.set(0)
             self.admin.config(state='normal')

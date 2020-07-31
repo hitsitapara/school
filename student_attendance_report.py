@@ -1,6 +1,5 @@
 from tkinter import *
 from tkinter import ttk, messagebox
-from tkinter.ttk import *
 import sqlite3
 from PIL import Image, ImageTk
 from tkcalendar import DateEntry
@@ -35,7 +34,7 @@ class StudentAttendanceReport(Toplevel):
             self.rollno.append(i[0])
         self.rollno.sort()
         self.combo_roll_var = StringVar()
-        self.roll_combo = Combobox(self,values=self.rollno, textvariable=self.combo_roll_var ,height=20,state="readonly")
+        self.roll_combo = ttk.Combobox(self,values=self.rollno, textvariable=self.combo_roll_var ,height=20,state="readonly")
         self.roll_combo.place(x=100,y=400)
         self.roll_combo.bind("<<ComboboxSelected>>",self.report_method)
         self.combo_roll_var.set("Select")
@@ -140,7 +139,7 @@ class StudentAttendanceReport(Toplevel):
         for i in b:
             self.student.append(i[0])
         self.combo_std_var = StringVar()
-        self.std_combo = Combobox(self,values=self.student, textvariable =self.combo_std_var , height=10,state="readonly")
+        self.std_combo = ttk.Combobox(self,values=self.student, textvariable =self.combo_std_var , height=10,state="readonly")
         self.std_combo.place(x=100,y=300)
         self.std_combo.bind("<<ComboboxSelected>>",self.std_combo_method)
         self.combo_std_var.set("Select")
