@@ -6,6 +6,9 @@ from tkinter import ttk, messagebox
 from datetime import date
 from tkcalendar import DateEntry
 import json
+from reportlab.pdfgen import canvas
+import webbrowser
+import datetime
 
 class Salary(Toplevel):
 
@@ -39,22 +42,23 @@ class Salary(Toplevel):
         self.cutsalary = []
         self.paysalary = []
         self.totalsalary = []
-        query = """select empno, jiondate, salary, abdate from staff"""
-        a = self.conn.execute(query).fetchall()
-        for item in a:
+        query = """select empno, jiondate, salary, abdate,fname,mname,lname,email,phno,authority from staff"""
+        self.a = self.conn.execute(query).fetchall()
+        self.total_abday = []
+        for item in self.a:
 
-            fromdate = str(self.fromcal.get_date())
-            todate = str(self.tocal.get_date())
+            self.fromdate = str(self.fromcal.get_date())
+            self.todate = str(self.tocal.get_date())
             count= 0
-            if item[1] > fromdate:
-                fromdate = item[1]
+            if item[1] > self.fromdate:
+                self.fromdate = item[1]
             self.daygap = (self.tocal.get_date() - self.fromcal.get_date())
             self.daygap = str(self.daygap).split(' ')
             self.abdate = json.loads(item[3])
             for j in range(len(self.abdate)):
-                if fromdate <= str(self.abdate[j]) and todate >= str(self.abdate[j]):
+                if self.fromdate <= str(self.abdate[j]) and self.todate >= str(self.abdate[j]):
                     count +=1
-
+            self.total_abday.append(count)
             dailysalary = item[2]/30
             self.cutsalary.append(dailysalary*count)
             presentday = int(self.daygap[0])- count
@@ -64,10 +68,62 @@ class Salary(Toplevel):
         print(self.cutsalary)
         print(self.paysalary)
         print(self.totalsalary)
+        self.salary_pdf()
 
 
+    def salary_pdf(self):
+        for i in range(len(self.a)):
+            
+            pdf = canvas.Canvas("C:\\Salary\\salary_{}_{}_to_{}.pdf".format(str(self.a[i][0]) , self.fromdate , self.todate))
+            pdf.setPageSize((600,450))
 
+            pdf.line(10,20,590,20)
+            pdf.line(10,430,590,430)
+            pdf.line(20,10,20,440)
+            pdf.line(580,10,580,440)
+            pdf.line(30,380,570,380)
+            pdf.setFont("Courier-Bold", 20)
+            pdf.drawString(220,410,"School Name")
+            pdf.setFont("Courier-Bold", 10)
+            pdf.drawString(230,370,"-: SALARY SLIP :-")
+            pdf.drawString(220,390,"Email : {}".format(str(self.a[i][7])))
+            pdf.drawString(420,390,"Phone No. : {}".format(str(self.a[i][8])))
+            pdf.setFont("Courier-Bold", 10)
+            pdf.drawString(30,350,"Date :   {}".format(datetime.date.today()))
+            pdf.line(70,345,150,345)
+            pdf.drawString(400,350,"Receipt No :")
+            pdf.line(475,350,520,350)
+            pdf.setFont("Courier-Bold", 13)
 
+            pdf.drawString(30,330,"Employee Name : {} {} {}".format(str(self.a[i][4]), str(self.a[i][5]), str(self.a[i][6]) ) )
+            pdf.drawString(30,315,"Authority : {}".format(str(self.a[i][9])))
+            pdf.drawString(30,300,"Emp. No. : {}".format(str(self.a[i][0])))
+
+            pdf.line(30,280,560,280)
+            pdf.line(30,260,560,260)
+            
+            pdf.drawString(340, 315, "from Date : {}".format(self.fromcal.get_date()))
+            pdf.drawString(340, 300, "To Date   : {}".format(self.tocal.get_date()))
+
+            pdf.line(30,150,560,150)
+            pdf.line(80,280,80,150)
+            pdf.drawString(30,120,"Total Absent Days : {}".format(self.total_abday[i]))
+            pdf.drawString(30,135,"Total Salary : {}".format(round(self.totalsalary[i], 2 )))
+            pdf.drawString(30,105,"Salary Deduction : {}".format(round(self.cutsalary[i], 2 )))
+            pdf.drawString(30,270,"Sr No.")
+            pdf.drawString(160,270,"Details")
+            pdf.drawString(400,270,"Paid Amount")
+            pdf.drawString(50,230,"1")
+            pdf.drawString(160,230,"Salary")
+            pdf.line(300,280,300,150)
+            pdf.drawString(400,230,str( round(self.paysalary[i], 2 ) ) )
+            pdf.drawString(480,50,"Signature")
+            pdf.drawString(478,35,"(Receiver)")
+            pdf.line(470,65,565,65)
+            pdf.save()
+            print("succesfull")
+            webbrowser.open("C:\\Salary\\salary_{}_{}_to_{}.pdf".format(str(self.a[i][0]) , self.fromdate , self.todate))
+            
 
 
     def __init__(self, root, main_root):
