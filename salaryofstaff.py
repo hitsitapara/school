@@ -69,8 +69,52 @@ class Salary(Toplevel):
         print(self.paysalary)
         print(self.totalsalary)
         self.salary_pdf()
+        self.salary_report_admin()
+    
+    def salary_report_admin(self):
+        pdf = canvas.Canvas("C:\\Reports\\salary\\report_{}_to_{}.pdf".format(self.fromdate , self.todate))
+        pdf.setPageSize((600, 900))
+        pdf.drawString(230, 880 , "-: Salary Report :-")
+        pdf.drawString(30, 880, "from Date : {}".format(self.fromcal.get_date()))
+        pdf.drawString(450, 880, "To Date   : {}".format(self.tocal.get_date()))
+        pdf.line(20, 850 , 580 , 850)
+        pdf.line(20, 820 , 580 , 820)
+        pdf.drawString(30, 835, "Sr No.")
+        pdf.drawString(80, 835, "Emp. No.")
+        pdf.drawString(150, 835, "Emp. Name")
+        pdf.drawString(300, 835, "Total Salary")
+        pdf.drawString(400, 835, "Cut Salary")
+        pdf.drawString(500, 835, "Paid Salary")
 
+        sr = 1
+        top = 800
 
+        for i in range(len(self.paysalary)):
+            if top < 30:
+                pdf.showPage()
+                pdf.line(20, 850 , 580 , 850)
+                pdf.line(20, 820 , 580 , 820)
+                pdf.drawString(30, 835, "Sr No.")
+                pdf.drawString(80, 835, "Emp. No.")
+                pdf.drawString(150, 835, "Emp. Name")
+                pdf.drawString(300, 835, "Total Salary")
+                pdf.drawString(400, 835, "Cut Salary")
+                pdf.drawString(500, 835, "Paid Salary")
+                top = 800
+            else:
+                pdf.drawString(40, top, str(sr))
+                pdf.drawString(90, top, str(self.a[i][0]))
+                pdf.drawString(160, top, "{} {}".format(self.a[i][4] , self.a[i][6]))
+                pdf.drawString(510, top, str(round(self.paysalary[i], 2 )))
+                pdf.drawString(410, top, str(round(self.cutsalary[i], 2 )))
+                pdf.drawString(310, top, str(round(self.totalsalary[i], 2 )))
+                top -= 15
+                sr += 1
+
+        pdf.save()
+        print("succesfull")
+        webbrowser.open("C:\\Reports\\salary\\staff_{}_to_{}.pdf".format(self.fromdate , self.todate))
+    
     def salary_pdf(self):
         for i in range(len(self.a)):
             

@@ -116,6 +116,7 @@ class start:
         except:
             messagebox.showerror("School Software", "There is some error in connection of Database")
         try:
+            os.makedirs("C:\\Reports\\Salary")
             os.mkdir("C:\\Salary")
             os.makedirs("C:\\Reports\\Attendence\\Staff")
             os.makedirs("C:\\Reports\\Attendence\\Student")
