@@ -72,7 +72,7 @@ class Salary(Toplevel):
         self.salary_report_admin()
     
     def salary_report_admin(self):
-        pdf = canvas.Canvas("C:\\Reports\\salary\\report_{}_to_{}.pdf".format(self.fromdate , self.todate))
+        pdf = canvas.Canvas("C:\\Reports\\salary\\report_{}_to_{}.pdf".format(self.fromcal.get_date() , self.tocal.get_date()))
         pdf.setPageSize((600, 900))
         pdf.drawString(230, 880 , "-: Salary Report :-")
         pdf.drawString(30, 880, "from Date : {}".format(self.fromcal.get_date()))
@@ -113,12 +113,12 @@ class Salary(Toplevel):
 
         pdf.save()
         print("succesfull")
-        webbrowser.open("C:\\Reports\\salary\\staff_{}_to_{}.pdf".format(self.fromdate , self.todate))
+        webbrowser.open("C:\\Reports\\salary\\staff_{}_to_{}.pdf".format(self.fromcal.get_date() , self.tocal.get_date()))
     
     def salary_pdf(self):
         for i in range(len(self.a)):
             
-            pdf = canvas.Canvas("C:\\Salary\\salary_{}_{}_to_{}.pdf".format(str(self.a[i][0]) , self.fromdate , self.todate))
+            pdf = canvas.Canvas("C:\\Salary\\salary_{}_{}_to_{}.pdf".format(str(self.a[i][0]) , self.fromcal.get_date() , self.tocal.get_date()))
             pdf.setPageSize((600,450))
 
             pdf.line(10,20,590,20)
@@ -166,7 +166,7 @@ class Salary(Toplevel):
             pdf.line(470,65,565,65)
             pdf.save()
             print("succesfull")
-            webbrowser.open("C:\\Salary\\salary_{}_{}_to_{}.pdf".format(str(self.a[i][0]) , self.fromdate , self.todate))
+            webbrowser.open("C:\\Salary\\salary_{}_{}_to_{}.pdf".format(str(self.a[i][0]) , self.fromcal.get_date() , self.tocal.get_date()))
             
 
 

@@ -37,10 +37,7 @@ class Percentage(Toplevel):
         self.roll_from_result = self.conn.execute(query).fetchone()
 
         if self.roll_from_master[0] == self.roll_from_result[0]:
-            query = "select * from '{}' where std = '{}'".format(self.subject[-1], (self.get_std_list[1]))
-            self.fetched_result = self.conn.execute(query).fetchall()
-            self.get_mark = []
-
+           
             query = "select marks from exams"
             fetched_total = self.conn.execute(query).fetchone()
             self.mark = json.loads(fetched_total[0])
@@ -104,7 +101,7 @@ class Percentage(Toplevel):
         side = 50
         for i in range(length_cols):
             for j in range(1, length_rows):
-                pdf.drawString(side, top, str(self.all_details_marks[i][j]))
+                pdf.drawString(side, top, "{}".format(self.all_details_marks[i][j]))
                 side += diff
             top -= 10
             side = 50
@@ -121,24 +118,22 @@ class Percentage(Toplevel):
             get_return_value = self.get_data_for_preview_and_result()
             if get_return_value:
                 percentage = []
-                obtained = []
+                self.obtained = []
                 self.got = 0
                 query = "alter table '{}' add percentage NUMERIC;".format(self.subject[-1])
                 self.conn.execute(query)
                 self.conn.commit()
 
-                for i in self.fetched_result:
+                for i in self.all_details_marks:
                     for j in range(2,len(i)):
                         self.got += i[j]
                     per = float((self.got*100)/self.total_exam_mark)
                     percentage.append(per)
-                    obtained.append(self.got)
+                    self.obtained.append(self.got)
                     query = "update '{}' set percentage={} where rollno = {}".format(self.subject[-1], per, i[1])
                     self.conn.execute(query)
                     self.got = 0
                     self.conn.commit()
-                query = "select percentage from '{}' order by percentage desc".format(self.subject[-1])
-                self.fetched_percentage = self.conn.execute(query).fetchall()
                 #====================
                 self.set_percentage = set(percentage)
                 #====================
@@ -175,15 +170,15 @@ class Percentage(Toplevel):
     def collect_data(self):
         query = "select * from '{}' order by rollno".format(self.subject[-1])
         self.all_details_marks = self.conn.execute(query).fetchall()
-        query = "select * from master where standard = '{}' order by rollno".format((self.get_std_list[1]))
+        query = "select grno,rollno,standard,fname,mname,lname from master where standard = '{}' order by rollno".format((self.get_std_list[1]))
         self.all_details_student = self.conn.execute(query).fetchall()
         self.ranks = list(self.set_percentage)
         self.ranks.sort()
         self.ranks.reverse()
         self.rank_list = []
-        print(self.rank_list)
         for i in range(1):
-            self.rank_list.append(self.ranks[i])
+            self.rank_list.append(round(self.ranks[i], 2))
+        print(self.rank_list)
     
     def combo_maintain(self):
         query = "select data from exams"
@@ -230,16 +225,16 @@ class Percentage(Toplevel):
         side = 50
         for i in range(length_cols):
             for j in range(1, length_rows):
-                pdf.drawString(side, top, str(self.all_details_marks[i][j]))
+                pdf.drawString(side, top, "{}".format(self.all_details_marks[i][j]))
                 side += diff
             top -= 10
             side = 50
         pdf.save()
     
     def result_pdf(self):
-        for i in self.all_details_student:
+        for i in range(len(self.all_details_marks)):
 
-            pdf = canvas.Canvas("C:\\Results\\{}\\result_{}_{}.pdf".format(self.cb1.get(),i[2],i[1]))
+            pdf = canvas.Canvas("C:\\Results\\{}\\result_{}_{}.pdf".format(self.cb1.get(),self.all_details_student[i][2],self.all_details_student[i][1]))
             pdf.setFillColor('#F9F280')
             pdf.setPageSize((600, 900))
             pdf.rect(0, 0, 600, 900, fill=1)
@@ -306,10 +301,10 @@ class Percentage(Toplevel):
 
             #==================================================
 
-            pdf.drawString(60, 680, "Student Name : {} {} {}".format( str(i[4]), str(i[5]), str(i[6]) ))
-            pdf.drawString(60, 665, "Standard : {}".format(str(i[2])))
-            pdf.drawString(60, 650, "Gr. No. : {}".format(str(i[0])))
-            pdf.drawString(60, 635, "Roll No. : {}".format(str(i[1])))
+            pdf.drawString(60, 680, "Student Name : {} {} {}".format( self.all_details_student[i][3], self.all_details_student[i][4], self.all_details_student[i][5] ))
+            pdf.drawString(60, 665, "Standard : {}".format(self.all_details_student[i][2]))
+            pdf.drawString(60, 650, "Gr. No. : {}".format(self.all_details_student[i][0]))
+            pdf.drawString(60, 635, "Roll No. : {}".format(self.all_details_student[i][1]))
 
             result = True
             #=========Fetching Marks==================================
@@ -338,52 +333,47 @@ class Percentage(Toplevel):
                     x += int(self.mark_list[j])
                     subject_total.append(x)
                     x=0
-
-            query = "select * from '{}' where rollno = {}".format(self.subject[-1], i[1])
-            mark_detail = self.conn.execute(query).fetchone()
-
+            
             # this is mark calculation counter for obtained
             x = 0
             subject_obtained = []
             top_e_m = 500
             top_i_m = 500
-            for j in range(2,len(mark_detail)-1):
+            for j in range(2,len(self.all_details_marks[i])-1):
                 if j%2 == 0:
-                    pdf.drawString(343, top_e_m, str(mark_detail[j]))
+                    pdf.drawString(343, top_e_m, str(self.all_details_marks[i][j]))
                     top_e_m -= 25
-                    x += int(mark_detail[j])
-                    if float(mark_detail[j]) < float((int(self.mark_list[j-2])*33)/100):
+                    x += int(self.all_details_marks[i][j])
+                    if float(self.all_details_marks[i][j]) < float((int(self.mark_list[j-2])*33)/100):
                         result = False
                 else:
-                    pdf.drawString(443, top_i_m, str(mark_detail[j]))
+                    pdf.drawString(443, top_i_m, str(self.all_details_marks[i][j]))
                     top_i_m -= 25
-                    x += int(mark_detail[j])
+                    x += int(self.all_details_marks[i][j])
                     subject_obtained.append(x)
                     x = 0
 
-                    if float(mark_detail[j]) < float((int(self.mark_list[j-2])*33)/100):
+                    if float(self.all_details_marks[i][j]) < float((int(self.mark_list[j-2])*33)/100):
                         result = False
             top = 500
+
             for j in range(len(subject_obtained)):
                 pdf.drawString(490, top, str(subject_total[j]))
                 pdf.drawString(540, top, str(subject_obtained[j]))
                 top -= 25
 
-            sum = 0
-            for j in range(len(subject_obtained)):
-                sum += subject_obtained[j]
+            
 
-            pdf.drawString(60, 125, "TOTAL : {}  / {}".format(sum, self.total_exam_mark))
-            query = "select percentage from '{}' where rollno = {}".format(self.subject[-1], i[1])
-            per = self.conn.execute(query).fetchone()
-            pdf.drawString(60, 155, "Percentage : {}".format(round(float(per[0]),2)))
+            pdf.drawString(60, 125, "TOTAL : {}  / {}".format(self.obtained[i], self.total_exam_mark))
+            pdf.drawString(60, 155, "Percentage : {}".format(round(float(self.all_details_marks[i][-1]),2)))
             if result:
                 pdf.drawString(450, 155, "Result : PASS")
             else:
                 pdf.drawString(450, 155, "Result : FAIL")
 
             try:
-                rank = self.rank_list.index(per[0])
+                print(round(self.all_details_marks[i][-1]))
+                rank = self.rank_list.index(round(self.all_details_marks[i][-1]))
                 pdf.drawString(60, 140, "Rank : {}".format(str(rank + 1)))
 
             except:
