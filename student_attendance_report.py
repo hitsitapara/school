@@ -70,21 +70,30 @@ class StudentAttendanceReport(Toplevel):
         pdf.drawString(30,765,"Gr No : {}".format(self.data[1]))
         pdf.drawString(30,740,"From Date : {}".format(self.from_cal.get_date()))
         pdf.drawString(30,715,"To Date : {}".format(self.to_cal.get_date()))
-        pdf.drawString(40, 670, "Sr No.")
-        pdf.drawString(300, 670, "Absent Dates")
-        top = 630
+        pdf.line(35, 670, 550 , 670)
+        pdf.drawString(40, 655, "Sr No.")
+        pdf.drawString(300, 655, "Absent Dates")
+        pdf.line(35, 650, 550 , 650)
+        pdf.line(120, 670, 120 , 30)
+        top = 620
         sr = 1
 
         if not self.returned_none:
             for i in self.abday_list:
                 if top<30:
                     pdf.showPage()
-                    top = 800
-                else:
-                    pdf.drawString(50, top, str(sr))
-                    pdf.drawString(320, top, str(i))
-                    top -= 15
-                    sr += 1
+                    top = 830
+                    pdf.setFont("Courier-Bold", 15)
+                    pdf.drawString(40, 855, "Sr No.")
+                    pdf.drawString(300, 855, "Absent Dates")
+                    pdf.line(35, 870, 550 , 870)
+                    pdf.line(35, 850, 550 , 850)
+                    pdf.line(120, 870, 120 , 30)
+                pdf.drawString(50, top, str(sr))
+                pdf.drawString(320, top, str(i))
+                
+                top -= 750
+                sr += 1
         else:
             pdf.drawString(50, 500, "There is No Absent Days Recorded for This Student !")
 

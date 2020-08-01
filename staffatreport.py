@@ -109,28 +109,32 @@ class Staffatreport(Toplevel):
         pdf.drawString(300, 815, "Absent Dates")
         pdf.drawString(30, 860, "From Date : {}".format(self.fromcal.get_date()))
         pdf.drawString(350, 860, "To Date : {}".format(self.tocal.get_date()))
-
         pdf.line(30, 800, 580, 800)
+        pdf.line(30, 830, 580, 830)
         top = 760
         line = False
         total_length = len(self.abdate_all)
         for i in range(total_length):
             x = len(self.abdate_all[i])
             for j in range(x):
+                if top < 30:
+                    pdf.showPage()
+                    top = 830
+                    pdf.setFont("Courier-Bold", 15)
+                    pdf.drawString(30, 865, "Emp. no ")
+                    pdf.drawString(300, 865, "Absent Dates")
+                    pdf.line(30, 880, 580, 880)
+                    pdf.line(30, 860, 580, 860)
                 if j == 0:
                     emp = "{}-{}".format(self.staffinfo[i][0], self.staffinfo[i][1])
                     pdf.drawString(50, top, emp)
                 if str(self.fromcal.get_date()) <= str(self.abdate_all[i][j]) and str(self.tocal.get_date()) >= str(self.abdate_all[i][j]):
                     line = True
-                    if top<30:
-                        pdf.showPage()
-                        top = 850
-                    else:
-                        pdf.drawString(320, top, str(self.abdate_all[i][j]))
-                        top -= 15
+                    pdf.drawString(320, top, str(self.abdate_all[i][j]))
+                    top -= 200
             if line:
-                pdf.line(50,top , 560 ,top)
-                top -= 15
+                pdf.line(50, top , 560 ,top)
+                top -= 200
 
         print("Successful")
         pdf.save()

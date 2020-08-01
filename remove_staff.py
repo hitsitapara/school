@@ -2,7 +2,8 @@ from tkinter import *
 from tkinter import ttk, messagebox
 import sqlite3
 from PIL import Image, ImageTk
-
+from reportlab.pdfgen import canvas
+import webbrowser
 
 class RemoveUser(Toplevel):
 
@@ -20,10 +21,37 @@ class RemoveUser(Toplevel):
         else:
             return
 
+    def lc_pdf(self):
+        pdf = canvas.Canvas("C:\\Reports\\LC\\report_{}.pdf".format(self.remove_user_combo.get()))
+        pdf.setPageSize((900,600))
+        pdf.rect(10,10,880,580)
+        pdf.setFont("Courier-Bold", 20)
+        logo = 'logo.jpg'
+        pdf.drawInlineImage(logo, 400, 430)
+
+        pdf.drawString(100, 350, "This is to Cerify that  ")
+        pdf.line(380,350,800,350)
+        pdf.drawString(50, 330, "has worked with")
+        pdf.line(250,330,800,330)
+        pdf.drawString(50, 310, "in the capacity of Lecturer of Maths from")
+        pdf.line(550,310,800,310)
+        pdf.drawString(50, 290, "as a full time employee.")
+        pdf.drawString(100, 250, "He is Valuable Member of management of (School). He always ")
+        pdf.drawString(50, 230, "Performed his duties with full zeal & commitment. His Extra ")
+        pdf.drawString(50, 210, "efforts were always appreciated by his directors. He has all")
+        pdf.drawString(50, 190, "the capabilities of working under stress & critical situations.")
+        pdf.drawString(100, 150, "We wish him best of luck & we strongly recommended him")
+        pdf.drawString(50, 130, "for any suitable post.")
+        pdf.line(700,65,870,65)
+        pdf.drawString(730, 45, "Signature")
+        pdf.drawString(720, 30, "(Principal)")
+        pdf.save()
+
     def remove_button_method(self):
         answer = messagebox.askyesno("School Software","Are you sure to want to remove this user")
 
         if answer>0:
+            self.lc_pdf()
             query="delete from staff where empno=" + str(self.remove_user_combo.get())
             self.conn.execute(query)
             self.conn.commit()

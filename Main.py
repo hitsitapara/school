@@ -7,7 +7,7 @@ from attendance import Attedance1
 from fee import fee1
 from staff import NewUser
 from student import NewStudent
-
+from reports import Reports
 
 class Main1(Toplevel):
 
@@ -39,7 +39,8 @@ class Main1(Toplevel):
         r1(self, self.main_root)
 
     def im(self, event=""):
-        pass
+        self.withdraw()
+        Reports(self, self.main_root)
 
     def stinfo(self, event=""):
         query = "select authority from staff where currentuser=1;"

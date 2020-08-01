@@ -84,11 +84,12 @@ class Percentage(Toplevel):
         pdf.drawString(430, 870, "Date : {}".format(heading[2]))
 
         side = 40
-        top = 780
+        
         pdf.setFont("Courier-Bold", 12)
         head_side = 30
         pdf.drawString(head_side, 820, "Roll")
         head_side += diff
+        pdf.line(10, 835, 590 , 835)
         for i in range(len(self.subject) - 1):
             if i % 2 == 0:
                 pdf.drawString(head_side, 825, self.subject[i])
@@ -99,11 +100,16 @@ class Percentage(Toplevel):
             head_side += diff
         pdf.setFont("Courier-Bold", 12)
         side = 50
+        top = 780
         for i in range(length_cols):
+            if top < 30:
+                pdf.showPage()
+                top = 850
+                side = 50
             for j in range(1, length_rows):
                 pdf.drawString(side, top, "{}".format(self.all_details_marks[i][j]))
                 side += diff
-            top -= 10
+            top -= 700
             side = 50
 
         pdf.save()
@@ -194,6 +200,7 @@ class Percentage(Toplevel):
         pdf = canvas.Canvas("C:\\Reports\\Exams\\{}.pdf".format(self.cb1.get()))
         pdf.setPageSize((600, 930))
         pdf.line(10, 800, 590, 800)
+        pdf.line(10, 835, 590 , 835)
 
         length_cols = len(self.all_details_marks)
         length_rows = len(self.all_details_marks[0])
@@ -207,11 +214,12 @@ class Percentage(Toplevel):
         pdf.drawString(430, 870, "Date : {}".format(heading[2]))
 
         side = 40
-        top = 780
+        
         pdf.setFont("Courier-Bold", 12)
         head_side = 30
         pdf.drawString(head_side,820,"Roll")
         head_side += diff
+        pdf.setFont("Courier-Bold", 10)
         for i in range(len(self.subject)-1):
             if i%2 ==0:
                 pdf.drawString(head_side,825,self.subject[i])
@@ -223,11 +231,17 @@ class Percentage(Toplevel):
         pdf.drawString(head_side, 825, "Percentage")
         pdf.setFont("Courier-Bold", 12)
         side = 50
+        top = 780
         for i in range(length_cols):
+            if top < 30:
+                pdf.showPage()
+                top = 850
+                side = 50
+
             for j in range(1, length_rows):
                 pdf.drawString(side, top, "{}".format(self.all_details_marks[i][j]))
                 side += diff
-            top -= 10
+            top -= 700
             side = 50
         pdf.save()
     
