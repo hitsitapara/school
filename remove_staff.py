@@ -5,6 +5,7 @@ from PIL import Image, ImageTk
 from reportlab.pdfgen import canvas
 import webbrowser
 
+
 class RemoveUser(Toplevel):
 
     def backf(self, event=""):
@@ -22,6 +23,8 @@ class RemoveUser(Toplevel):
             return
 
     def lc_pdf(self):
+        query = "select * from staff where empno={}".format(self.remove_user_combo.get())
+        user_data = self.conn.execute(query).fetchone()
         pdf = canvas.Canvas("C:\\Reports\\LC\\report_{}.pdf".format(self.remove_user_combo.get()))
         pdf.setPageSize((900,600))
         pdf.rect(10,10,880,580)
@@ -31,6 +34,7 @@ class RemoveUser(Toplevel):
 
         pdf.drawString(100, 350, "This is to Cerify that  ")
         pdf.line(380,350,800,350)
+        pdf.drawString(385,350,"Mr./Mrs./Miss  {} {} {}".format(user_data[1], user_data[2], user_data[3]))
         pdf.drawString(50, 330, "has worked with")
         pdf.line(250,330,800,330)
         pdf.drawString(50, 310, "in the capacity of Lecturer of Maths from")
@@ -105,23 +109,13 @@ class RemoveUser(Toplevel):
         self.phoneno.place(x=175, y=402)
         self.phonenoentry.place(x=970, y=402)
 
-        queryfname = "select fname from staff where empno=" + str(self.remove_user_combo.get())
-        querymname = "select mname from staff where empno=" + str(self.remove_user_combo.get())
-        querylname = "select lname from staff where empno=" + str(self.remove_user_combo.get())
-        querysalary = "select salary from staff where empno=" + str(self.remove_user_combo.get())
-        queryphno = "select phno from staff where empno=" + str(self.remove_user_combo.get())
+        query = "select * from staff where empno= " + str(self.remove_user_combo.get())
 
-        fname = self.conn.execute(queryfname).fetchone()
-        mname = self.conn.execute(querymname).fetchone()
-        lname = self.conn.execute(querylname).fetchone()
-        salary = self.conn.execute(querysalary).fetchone()
-        phno = self.conn.execute(queryphno).fetchone()
-
-        self.firstnamevar.set(fname[0])
-        self.middlenamevar.set(mname[0])
-        self.lastnamevar.set(lname[0])
-        self.salaryvar.set(salary[0])
-        self.phonenovar.set(phno[0])
+        self.firstnamevar.set(query[1])
+        self.middlenamevar.set(query[2])
+        self.lastnamevar.set(query[3])
+        self.salaryvar.set(query[4])
+        self.phonenovar.set(query[5])
 
         self.firstnameentry.config(state="disabled")
         self.middlenameentry.config(state="disabled")
