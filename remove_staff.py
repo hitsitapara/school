@@ -3,7 +3,7 @@ from tkinter import ttk, messagebox
 import sqlite3
 from PIL import Image, ImageTk
 from reportlab.pdfgen import canvas
-import webbrowser
+from datetime import date, timedelta
 
 
 class RemoveUser(Toplevel):
@@ -25,6 +25,7 @@ class RemoveUser(Toplevel):
     def lc_pdf(self):
         query = "select * from staff where empno={}".format(self.remove_user_combo.get())
         user_data = self.conn.execute(query).fetchone()
+        subject_list = user_data[8].split("-")
         pdf = canvas.Canvas("C:\\Reports\\LC\\report_{}.pdf".format(self.remove_user_combo.get()))
         pdf.setPageSize((900,600))
         pdf.rect(10,10,880,580)
@@ -37,9 +38,12 @@ class RemoveUser(Toplevel):
         pdf.drawString(385,350,"Mr./Mrs./Miss  {} {} {}".format(user_data[1], user_data[2], user_data[3]))
         pdf.drawString(50, 330, "has worked with")
         pdf.line(250,330,800,330)
-        pdf.drawString(50, 310, "in the capacity of Lecturer of Maths from")
-        pdf.line(550,310,800,310)
-        pdf.drawString(50, 290, "as a full time employee.")
+        pdf.line(411,310,741,310)
+        pdf.drawString(50, 310, "in the capacity of Lecturer of  {}".format(subject_list[1]))
+        pdf.drawString(745, 310, "from")
+        pdf.line(50,290,300,290)
+        pdf.drawString(117, 290, "{}".format(user_data[12]))
+        pdf.drawString(310, 290, "as a full time employee.")
         pdf.drawString(100, 250, "He is Valuable Member of management of (School). He always ")
         pdf.drawString(50, 230, "Performed his duties with full zeal & commitment. His Extra ")
         pdf.drawString(50, 210, "efforts were always appreciated by his directors. He has all")
@@ -49,6 +53,9 @@ class RemoveUser(Toplevel):
         pdf.line(700,65,870,65)
         pdf.drawString(730, 45, "Signature")
         pdf.drawString(720, 30, "(Principal)")
+        pdf.line(20,65,176,65)
+        pdf.drawString(40, 65, "{}".format(date.today()))
+        pdf.drawString(75, 45, "Date")
         pdf.save()
 
     def remove_button_method(self):
@@ -59,7 +66,7 @@ class RemoveUser(Toplevel):
             query="delete from staff where empno=" + str(self.remove_user_combo.get())
             self.conn.execute(query)
             self.conn.commit()
-            self.remove_user_combo.set("")
+            self.remove_user_combo.set("SELECT EMPNO")
             self.firstname.destroy()
             self.middlename.destroy()
             self.lastname.destroy()
@@ -110,12 +117,13 @@ class RemoveUser(Toplevel):
         self.phonenoentry.place(x=970, y=402)
 
         query = "select * from staff where empno= " + str(self.remove_user_combo.get())
+        staffinfo = self.conn.execute(query).fetchone()
 
-        self.firstnamevar.set(query[1])
-        self.middlenamevar.set(query[2])
-        self.lastnamevar.set(query[3])
-        self.salaryvar.set(query[4])
-        self.phonenovar.set(query[5])
+        self.firstnamevar.set(staffinfo[1])
+        self.middlenamevar.set(staffinfo[2])
+        self.lastnamevar.set(staffinfo[3])
+        self.salaryvar.set(staffinfo[4])
+        self.phonenovar.set(staffinfo[5])
 
         self.firstnameentry.config(state="disabled")
         self.middlenameentry.config(state="disabled")
@@ -166,8 +174,9 @@ class RemoveUser(Toplevel):
         my_list = []
         for i in list1:
             my_list.append(i)
-        self.remove_user_combo = ttk.Combobox(self.lf2, values=my_list, height=10)
+        self.remove_user_combo = ttk.Combobox(self.lf2, values=my_list, height=10,state="read only")
         self.remove_user_combo.bind("<<ComboboxSelected>>", self.remove_combo_method)
+        self.remove_user_combo.set("SELECT EMPNO")
         self.remove_user_combo.pack()
 
         self.protocol("WM_DELETE_WINDOW", self.c_w)

@@ -3,7 +3,8 @@ from tkinter import messagebox, ttk
 import sqlite3
 from PIL import Image, ImageTk
 from validate_email import validate_email
-from datetime import date
+from datetime import date, timedelta
+from tkcalendar import DateEntry
 
 
 class Registration(Toplevel):
@@ -64,11 +65,25 @@ class Registration(Toplevel):
                 self.lastnamevar.set("")
                 return
             try:
-                if (self.firstnameentry.get() == "" or self.middlenameentry.get() == "" or self.lastnameentry.get() == "" or self.salaryentry.get() == "" or self.phonenoentry.get() == "" or self.addressentry.get(1.0, END) == "\n" or self.emailentry.get() == "" or self.passwordentry.get() == ""):
+                if (self.firstnameentry.get() == "" or self.middlenameentry.get() == "" or self.lastnameentry.get() == "" or self.salaryentry.get() == "" or self.phonenoentry.get() == "" or self.addressentry.get(1.0, END) == "\n" or self.emailentry.get() == "" or self.passwordentry.get() == "" or self.subjectentry.get() == "" or self.castentry.get() == ""):
                     raise AttributeError
             except:
                 messagebox.showerror("School Software","Any Entry Field Can't Be Empty")
                 return
+
+            try:
+                subject = self.subjectentry.get().split(",")
+                for i in range(0,len(subject)):
+                    if not subject[i].isalpha():
+                        messagebox.showerror("School Software", "Subject Entry must be numeric")
+                        self.subjectentry.focus_set()
+                        return
+
+            except:
+                if not self.subjectentry.get().isalpha():
+                    messagebox.showerror("School Software", "Subject Entry must be numeric")
+                    self.subjectentry.focus_set()
+                    return
 
             try:
                 self.sal = int(self.salaryentry.get())
@@ -114,12 +129,30 @@ class Registration(Toplevel):
 
             valid = validate_email(self.emailentry.get())
             if not valid:
-                m = messagebox.showerror("School Software","email id must bre valid")
+                m = messagebox.showerror("School Software","email id must be valid")
                 self.emailentry.focus_set()
                 return
 
+            try:
+                if self.dobentry.get_date() >= date.today():
+                    raise ValueError
+            except:
+                messagebox.showerror("School Software", "Invalid date of birth!!")
+
+            try:
+                if(self.categoryentry.get() == "SELECT CATEGORY"):
+                    raise ValueError
+            except:
+                messagebox.showerror("School Software","Please Select Category")
+
+            try:
+                if(self.bloodgroupentry.get() == "SELECT BLOOD-GROUP"):
+                    raise ValueError
+            except:
+                messagebox.showerror("School Software","Please Select Blood-group")
+
             self.command = '''insert into staff (fname,mname,lname,salary,phno,address,email,password,authority, jiondate,date_of_birth,category,blood_group,cast) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)'''
-            self.conn.execute(self.command, (self.firstnameentry.get(), self.middlenameentry.get(), self.lastnameentry.get(), self.salaryentry.get(),self.phonenoentry.get(), self.addressentry.get(1.0, END), self.emailentry.get(), self.passwordentry.get(),self.authority_value, str(date.today()), self.dobentry.get(), self.categoryentry.get(), self.bloodgroupentry.get(), self.castentry.get()))
+            self.conn.execute(self.command, (self.firstnameentry.get(), self.middlenameentry.get(), self.lastnameentry.get(), self.salaryentry.get(),self.phonenoentry.get(), self.addressentry.get(1.0, END), self.emailentry.get(), self.passwordentry.get(),self.authority_value+'-'+self.subjectentry.get(), str(date.today()), self.dobentry.get(), self.categoryentry.get(), self.bloodgroupentry.get(), self.castentry.get()))
             self.conn.commit()
             self.adminvar.set(0)
             self.admin.config(state='normal')
@@ -154,6 +187,12 @@ class Registration(Toplevel):
         self.emailvar.set("")
         self.passwordvar.set("")
         self.addressentry.delete(1.0,END)
+        self.dobvar.set("")
+        self.categoryvar.set("")
+        self.bloodgroupvar.set("")
+        self.castvar.set("")
+        self.subjectvar.set("")
+        self.dobvar.set(date.today())
 
     def __init__(self, root, main_root):
 
@@ -216,6 +255,7 @@ class Registration(Toplevel):
         self.category = Label(self.lf2,text="Category",bd=2, bg="black", fg="white", font=(self.f1, 15), relief=GROOVE)
         self.bloodgroup = Label(self.lf2,text="Blood-group",bd=2, bg="black", fg="white", font=(self.f1, 15), relief=GROOVE)
         self.cast = Label(self.lf2,text="Cast",bd=2, bg="black", fg="white", font=(self.f1, 15), relief=GROOVE)
+        self.subject = Label(self.lf2,text="Subjects/Post",bd=2, bg="black", fg="white", font=(self.f1, 15), relief=GROOVE)
 
         self.firstnamevar = StringVar()
         self.firstnameentry = Entry(self.lf2,textvariable = self.firstnamevar,font=50)
@@ -233,13 +273,17 @@ class Registration(Toplevel):
         self.passwordentry = Entry(self.lf2, textvariable=self.passwordvar, font=50, show="*")
         self.addressentry = Text(self.lf2,width=20, height=3, font=50)
         self.dobvar = StringVar()
-        self.dobentry = Entry(self.lf2,textvariable=self.dobvar,font=50)
+        self.dobentry = DateEntry(self.lf2, width=12, background='darkblue', date_pattern='dd/mm/yyyy',foreground='white', borderwidth=2, state="readonly")
         self.categoryvar = StringVar()
-        self.categoryentry = Entry(self.lf2, textvariable=self.categoryvar, font=50)
-        self.bgvar = StringVar()
-        self.bloodgroupentry = Entry(self.lf2, textvariable=self.bgvar, font=50)
+        self.categoryentry = ttk.Combobox(self.lf2, values=['GENERAL', 'SC', 'ST', 'OBC'], state="readonly", textvariable=self.categoryvar, font=(self.f1, 10))
+        self.categoryvar.set("SELECT CATEGORY")
+        self.bloodgroupvar = StringVar()
+        self.bloodgroupentry = ttk.Combobox(self.lf2, values=['o+', 'o-', 'b+', 'b-', 'ab+', 'ab-'], state="readonly", textvariable=self.bloodgroupvar, font=(self.f1, 10))
+        self.bloodgroupvar.set("SELECT BLOOD-GROUP")
         self.castvar = StringVar()
         self.castentry = Entry(self.lf2, textvariable=self.castvar, font=50)
+        self.subjectvar = StringVar()
+        self.subjectentry = Entry(self.lf2, textvariable=self.subjectvar, font=50)
 
         self.firstname.place(x=87.5,y=2)
         self.firstnameentry.place(x=359.37,y=2)
@@ -265,6 +309,11 @@ class Registration(Toplevel):
         self.bloodgroupentry.place(x=903.125,y=102)
         self.cast.place(x=631.25,y=152)
         self.castentry.place(x=903.125,y=152)
+        self.subject.place(x=631.25,y=202)
+        self.subjectentry.place(x=903.125,y=202)
+        self.guide = Label(self.lf2,text="(if multiple seperate it with ',' \n for ex:maths,science)",font=(self.f1,7))
+        self.guide.place(x=903.125,y=230)
+        self.guide.config(state='disabled')
 
         self.adminvar = IntVar()
         self.admin = Checkbutton(self.lf2, text='admin',variable=self.adminvar)

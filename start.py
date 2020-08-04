@@ -7,6 +7,7 @@ from insert_staff import Registration
 from change_password import ChangePassword
 import os
 
+
 class start:
 
     def c_w(self, event=""):
@@ -28,6 +29,7 @@ class start:
         self.tuple2 = self.conn.execute(self.query2).fetchone()
         self.query3 = "select authority from staff where empno="+str(self.usernameentry.get())
         self. tuple3 = self.conn.execute(self.query3).fetchone()
+        authority = self.tuple3[0].split("-")
         user = self.usernameentry.get()
         for i in self.list1:
 
@@ -37,8 +39,7 @@ class start:
                     c = 2
                     if self.adminvar.get() == 1:
                         c = 3
-                        if str(self.tuple3[0]) == "admin":
-                            messagebox.showinfo("School Software", "Permission granted,you are allow to use app as admin")
+                        if str(authority[0]) == "admin":
                             query4 = "update staff set currentuser = 0"
                             self.conn.execute(query4)
                             query5 = "update staff set currentuser = 1 where empno=" + str(self.usernameentry.get())
@@ -55,7 +56,6 @@ class start:
                             return
                     else:
                         c = 3
-                        messagebox.showinfo("School Software", "User authenticated,you are allow to use app")
                         query4 = "update staff set currentuser = 0"
                         self.conn.execute(query4)
                         query5 = "update staff set currentuser = 1 where empno="+str(self.usernameentry.get())
