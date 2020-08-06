@@ -126,7 +126,7 @@ class start:
             os.mkdir("C:\\Fees")
         except:
             pass
-        rowcounter = "select count(*) from staff;"
+        rowcounter = "select count(*) from staff"
         rc = self.conn.execute(rowcounter).fetchone()
         if rc[0] == 0:
             self.root.withdraw()

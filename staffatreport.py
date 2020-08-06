@@ -64,10 +64,17 @@ class Staffatreport(Toplevel):
             self.fromcal.focus_set()
             return
         try:
+            if self.fromcal.get_date() > date.today():
+                raise ValueError
+        except:
+            m = messagebox.showerror("School Software","You can not genrate feature report", parent=self)
+            self.fromcal.focus_set()
+            return
+        try:
             if self.tocal.get_date() > date.today():
                 raise ValueError
         except:
-            m = messagebox.showerror("School Software","You can not gerate feture report", parent=self)
+            m = messagebox.showerror("School Software","You can not genrate feature report", parent=self)
             self.tocal.focus_set()
             return
         try:
