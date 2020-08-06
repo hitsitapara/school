@@ -62,14 +62,14 @@ class Salary(Toplevel):
             for j in range(len(self.abdate)):
                 year, month, day = self.abdate[j].split('-')
                 abdate = datetime.date(int(year), int(month), int(day))
-                if self.fromdate <= abdate and self.todate > abdate:
+                if self.fromdate <= abdate and self.todate >= abdate:
                     count += 1
             self.total_abday.append(count)
             dailysalary = item[2] / 30
             self.cutsalary.append(dailysalary * count)
-            presentday = int(self.daygap[0]) - count
+            presentday = int(self.daygap[0]) +1 - count
             self.paysalary.append(presentday * dailysalary)
-            self.totalsalary.append(float(self.daygap[0]) * dailysalary)
+            self.totalsalary.append(float(int(self.daygap[0]) + 1) * dailysalary)
 
         print(self.cutsalary)
         print(self.paysalary)
