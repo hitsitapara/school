@@ -51,24 +51,30 @@ class NewStudent(Toplevel):
         self.bgclr2 = "#e7d95a"
         self.f1 = "Arial Bold"
         self.f2 = "times new roman"
-        self.title("WINDOW10")
+        self.title("STUDENT")
         self.config(background=self.bgclr1)
         self.geometry("1350x700+0+0")
         self.resizable(False, False)
-
+        ##===================================================frame1 ====================================================
         imagel = Image.open("left-arrow.png")
-        imagel = imagel.resize((50, 50))
-
+        imagel = imagel.resize((60, 15))
         imgl = ImageTk.PhotoImage(imagel)
-        bb = Button(self, image=imgl, command=self.backf)
-        bb.pack()
 
-        insert_student = Button(self, text='Insert New Student',  command=self.insert_student_method)
-        insert_student.pack()
-        update_student = Button(self,text="Update Student",  command=self.update_student_method)
-        update_student.pack()
-        remove_student = Button(self, text="Remove Student", command=self.remove_student_method)
-        remove_student.pack()
+        self.lf1 = LabelFrame(self, text="NAME", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
+        self.lf1.place(x=0, y=0, height=150, width=1350)
+
+        bb = Button(self.lf1, image=imgl, bd=5, font=(self.f1, 20), bg="white", command=self.backf)
+        bb.place(x=10, y=10)
+        ##===============================================frame 2========================================================
+        self.lf2 = LabelFrame(self, text="Buttons", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
+        self.lf2.place(x=0, y=150, height=600, width=1350)
+
+        insert_student = Button(self.lf2, text='Insert New Student', bd=5, font=(self.f2, 15), command=self.insert_student_method)
+        insert_student.place(x=150, y=250, height=30, width=250)
+        update_student = Button(self.lf2,text="Update Student",  bd=5, font=(self.f2, 15), command=self.update_student_method)
+        update_student.place(x=550, y=250, height=30, width=250)
+        remove_student = Button(self.lf2, text="Remove Student", bd=5, font=(self.f2, 15), command=self.remove_student_method)
+        remove_student.place(x=950, y=250, height=30, width=250)
+
         self.protocol("WM_DELETE_WINDOW", self.c_w)
-
-
+        self.mainloop()
