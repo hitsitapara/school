@@ -320,9 +320,10 @@ class UpdateStudent(Toplevel):
 
         else:
 
-            text = Label(self.lf2, text="Select Rollno : ")
+            text = Label(self.lf2, text="Select Rollno : " ,bd=2, bg="black", fg="White", font=(self.f1, 15),
+                                 relief=GROOVE)
             text.place(x=550, y=10, height=25)
-            self.rnochoosen = Combobox(self.lf2, state="readonly", textvariable=self.rno)
+            self.rnochoosen = Combobox(self.lf2, state="readonly", textvariable=self.rno, font=(self.f1,10))
             self.rnochoosen.place(x=800, y=10, height=25, width=200)
             self.rnochoosen['values'] = self.getRoll(self.stds.get(), )
             self.rnochoosen.bind("<<ComboboxSelected>>", self.nextStep2)
@@ -356,19 +357,25 @@ class UpdateStudent(Toplevel):
             self.fee.set(self.row[0][13])
             print(self.row[0][0])
 
-            text = Label(self.lf2,text="GRno")
+            text = Label(self.lf2,text="GRno" ,bd=2, bg="black", fg="White", font=(self.f1, 15),
+                                 relief=GROOVE)
             text.place(x=550, y=50, height=25)
-            self.grnotext = Label(self.lf2,text=self.grno)
+            self.grnotext = Label(self.lf2,text=self.grno ,bd=2, bg="black", fg="White", font=(self.f1, 15),
+                                 relief=GROOVE)
             self.grnotext.place(x=800, y=50, height=25)
 
-            text = Label(self.lf2,text="Rollno")
+            text = Label(self.lf2,text="Rollno" ,bd=2, bg="black", fg="White", font=(self.f1, 15),
+                                 relief=GROOVE)
             text.place(x=550, y=90, height=25)
-            self.rollnotext = Label(self.lf2,text=self.rollno)
+            self.rollnotext = Label(self.lf2,text=self.rollno ,bd=2, bg="black", fg="White", font=(self.f1, 15),
+                                 relief=GROOVE)
             self.rollnotext.place(x=800, y=90, height=25)
 
-            text = Label(self.lf2,text="Std.")
+            text = Label(self.lf2,text="Std." ,bd=2, bg="black", fg="White", font=(self.f1, 15),
+                                 relief=GROOVE)
             text.place(x=50, y=50, height=25)
-            self.stdentry = Label(self.lf2,text=self.std)
+            self.stdentry = Label(self.lf2,text=self.std ,bd=2, bg="black", fg="White", font=(self.f1, 15),
+                                 relief=GROOVE)
             self.stdentry.place(x=250, y=50, height=25)
             self.stdentry.focus_set()
 
@@ -377,60 +384,70 @@ class UpdateStudent(Toplevel):
             self.diventry = Entry(self.lf2, textvariable=self.div)
             self.diventry.place(x=100, y=65, height=25, width=150)"""
 
-            text = Label(self.lf2,text="First name")
+            text = Label(self.lf2,text="First name" ,bd=2, bg="black", fg="White", font=(self.f1, 15),
+                                 relief=GROOVE)
             text.place(x=50, y=90, height=25)
-            self.fnameentry = Entry(self.lf2, textvariable=self.fname)
+            self.fnameentry = Entry(self.lf2, textvariable=self.fname, font=(self.f1,10))
             self.fnameentry.place(x=250, y=90, height=25, width=150)
 
-            text = Label(self.lf2,text="Middle name")
+            text = Label(self.lf2,text="Middle name" ,bd=2, bg="black", fg="White", font=(self.f1, 15),
+                                 relief=GROOVE)
             text.place(x=50, y=130, height=25)
-            self.mnameentry = Entry(self.lf2, textvariable=self.mname)
+            self.mnameentry = Entry(self.lf2, textvariable=self.mname, font=(self.f1,10))
             self.mnameentry.place(x=250, y=130, height=25, width=150)
 
-            text = Label(self.lf2,text="Last name")
+            text = Label(self.lf2,text="Last name" ,bd=2, bg="black", fg="White", font=(self.f1, 15),
+                                 relief=GROOVE)
             text.place(x=50, y=170, height=25)
-            self.lnameentry = Entry(self.lf2, textvariable=self.lname)
+            self.lnameentry = Entry(self.lf2, textvariable=self.lname, font=(self.f1,10))
             self.lnameentry.place(x=250, y=170, height=25, width=150)
 
-            text = Label(self.lf2,text="Address")
+            text = Label(self.lf2,text="Address" ,bd=2, bg="black", fg="White", font=(self.f1, 15),
+                                 relief=GROOVE)
             text.place(x=50, y=210, height=25)
-            self.addressentry = Text(self.lf2, width=20, height=5, padx=2, pady=2, wrap=WORD)
+            self.addressentry = Text(self.lf2, width=20, height=5, padx=2, pady=2, wrap=WORD, font=(self.f1,10))
             self.addressentry.place(x=250, y=210, height=75, width=150)
             self.addressentry.insert(INSERT, self.address)
 
-            text = Label(self.lf2,text="Student ph.")
-            text.place(x=50, y=310, height=25)
-            self.phnosentry = Entry(self.lf2, textvariable=self.phnos)
-            self.phnosentry.place(x=250, y=310, height=25, width=150)
+            text = Label(self.lf2,text="Student ph." ,bd=2, bg="black", fg="White", font=(self.f1, 15),
+                                 relief=GROOVE)
+            text.place(x=50, y=300, height=25)
+            self.phnosentry = Entry(self.lf2, textvariable=self.phnos, font=(self.f1,10))
+            self.phnosentry.place(x=250, y=300, height=25, width=150)
 
-            text = Label(self.lf2,text="Parent ph.")
-            text.place(x=50, y=350, height=25)
-            self.phnopentry = Entry(self.lf2, textvariable=self.phnop)
-            self.phnopentry.place(x=250, y=350, height=25, width=150)
+            text = Label(self.lf2,text="Parent ph." ,bd=2, bg="black", fg="White", font=(self.f1, 15),
+                                 relief=GROOVE)
+            text.place(x=50, y=340, height=25)
+            self.phnopentry = Entry(self.lf2, textvariable=self.phnop, font=(self.f1,10))
+            self.phnopentry.place(x=250, y=340, height=25, width=150)
 
-            text = Label(self.lf2,text="Email id")
-            text.place(x=50, y=390, height=25)
-            self.emailentry = Entry(self.lf2, textvariable=self.email)
-            self.emailentry.place(x=250, y=390, height=25, width=150)
+            text = Label(self.lf2,text="Email id" ,bd=2, bg="black", fg="White", font=(self.f1, 15),
+                                 relief=GROOVE)
+            text.place(x=50, y=380, height=25)
+            self.emailentry = Entry(self.lf2, textvariable=self.email, font=(self.f1,10))
+            self.emailentry.place(x=250, y=380, height=25, width=150)
 
-            text = Label(self.lf2,text="Parent office add.")
+            text = Label(self.lf2,text="Parent office add." ,bd=2, bg="black", fg="White", font=(self.f1, 15),
+                                 relief=GROOVE)
             text.place(x=550, y=130, height=25)
-            self.poaddentry = Text(self.lf2, width=20, height=5, padx=2, pady=2, wrap=WORD)
+            self.poaddentry = Text(self.lf2, width=20, height=5, padx=2, pady=2, wrap=WORD, font=(self.f1,10))
             self.poaddentry.place(x=800, y=130, height=75, width=150)
             self.poaddentry.insert(INSERT, self.poadd)
 
-            text = Label(self.lf2,text="Parent office ph.")
+            text = Label(self.lf2,text="Parent office ph." ,bd=2, bg="black", fg="White", font=(self.f1, 15),
+                                 relief=GROOVE)
             text.place(x=550, y=220, height=25)
-            self.pophnoentry = Entry(self.lf2, textvariable=self.pophno)
+            self.pophnoentry = Entry(self.lf2, textvariable=self.pophno, font=(self.f1,10))
             self.pophnoentry.place(x=800, y=220, height=25, width=150)
 
-            text = Label(self.lf2,text="Fees")
+            text = Label(self.lf2,text="Fees" ,bd=2, bg="black", fg="White", font=(self.f1, 15),
+                                 relief=GROOVE)
             text.place(x=550, y=260, height=25)
-            self.feesentry = Entry(self.lf2, textvariable=self.fee)
+            self.feesentry = Entry(self.lf2, textvariable=self.fee, font=(self.f1,10))
             self.feesentry.place(x=800, y=260, height=25, width=150)
 
             # Create a Button
-            self.btn3 = Button(self.lf2, text='Update', bd='5', command=self.lastStep)
+            self.btn3 = Button(self.lf2, text='Update', bd='5', font=(self.f2, 15), command=self.lastStep)
             # Set the position of button on the top of window.
             self.btn3.place(x=550, y=450, height=25, width=150)
 
@@ -497,9 +514,10 @@ class UpdateStudent(Toplevel):
 
         self.start()
 
-        text = Label(self.lf2,text="Select Standard : ")
+        text = Label(self.lf2,text="Select Standard : " ,bd=2, bg="black", fg="White", font=(self.f1, 15),
+                                 relief=GROOVE)
         text.place(x=50, y=10, height=25)
-        self.stdchoosen = Combobox(self.lf2, state="readonly", textvariable=self.stds)
+        self.stdchoosen = Combobox(self.lf2, state="readonly", textvariable=self.stds, font=(self.f1,10))
         self.stdchoosen.place(x=250, y=10, height=25, width=200)
 
         self.stdchoosen['values'] = self.getStd()
@@ -512,7 +530,3 @@ class UpdateStudent(Toplevel):
         self.btn.place(x=100, y=550, height=25, width=150)"""
         self.protocol("WM_DELETE_WINDOW", self.c_w)
         self.mainloop()
-
-root=Tk()
-UpdateStudent(root,root)
-root.mainloop()

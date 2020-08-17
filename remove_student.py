@@ -198,14 +198,15 @@ class RemoveStudent(Toplevel):
 
         else:
 
-            text = Label(self,text="Select Rollno : ")
-            text.place(x=505, y=5, height=25)
-            self.rnochoosen = Combobox(self, state="readonly", textvariable=self.rno)
-            self.rnochoosen.place(x=700, y=5, height=25, width=200)
+            text = Label(self.lf2,text="Select Rollno : ",bd=2, bg="black", fg="White", font=(self.f1, 15),
+                                 relief=GROOVE)
+            text.place(x=550, y=10, height=25)
+            self.rnochoosen = Combobox(self.lf2, state="readonly", textvariable=self.rno)
+            self.rnochoosen.place(x=800, y=10, height=25, width=200)
             self.rnochoosen['values'] = self.getRoll(self.stds.get(), )
             self.rnochoosen.bind("<<ComboboxSelected>>", self.nextStep2)
             # Create a Button
-            """self.btn2 = Button(self, text='Next', bd='5', command=self.nextStep2)
+            """self.btn2 = Button(self.lf2, text='Next', bd='5', command=self.nextStep2)
             # Set the position of button on the top of window.
             self.btn2.place(x=100, y=550, height=25, width=150)"""
 
@@ -235,80 +236,106 @@ class RemoveStudent(Toplevel):
             self.fee = (self.row[0][13])
             print(self.row[0][0])
 
-            text = Label(self,text="GRno")
-            text.place(x=505, y=35, height=25)
-            self.grnotext = Label(self,text=self.grno)
-            self.grnotext.place(x=600, y=35, height=25)
+            text = Label(self.lf2,text="GRno",bd=2, bg="black", fg="White", font=(self.f1, 15),
+                                 relief=GROOVE)
+            text.place(x=550, y=50, height=25)
+            self.grnotext = Label(self.lf2,text=self.grno,bd=2, bg="black", fg="White", font=(self.f1, 15),
+                                 relief=GROOVE)
+            self.grnotext.place(x=800, y=50, height=25)
 
-            text = Label(self,text="Rollno")
-            text.place(x=505, y=65, height=25)
-            self.rollnotext = Label(self,text=self.rollno)
-            self.rollnotext.place(x=600, y=65, height=25)
+            text = Label(self.lf2,text="Rollno",bd=2, bg="black", fg="White", font=(self.f1, 15),
+                                 relief=GROOVE)
+            text.place(x=550, y=90, height=25)
+            self.rollnotext = Label(self.lf2,text=self.rollno,bd=2, bg="black", fg="White", font=(self.f1, 15),
+                                 relief=GROOVE)
+            self.rollnotext.place(x=800, y=90, height=25)
 
-            text = Label(self,text="Std.")
-            text.place(x=5, y=35, height=25)
-            self.stdtext = Label(self,text=self.std)
-            self.stdtext.place(x=100, y=35, height=25)
+            text = Label(self.lf2,text="Std.",bd=2, bg="black", fg="White", font=(self.f1, 15),
+                                 relief=GROOVE)
+            text.place(x=50, y=50, height=25)
+            self.stdtext = Label(self.lf2,text=self.std,bd=2, bg="black", fg="White", font=(self.f1, 15),
+                                 relief=GROOVE)
+            self.stdtext.place(x=250, y=50, height=25)
 
-            """text = Label(self,text="Div.")
+            """text = Label(self.lf2,text="Div.")
             text.place(x=5, y=65, height=25)
-            self.divtext = Label(self,text=self.div)
+            self.divtext = Label(self.lf2,text=self.div)
             self.divtext.place(x=100, y=65, height=25)"""
 
-            text = Label(self,text="First name")
-            text.place(x=5, y=95, height=25)
-            self.fnametext = Label(self,text=self.fname)
-            self.fnametext.place(x=100, y=95, height=25)
+            text = Label(self.lf2,text="First name",bd=2, bg="black", fg="White", font=(self.f1, 15),
+                                 relief=GROOVE)
+            text.place(x=50, y=90, height=25)
+            self.fnametext = Label(self.lf2,text=self.fname,bd=2, bg="black", fg="White", font=(self.f1, 15),
+                                 relief=GROOVE)
+            self.fnametext.place(x=250, y=90, height=25)
 
-            text = Label(self,text="Middle name")
-            text.place(x=5, y=125, height=25)
-            self.mnametext = Label(self,text=self.mname)
-            self.mnametext.place(x=100, y=125, height=25)
+            text = Label(self.lf2,text="Middle name",bd=2, bg="black", fg="White", font=(self.f1, 15),
+                                 relief=GROOVE)
+            text.place(x=50, y=130, height=25)
+            self.mnametext = Label(self.lf2,text=self.mname,bd=2, bg="black", fg="White", font=(self.f1, 15),
+                                 relief=GROOVE)
+            self.mnametext.place(x=250, y=130, height=25)
 
-            text = Label(self,text="Last name")
-            text.place(x=5, y=155, height=25)
-            self.lnametext = Label(self,text=self.lname)
-            self.lnametext.place(x=100, y=155, height=25)
+            text = Label(self.lf2,text="Last name",bd=2, bg="black", fg="White", font=(self.f1, 15),
+                                 relief=GROOVE)
+            text.place(x=50, y=170, height=25)
+            self.lnametext = Label(self.lf2,text=self.lname,bd=2, bg="black", fg="White", font=(self.f1, 15),
+                                 relief=GROOVE)
+            self.lnametext.place(x=250, y=170, height=25)
 
-            text = Label(self,text="Address")
-            text.place(x=5, y=185, height=25)
-            self.addresstext = Label(self,text=self.address)
-            self.addresstext.place(x=100, y=185, height=75)
+            text = Label(self.lf2,text="Address",bd=2, bg="black", fg="White", font=(self.f1, 15),
+                                 relief=GROOVE)
+            text.place(x=50, y=210, height=25)
+            self.addresstext = Label(self.lf2,text=self.address,bd=2, bg="black", fg="White", font=(self.f1, 15),
+                                 relief=GROOVE)
+            self.addresstext.place(x=250, y=210, height=75)
 
-            text = Label(self,text="Phnos.")
-            text.place(x=5, y=275, height=25)
-            self.phnostext = Label(self,text=self.phnos)
-            self.phnostext.place(x=100, y=275, height=25)
+            text = Label(self.lf2,text="Phnos.",bd=2, bg="black", fg="White", font=(self.f1, 15),
+                                 relief=GROOVE)
+            text.place(x=50, y=300, height=25)
+            self.phnostext = Label(self.lf2,text=self.phnos,bd=2, bg="black", fg="White", font=(self.f1, 15),
+                                 relief=GROOVE)
+            self.phnostext.place(x=250, y=300, height=25)
 
-            text = Label(self,text="Phnop.")
-            text.place(x=5, y=305, height=25)
-            self.phnoptext = Label(self,text=self.phnop)
-            self.phnoptext.place(x=100, y=305, height=25)
+            text = Label(self.lf2,text="Phnop.",bd=2, bg="black", fg="White", font=(self.f1, 15),
+                                 relief=GROOVE)
+            text.place(x=50, y=340, height=25)
+            self.phnoptext = Label(self.lf2,text=self.phnop,bd=2, bg="black", fg="White", font=(self.f1, 15),
+                                 relief=GROOVE)
+            self.phnoptext.place(x=250, y=340, height=25)
 
-            text = Label(self,text="Email id")
-            text.place(x=5, y=335, height=25)
-            self.emailtext = Label(self,text=self.email)
-            self.emailtext.place(x=100, y=335, height=25)
+            text = Label(self.lf2,text="Email id",bd=2, bg="black", fg="White", font=(self.f1, 15),
+                                 relief=GROOVE)
+            text.place(x=50, y=380, height=25)
+            self.emailtext = Label(self.lf2,text=self.email,bd=2, bg="black", fg="White", font=(self.f1, 15),
+                                 relief=GROOVE)
+            self.emailtext.place(x=250, y=380, height=25)
 
-            text = Label(self,text="Poadd")
-            text.place(x=5, y=365, height=25)
-            self.poaddtext = Label(self,text=self.poadd)
-            self.poaddtext.place(x=100, y=365, height=75)
+            text = Label(self.lf2,text="Poadd",bd=2, bg="black", fg="White", font=(self.f1, 15),
+                                 relief=GROOVE)
+            text.place(x=550, y=130, height=25)
+            self.poaddtext = Label(self.lf2,text=self.poadd,bd=2, bg="black", fg="White", font=(self.f1, 15),
+                                 relief=GROOVE)
+            self.poaddtext.place(x=800, y=130, height=75)
 
-            text = Label(self,text="Pophno")
-            text.place(x=5, y=455, height=25)
-            self.pophnotext = Label(self,text=self.pophno)
-            self.pophnotext.place(x=100, y=455, height=25)
+            text = Label(self.lf2,text="Pophno",bd=2, bg="black", fg="White", font=(self.f1, 15),
+                                 relief=GROOVE)
+            text.place(x=550, y=210, height=25)
+            self.pophnotext = Label(self.lf2,text=self.pophno,bd=2, bg="black", fg="White", font=(self.f1, 15),
+                                 relief=GROOVE)
+            self.pophnotext.place(x=800, y=210, height=25)
 
-            text = Label(self,text="Fees")
-            text.place(x=5, y=485, height=25)
-            self.feetext = Label(self,text=self.fee)
-            self.feetext.place(x=100, y=485, height=25)
+            text = Label(self.lf2,text="Fees",bd=2, bg="black", fg="White", font=(self.f1, 15),
+                                 relief=GROOVE)
+            text.place(x=550, y=250, height=25)
+            self.feetext = Label(self.lf2,text=self.fee,bd=2, bg="black", fg="White", font=(self.f1, 15),
+                                 relief=GROOVE)
+            self.feetext.place(x=550, y=250, height=25)
 
             # Create a Button
-            self.btn3 = Button(self, text='Delete', bd='5', command=self.lastStep)
+            self.btn3 = Button(self.lf2, text='Delete', bd='5', font=(self.f2, 15), command=self.lastStep)
             # Set the position of button on the top of window.
-            self.btn3.place(x=100, y=550, height=25, width=150)
+            self.btn3.place(x=550, y=450, height=25, width=150)
 
     # ========================================================Last Step============================================================
 
@@ -350,26 +377,34 @@ class RemoveStudent(Toplevel):
         self.bgclr2 = "#e7d95a"
         self.f1 = "Arial Bold"
         self.f2 = "times new roman"
-        self.title("WINDOW10")
+        self.title("REMOVE STUDENT")
         self.config(background=self.bgclr1)
         self.geometry("1350x700+0+0")
         self.resizable(False, False)
-
+        ##===================================================frame1 ====================================================
         imagel = Image.open("left-arrow.png")
-        imagel = imagel.resize((50, 50))
-
+        imagel = imagel.resize((60, 15))
         imgl = ImageTk.PhotoImage(imagel)
-        bb = Button(self, image=imgl, command=self.backf)
-        bb.pack()
+
+        self.lf1 = LabelFrame(self, text="NAME", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
+        self.lf1.place(x=0, y=0, height=150, width=1350)
+
+        bb = Button(self.lf1, image=imgl, bd=5, font=(self.f1, 20), bg="white", command=self.backf)
+        bb.place(x=10, y=10)
+        ##===============================================frame 2========================================================
+        self.lf2 = LabelFrame(self, text="Buttons", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
+        self.lf2.place(x=0, y=150, height=600, width=1350)
 
         self.start()
 
-        text = Label(self,text="Select Standard : ")
-        text.place(x=5, y=5, height=25)
-        self.stdchoosen = Combobox(self, state="readonly", textvariable=self.stds)
-        self.stdchoosen.place(x=200, y=5, height=25, width=200)
+        text = Label(self.lf2,text="Select Standard : ",bd=2, bg="black", fg="White", font=(self.f1, 15),
+                                 relief=GROOVE)
+        text.place(x=50, y=10, height=25)
+        self.stdchoosen = Combobox(self.lf2, state="readonly", textvariable=self.stds)
+        self.stdchoosen.place(x=250, y=10, height=25, width=200)
 
         self.stdchoosen['values'] = self.getStd()
 
         self.stdchoosen.bind("<<ComboboxSelected>>", self.nextStep)
         self.protocol("WM_DELETE_WINDOW", self.c_w)
+        self.mainloop()
