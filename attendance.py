@@ -109,36 +109,17 @@ class Attedance1(Toplevel):
             self.rnobox.focus_set()
             return
 
-        y = self.rnobox.curselection()
-        for item in y:
+        for item in self.rnobox.curselection():
+            if self.rno[item] in self.abnum:
+                m = messagebox.showerror("School Software", "you have alredy select rollnumber '{0}' as a ansent number".format(self.rno[item]), parent=self)
+                return
 
-            query = """ select abday from master where standard = ? and rollno = ?"""
-            a = self.conn.execute(query, (self.classbox.get(), self.rno[item])).fetchone()
-            if a[0] == None:
-                b = str(self.cal.get_date())
-                c = list()
-                c.append(b)
-                p = json.dumps(c)
-                query1 = """ update master set abday = ? where standard =? and rollno=?"""
-                self.conn.execute(query1, (p, self.classbox.get(), self.rno[item]))
-                self.conn.commit()
-            else:
-                x = json.loads(a[0])
-                if str(self.cal.get_date()) in x:
-                    messagebox.showerror("School Software ","you alredy mark take atendane",parent=self)
-                    return
-                else:
-                    x.append(str(self.cal.get_date()))
-                p = json.dumps(x)
-                query1 = """ update master set abday = ? where standard =? and rollno=?"""
-                self.conn.execute(query1, (p, self.classbox.get(), self.rno[item]))
-                self.conn.commit()
-        m = messagebox.showinfo("School Software", "Successfuly enter absent date", parent=self)
-        self.frame.destroy()
-        self.rolllabel.destroy()
-        self.rnobox.destroy()
-        self.classbox.set("CLASS")
-        self.classbox.focus_set()
+        for item in self.rnobox.curselection():
+            self.abnum.append(self.rno[item])
+
+        self.attendance()
+        self.submitbutton.config(state="normal")
+        self.classbox.config(state="disabled")
 
     def rem(self,event=""):
         try:
@@ -148,31 +129,73 @@ class Attedance1(Toplevel):
             m = messagebox.showerror("School Software", "First select Standard", parent=self)
             self.classbox.focus_set()
             return
+        try:
+            if self.rnobox.curselection() == ():
+                raise ValueError
+        except:
+            m = messagebox.showerror("School Software", "first select roll no  than remove absent rollnumber", parent= self)
+            self.rnobox.focus_set()
+            return
 
-        y = self.rnobox.curselection()
-        for item in y:
-
-            query = """ select abday from master where standard = ?  and rollno = ?"""
-            a = self.conn.execute(query, (self.classbox.get(), self.rno[item])).fetchone()
-            if a[0] == None:
-                m = messagebox.showerror("School Software", "Please mark Absent then you remove", parent=self)
+        for item in self.rnobox.curselection():
+            if self.rno[item] not in self.abnum:
+                m = messagebox.showerror("School Software","Please mark absent then remove roll number", parent=self)
                 return
+        for item in self.rnobox.curselection():
+            self.abnum.remove(self.rno[item])
+        self.attendance()
+
+    def submit(self):
+
+        if self.abnum == []:
+            m = messagebox.showerror("School Software", "first select roll no  than mark absent", parent= self)
+            return
+
+        for item in self.abnum:
+
+            query = """ select abday from master where standard = ? and rollno = ?"""
+            a = self.conn.execute(query, (self.classbox.get(), item)).fetchone()
+            if a[0] == None:
+                b = str(self.cal.get_date())
+                c = list()
+                c.append(b)
+                p = json.dumps(c)
+                query1 = """ update master set abday = ? where standard =? and rollno=?"""
+                self.conn.execute(query1, (p, self.classbox.get(), item))
+                self.conn.commit()
             else:
                 x = json.loads(a[0])
                 if str(self.cal.get_date()) in x:
-                    x.remove(str(self.cal.get_date()))
+                    messagebox.showerror("School Software ", "you alredy  take atendane", parent=self)
+                    return
                 else:
-                    m = messagebox.showerror("School Software", "Please select valid date", parent=self)
+                    x.append(str(self.cal.get_date()))
                 p = json.dumps(x)
                 query1 = """ update master set abday = ? where standard =? and rollno=?"""
-                self.conn.execute(query1, (p, self.classbox.get(), self.rno[item]))
+                self.conn.execute(query1, (p, self.classbox.get(), item))
                 self.conn.commit()
-        m = messagebox.showinfo("School Software", "Successfuly remove absent date", parent=self)
+        m = messagebox.showinfo("School Software", "Successfuly enter absent date", parent=self)
+        self.classbox.config(state="readonly")
+        self.abnum = []
+        self.submitbutton.config(state="disabled")
         self.frame.destroy()
         self.rolllabel.destroy()
         self.rnobox.destroy()
         self.classbox.set("CLASS")
         self.classbox.focus_set()
+
+    def attendance(self):
+        self.txt.config(state="normal")
+        self.txt.delete(1.0,END)
+        self.txt.insert(END,"\n")
+        self.txt.insert(END,"\t\t\t Atendance")
+        date = str(self.cal.get_date()).split('-')
+        self.txt.insert(END,"\n\n\t Date : " + date[2] +'-'+date[1]+'-'+date[0])
+        self.txt.insert(END,"\n\t Standard : " + self.classbox.get())
+        self.txt.insert(END,"\n\n\t Absent Number")
+        for item in self.abnum:
+            self.txt.insert(END,"\n\t " + str(item))
+
 
     def __init__(self, root, main_root):
 
@@ -202,6 +225,7 @@ class Attedance1(Toplevel):
         self.divcounter = 0
         self.rollcounter = 0
         self.d_ateentry = StringVar()
+        self.abnum = []
 
 ##======================================================frame 1=========================================================
         imagel = Image.open("left-arrow.png")
@@ -216,7 +240,7 @@ class Attedance1(Toplevel):
 ##=============================================frame 2==================================================================
         self.lf2 = LabelFrame(self, text="ATTENDANCE WINDOW", bd=2, bg="black", fg="white", font=(self.f1, 20),
                               relief=GROOVE)
-        self.lf2.place(x=0, y=150, height=600, width=675)
+        self.lf2.place(x=0, y=150, height=550, width=675)
 
         self.datelabel = Label(self.lf2, text="DATE", bd=2, bg="black", fg="White", font=(self.f1, 15), relief=GROOVE)
         self.datelabel.place(x=50, y=10, height=25)
@@ -245,18 +269,29 @@ class Attedance1(Toplevel):
         self.c_lassbox.set("CLASS")
 
         self.addbutton = Button(self.lf2, text="ADD", font=(self.f2, 15), bd=5, command=self.addat)
-        self.addbutton.place(x=100, y=400, height=30)
+        self.addbutton.place(x=50, y=400, height=30)
 
         self.removebutton = Button(self.lf2, text="REMOVE", font=(self.f2, 15), bd=5, command=self.rem)
-        self.removebutton.place(x=250, y=400, height=30)
+        self.removebutton.place(x=200, y=400, height=30)
+
+        self.submitbutton = Button(self.lf2, text="SUBMIT", font=(self.f2, 15), bd=5, command=self.submit)
+        self.submitbutton.place(x=350, y=400, height=30)
+        self.submitbutton.config(state="disabled")
+
+        self.stud_atten_report_btn = Button(self.lf2, text="STUDENT ATTENDANCE REPORT",
+                                            command=self.stud_atten_report_method)
+        self.stud_atten_report_btn.place(x=200, y=450)
 
 ##======================================================frame 3=========================================================
         self.lf3 = LabelFrame(self, text="ATTENDANCE PREVIEW", bd=2, bg="black", fg="white", font=(self.f1, 20),
                               relief=GROOVE)
-        self.lf3.place(x=675, y=150, height=600, width=675)
+        self.lf3.place(x=675, y=150, height=550, width=675)
 
-        self.stud_atten_report_btn = Button(self.lf3,text="STUDENT ATTENDANCE REPORT",command=self.stud_atten_report_method)
-        self.stud_atten_report_btn.place(x=337.5,y=300)
+        self.sc = Scrollbar(self.lf3)
+        self.txt = Text(self.lf3, yscrollcommand=self.sc.set, borderwidth=2, relief=SUNKEN)
+        self.sc.pack(side=RIGHT, fill=Y)
+        self.txt.pack(fill=BOTH, expand=1, padx=5, pady=5)
+        self.sc.config(command=self.txt.yview)
 
         self.protocol("WM_DELETE_WINDOW", self.c_w)
         self.mainloop()
