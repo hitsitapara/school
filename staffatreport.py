@@ -204,7 +204,7 @@ class Staffatreport(Toplevel):
         self.f1 = "Arial Bold"
         self.f2 = "times new roman"
 
-        self.title("ATTENDANCE OF STAFF")
+        self.title("STAFF ATTENDANCE REPORT")
         self.config(background=self.bgclr1)
         self.geometry("1350x700+0+0")
         self.resizable(False, False)

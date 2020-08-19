@@ -25,6 +25,10 @@ class StudentAttendanceReport(Toplevel):
             return
 
     def std_combo_method(self,event=""):
+
+        self.rnolabel = Label(self.lf2, text="ROll Number", bd=2, bg="black", fg="White", font=(self.f1, 15), relief=GROOVE)
+        self.rnolabel.place(x=600, y=250, height=25)
+
         query1 = "select rollno from master where standard = '"+str(self.std_combo.get())+"'"
         print(query1)
         roll_list=self.conn.execute(query1).fetchall()
@@ -34,14 +38,14 @@ class StudentAttendanceReport(Toplevel):
             self.rollno.append(i[0])
         self.rollno.sort()
         self.combo_roll_var = StringVar()
-        self.roll_combo = ttk.Combobox(self,values=self.rollno, textvariable=self.combo_roll_var ,height=20,state="readonly")
-        self.roll_combo.place(x=100,y=400)
+        self.roll_combo = ttk.Combobox(self.lf2,values=self.rollno, textvariable=self.combo_roll_var ,height=20,state="readonly")
+        self.roll_combo.place(x=900,y=250, height=25)
         self.roll_combo.bind("<<ComboboxSelected>>",self.report_method)
         self.combo_roll_var.set("Select")
 
     def report_method(self,event=""):
-        self.report_button = Button(self,text='Generate Report',command=self.generate_report_method)
-        self.report_button.place(x=200,y=600)
+        self.report_button = Button(self.lf2,text='Generate Report', bd=5, font=(self.f2, 15), command=self.generate_report_method)
+        self.report_button.place(x=550,y=450)
 
     def generate_report_method(self):
         query1 = "select abday,grno,fname,mname,lname from master where rollno = ? and standard = ?"
@@ -117,29 +121,40 @@ class StudentAttendanceReport(Toplevel):
         self.bgclr2 = "#e7d95a"
         self.f1 = "Arial Bold"
         self.f2 = "times new roman"
-        self.title("WINDOW10")
+        self.title("ATTENDANCE REPORT")
         self.config(background=self.bgclr1)
         self.geometry("1350x700+0+0")
         self.resizable(False, False)
 
+        ##===============================================frame 1========================================================
         imagel = Image.open("left-arrow.png")
-        imagel = imagel.resize((50, 50))
-
+        imagel = imagel.resize((60, 15))
         imgl = ImageTk.PhotoImage(imagel)
-        bb = Button(self, image=imgl, command=self.backf)
+
+        self.lf1 = LabelFrame(self, text="NAME", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
+        self.lf1.place(x=0, y=0, height=150, width=1350)
+
+        bb = Button(self.lf1, image=imgl, bd=5, font=(self.f1, 20), command=self.backf)
         bb.place(x=10, y=10)
+        ##=============================================frame 2==========================================================
+        self.lf2 = LabelFrame(self, text="ATTENDANCE WINDOW", bd=2, bg="black", fg="white", font=(self.f1, 20),
+                              relief=GROOVE)
+        self.lf2.place(x=0, y=150, height=550, width=1350)
 
-        self.from_date_label = Label(self,text='From :')
-        self.from_date_label.place(x=100,y=100)
+        self.from_date_label = Label(self.lf2,text='From :', bd=2, bg="black", fg="White", font=(self.f1, 15), relief=GROOVE)
+        self.from_date_label.place(x=100,y=100, height=25)
 
-        self.from_cal = DateEntry(self,date_pattern = 'dd/mm/yyyy',state="read only")
-        self.from_cal.place(x=200,y=100)
+        self.from_cal = DateEntry(self.lf2,date_pattern = 'dd/mm/yyyy',state="read only")
+        self.from_cal.place(x=200,y=100, height=25)
 
-        self.to_date_label = Label(self, text='To :')
-        self.to_date_label.place(x=100, y=200)
+        self.to_date_label = Label(self.lf2, text='To :', bd=2, bg="black", fg="White", font=(self.f1, 15), relief=GROOVE)
+        self.to_date_label.place(x=500, y=100, height=25)
 
-        self.to_cal = DateEntry(self, date_pattern='dd/mm/yyyy', state="read only")
-        self.to_cal.place(x=200, y=200)
+        self.to_cal = DateEntry(self.lf2, date_pattern='dd/mm/yyyy', state="read only")
+        self.to_cal.place(x=600, y=100, height=25)
+
+        self.stdlabel = Label(self.lf2, text="Standard", bd=2, bg="black", fg="White", font=(self.f1, 15), relief=GROOVE)
+        self.stdlabel.place(x=100, y=250, height=25)
 
         query1 = "select standard from master"
         standard_list = self.conn.execute(query1).fetchall()
@@ -148,10 +163,10 @@ class StudentAttendanceReport(Toplevel):
         for i in b:
             self.student.append(i[0])
         self.combo_std_var = StringVar()
-        self.std_combo = ttk.Combobox(self,values=self.student, textvariable =self.combo_std_var , height=10,state="readonly")
-        self.std_combo.place(x=100,y=300)
+        self.std_combo = ttk.Combobox(self.lf2,values=self.student, textvariable =self.combo_std_var , height=10,state="readonly")
+        self.std_combo.place(x=300,y=250, height=25)
         self.std_combo.bind("<<ComboboxSelected>>",self.std_combo_method)
         self.combo_std_var.set("Select")
 
         self.protocol("WM_DELETE_WINDOW", self.c_w)
-
+        self.mainloop()

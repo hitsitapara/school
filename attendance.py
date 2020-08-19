@@ -40,17 +40,17 @@ class Attedance1(Toplevel):
             self.rolllabel = Label(self.lf2, text="ROLL NO", bd=2, bg="black", fg="white", font=(self.f1, 15),
                                    relief=GROOVE)
             self.rolllabel.place(x=350, y=85, height=25)
-            query1 = """ select rollno from master where standard = ? """
+            query1 = """ select rollno, fname, mname, lname  from master where standard = ? """
             a = self.conn.execute(query1, (self.classbox.get(),)).fetchall()
             self.rno = []
             for i in a:
-                self.rno.append(i[0])
+                self.rno.append(i)
             self.rno.sort()
             self.frame = Frame(self.lf2)
             self.frame.place(x=350, y=150, height=100, width=100)
             self.rnobox = Listbox(self.frame, font=(self.f1, 15), selectmode="multiple", selectbackground="yellow")
             for i in self.rno:
-                self.rnobox.insert(END, i)
+                self.rnobox.insert(END, i[0])
             self.rnobox.pack()
             yscrollbar = Scrollbar(self.frame)
             yscrollbar.pack(side=RIGHT, fill=Y)
@@ -154,14 +154,14 @@ class Attedance1(Toplevel):
         for item in self.abnum:
 
             query = """ select abday from master where standard = ? and rollno = ?"""
-            a = self.conn.execute(query, (self.classbox.get(), item)).fetchone()
+            a = self.conn.execute(query, (self.classbox.get(), item[0])).fetchone()
             if a[0] == None:
                 b = str(self.cal.get_date())
                 c = list()
                 c.append(b)
                 p = json.dumps(c)
                 query1 = """ update master set abday = ? where standard =? and rollno=?"""
-                self.conn.execute(query1, (p, self.classbox.get(), item))
+                self.conn.execute(query1, (p, self.classbox.get(), item[0]))
                 self.conn.commit()
             else:
                 x = json.loads(a[0])
@@ -172,7 +172,7 @@ class Attedance1(Toplevel):
                     x.append(str(self.cal.get_date()))
                 p = json.dumps(x)
                 query1 = """ update master set abday = ? where standard =? and rollno=?"""
-                self.conn.execute(query1, (p, self.classbox.get(), item))
+                self.conn.execute(query1, (p, self.classbox.get(), item[0]))
                 self.conn.commit()
         m = messagebox.showinfo("School Software", "Successfuly enter absent date", parent=self)
         self.classbox.config(state="readonly")
@@ -188,13 +188,15 @@ class Attedance1(Toplevel):
         self.txt.config(state="normal")
         self.txt.delete(1.0,END)
         self.txt.insert(END,"\n")
-        self.txt.insert(END,"\t\t\t Atendance")
+        self.txt.insert(END,"\t\t\t    Atendance")
         date = str(self.cal.get_date()).split('-')
-        self.txt.insert(END,"\n\n\t Date : " + date[2] +'-'+date[1]+'-'+date[0])
-        self.txt.insert(END,"\n\t Standard : " + self.classbox.get())
-        self.txt.insert(END,"\n\n\t Absent Number")
+        self.txt.insert(END,"\n\n\t\t\t Date : " + date[2] +'-'+date[1]+'-'+date[0])
+        self.txt.insert(END,"\n\t\t\t Standard : " + self.classbox.get())
+        self.txt.insert(END,"\n\n\t\t\t Absent Details")
+        self.txt.insert(END,"\n\n\t\t Roll number\t\t\t Name")
         for item in self.abnum:
-            self.txt.insert(END,"\n\t " + str(item))
+            self.txt.insert(END,"\n\t\t " + str(item[0])+"\t\t\t "+ str(item[1])+" "+str(item[2])+" "+str(item[3]))
+        self.txt.config(state="disabled")
 
 
     def __init__(self, root, main_root):
@@ -278,9 +280,9 @@ class Attedance1(Toplevel):
         self.submitbutton.place(x=350, y=400, height=30)
         self.submitbutton.config(state="disabled")
 
-        self.stud_atten_report_btn = Button(self.lf2, text="STUDENT ATTENDANCE REPORT",
+        self.stud_atten_report_btn = Button(self.lf2, text="STUDENT ATTENDANCE REPORT", bd=5, font=(self.f2, 15),
                                             command=self.stud_atten_report_method)
-        self.stud_atten_report_btn.place(x=200, y=450)
+        self.stud_atten_report_btn.place(x=150, y=450)
 
 ##======================================================frame 3=========================================================
         self.lf3 = LabelFrame(self, text="ATTENDANCE PREVIEW", bd=2, bg="black", fg="white", font=(self.f1, 20),
