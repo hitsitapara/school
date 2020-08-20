@@ -19,13 +19,14 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b6fa978f-a5ca-418e-8aaf-ca0ddae5d7a9" name="Default Changelist" comment="preview of attendance">
+    <list default="true" id="b6fa978f-a5ca-418e-8aaf-ca0ddae5d7a9" name="Default Changelist" comment="preview of attendance &amp; name of window">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/attendance.py" beforeDir="false" afterPath="$PROJECT_DIR$/attendance.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/attendancestaff.py" beforeDir="false" afterPath="$PROJECT_DIR$/attendancestaff.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insert_student.py" beforeDir="false" afterPath="$PROJECT_DIR$/insert_student.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reports.py" beforeDir="false" afterPath="$PROJECT_DIR$/reports.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sinfo.db" beforeDir="false" afterPath="$PROJECT_DIR$/sinfo.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/staff.py" beforeDir="false" afterPath="$PROJECT_DIR$/staff.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/staffatreport.py" beforeDir="false" afterPath="$PROJECT_DIR$/staff_standance_report.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/student_attendance_report.py" beforeDir="false" afterPath="$PROJECT_DIR$/student_attendance_report.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view_staff.py" beforeDir="false" afterPath="$PROJECT_DIR$/view_staff.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,27 +64,6 @@
     </key>
   </component>
   <component name="RunManager" selected="Python.start">
-    <configuration name="attendance" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="school" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/attendance.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="attendancestaff" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="school" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -118,6 +98,48 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/demo.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="reports" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="school" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/reports.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="staff_standance_report" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="school" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="C:\Users\Sitapara Hit\Downloads\school\staff_standance_report.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -168,42 +190,21 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="update_student" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="school" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/update_student.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <list>
       <item itemvalue="Python.demo" />
-      <item itemvalue="Python.attendance" />
       <item itemvalue="Python.start" />
-      <item itemvalue="Python.update_student" />
       <item itemvalue="Python.attendancestaff" />
       <item itemvalue="Python.student_attendance_report" />
+      <item itemvalue="Python.reports" />
+      <item itemvalue="Python.staff_standance_report" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.start" />
+        <item itemvalue="Python.reports" />
         <item itemvalue="Python.student_attendance_report" />
+        <item itemvalue="Python.staff_standance_report" />
         <item itemvalue="Python.attendancestaff" />
-        <item itemvalue="Python.attendance" />
-        <item itemvalue="Python.update_student" />
       </list>
     </recent_temporary>
   </component>
@@ -484,7 +485,14 @@
       <option name="project" value="LOCAL" />
       <updated>1597724589702</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="preview of attendance &amp; name of window">
+      <created>1597809950807</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1597809950807</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -536,7 +544,8 @@
     <MESSAGE value="salaray of staff" />
     <MESSAGE value="GUI of students" />
     <MESSAGE value="preview of attendance" />
-    <option name="LAST_COMMIT_MESSAGE" value="preview of attendance" />
+    <MESSAGE value="preview of attendance &amp; name of window" />
+    <option name="LAST_COMMIT_MESSAGE" value="preview of attendance &amp; name of window" />
   </component>
   <component name="WindowStateProjectService">
     <state x="137" y="17" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1594270784796">
@@ -555,38 +564,38 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="462" y="104" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1594270783279" />
-    <state width="1344" height="143" key="GridCell.Tab.0.bottom" timestamp="1597809607435">
+    <state width="1344" height="143" key="GridCell.Tab.0.bottom" timestamp="1597896764602">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1344" height="143" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1597809607435" />
-    <state width="1344" height="143" key="GridCell.Tab.0.center" timestamp="1597809607434">
+    <state width="1344" height="143" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1597896764602" />
+    <state width="1344" height="143" key="GridCell.Tab.0.center" timestamp="1597896764602">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1344" height="143" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1597809607434" />
-    <state width="1344" height="143" key="GridCell.Tab.0.left" timestamp="1597809607434">
+    <state width="1344" height="143" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1597896764602" />
+    <state width="1344" height="143" key="GridCell.Tab.0.left" timestamp="1597896764602">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1344" height="143" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1597809607434" />
-    <state width="1344" height="143" key="GridCell.Tab.0.right" timestamp="1597809607435">
+    <state width="1344" height="143" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1597896764602" />
+    <state width="1344" height="143" key="GridCell.Tab.0.right" timestamp="1597896764602">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1344" height="143" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1597809607435" />
-    <state width="1344" height="217" key="GridCell.Tab.1.bottom" timestamp="1597809434587">
+    <state width="1344" height="143" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1597896764602" />
+    <state width="1344" height="217" key="GridCell.Tab.1.bottom" timestamp="1597892488424">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1344" height="217" key="GridCell.Tab.1.bottom/0.0.1366.728@0.0.1366.728" timestamp="1597809434587" />
-    <state width="1344" height="217" key="GridCell.Tab.1.center" timestamp="1597809434587">
+    <state width="1344" height="217" key="GridCell.Tab.1.bottom/0.0.1366.728@0.0.1366.728" timestamp="1597892488424" />
+    <state width="1344" height="217" key="GridCell.Tab.1.center" timestamp="1597892488424">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1344" height="217" key="GridCell.Tab.1.center/0.0.1366.728@0.0.1366.728" timestamp="1597809434587" />
-    <state width="1344" height="217" key="GridCell.Tab.1.left" timestamp="1597809434587">
+    <state width="1344" height="217" key="GridCell.Tab.1.center/0.0.1366.728@0.0.1366.728" timestamp="1597892488424" />
+    <state width="1344" height="217" key="GridCell.Tab.1.left" timestamp="1597892488424">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1344" height="217" key="GridCell.Tab.1.left/0.0.1366.728@0.0.1366.728" timestamp="1597809434587" />
-    <state width="1344" height="217" key="GridCell.Tab.1.right" timestamp="1597809434587">
+    <state width="1344" height="217" key="GridCell.Tab.1.left/0.0.1366.728@0.0.1366.728" timestamp="1597892488424" />
+    <state width="1344" height="217" key="GridCell.Tab.1.right" timestamp="1597892488424">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1344" height="217" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1597809434587" />
+    <state width="1344" height="217" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1597892488424" />
     <state x="0" y="0" key="MergeDialog" timestamp="1596208201030">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -599,10 +608,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="184" y="0" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1594270369717" />
-    <state x="275" y="95" key="Vcs.Push.Dialog.v2" timestamp="1597724595423">
+    <state x="275" y="95" key="Vcs.Push.Dialog.v2" timestamp="1597809956492">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="275" y="95" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1597724595423" />
+    <state x="275" y="95" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1597809956492" />
     <state x="292" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1597634924910">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -611,9 +620,9 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="492" y="276" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.728@0.0.1366.728" timestamp="1597634552597" />
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1596172109476">
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1597894527739">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1596172109476" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1597894527739" />
   </component>
 </project>

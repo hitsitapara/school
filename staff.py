@@ -6,7 +6,7 @@ from PIL import Image, ImageTk
 from insert_staff import Registration
 from update_staff import UpdateUser
 from attendancestaff import Attendancestaff
-from staffatreport import Staffatreport
+from staff_standance_report import Staffatreport
 from salaryofstaff import Salary
 
 

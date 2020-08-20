@@ -48,6 +48,26 @@ class StudentAttendanceReport(Toplevel):
         self.report_button.place(x=550,y=450)
 
     def generate_report_method(self):
+        try:
+            if self.from_cal.get_date() == self.to_cal.get_date():
+                raise ValueError
+        except:
+            m = messagebox.showerror("School Software", "You cannot genrate report because both date same ", parent=self)
+            self.from_cal.focus_set()
+            return
+        try:
+            if self.from_cal.get_date() > date.today():
+                raise ValueError
+        except:
+            m = messagebox.showerror("School Software","You can not genrate feature report", parent=self)
+            self.from_cal.focus_set()
+            return
+        try:
+            if self.to_cal.get_date() > date.today():
+                raise ValueError
+        except:
+            m = messagebox.showerror("School Software","You can not genrate feature report", parent=self)
+            self.to_cal.focus_set()
         query1 = "select abday,grno,fname,mname,lname from master where rollno = ? and standard = ?"
         self.data = self.conn.execute(query1,(self.roll_combo.get(),self.std_combo.get())).fetchone()
         self.returned_none = False
@@ -144,13 +164,15 @@ class StudentAttendanceReport(Toplevel):
         self.from_date_label = Label(self.lf2,text='From :', bd=2, bg="black", fg="White", font=(self.f1, 15), relief=GROOVE)
         self.from_date_label.place(x=100,y=100, height=25)
 
-        self.from_cal = DateEntry(self.lf2,date_pattern = 'dd/mm/yyyy',state="read only")
+        self.from_cal = DateEntry(self.lf2, width=12, background='darkblue', date_pattern='dd/mm/yyyy',
+                             foreground='white', borderwidth=2, state="readonly")
         self.from_cal.place(x=200,y=100, height=25)
 
         self.to_date_label = Label(self.lf2, text='To :', bd=2, bg="black", fg="White", font=(self.f1, 15), relief=GROOVE)
         self.to_date_label.place(x=500, y=100, height=25)
 
-        self.to_cal = DateEntry(self.lf2, date_pattern='dd/mm/yyyy', state="read only")
+        self.to_cal = DateEntry(self.lf2, width=12, background='darkblue', date_pattern='dd/mm/yyyy',
+                             foreground='white', borderwidth=2, state="readonly")
         self.to_cal.place(x=600, y=100, height=25)
 
         self.stdlabel = Label(self.lf2, text="Standard", bd=2, bg="black", fg="White", font=(self.f1, 15), relief=GROOVE)

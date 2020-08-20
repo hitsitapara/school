@@ -32,18 +32,18 @@ class Staffatreport(Toplevel):
             self.fromcal.focus_set()
             return
         try:
+            if self.fromcal.get_date() > date.today():
+                raise ValueError
+        except:
+            m = messagebox.showerror("School Software","You can not genrate feature report", parent=self)
+            self.fromcal.focus_set()
+            return
+        try:
             if self.tocal.get_date() > date.today():
                 raise ValueError
         except:
             m = messagebox.showerror("School Software","You can not gerate feture report", parent=self)
             self.tocal.focus_set()
-            return
-        try:
-            if self.workdayentry.get() == "":
-                raise ValueError
-        except:
-            m = messagebox.showerror("School Software","Please enter working days ", parent=self)
-            self.workdayentry.focus_set()
             return
 
         query = """ select abdate from staff """
@@ -76,21 +76,6 @@ class Staffatreport(Toplevel):
         except:
             m = messagebox.showerror("School Software","You can not genrate feature report", parent=self)
             self.tocal.focus_set()
-            return
-        try:
-            if self.workdayentry.get() == "":
-                raise ValueError
-        except:
-            m = messagebox.showerror("School Software","Please enter working days ", parent=self)
-            self.workdayentry.focus_set()
-            return
-        try:
-            if not(int(self.workdayentry.get()) > 0 and int(self.workdayentry.get()) < 365):
-                raise ValueError
-        except:
-            m = messagebox.showerror("School Software","Working day must be less than365")
-            self.workdayentry.focus_set()
-            return
 
         y = self.staffbox.curselection()
         if y == ():
@@ -180,7 +165,6 @@ class Staffatreport(Toplevel):
                     top -= 15
                     sr += 1
 
-
         pdf.save()
         print("succesfull")
         webbrowser.open("C:\\Reports\\Attendence\\Staff\\report_{}_{}_to_{}.pdf".format(self.empno[0], self.fromcal.get_date(), self.tocal.get_date()))
@@ -203,7 +187,6 @@ class Staffatreport(Toplevel):
         self.bgclr2 = "#e7d95a"
         self.f1 = "Arial Bold"
         self.f2 = "times new roman"
-
         self.title("STAFF ATTENDANCE REPORT")
         self.config(background=self.bgclr1)
         self.geometry("1350x700+0+0")
@@ -219,7 +202,6 @@ class Staffatreport(Toplevel):
 
         bb = Button(self.lf1, image=imgl, bd=5, font=(self.f1, 20), command=self.backf)
         bb.place(x=10, y=10)
-
 
         ##==================================================frame 2=====================================================
 
@@ -240,12 +222,6 @@ class Staffatreport(Toplevel):
         self.tocal = DateEntry(self.lf2, width=12, background='darkblue', date_pattern='dd/mm/yyyy',
                              foreground='white', borderwidth=2, state="readonly")
         self.tocal.place(x=750, y=10, height=25)
-
-        self.workdaylabel =Label(self.lf2, text="Working Day", bd=2, bg="black", fg="white", font=(self.f1, 15), relief=GROOVE)
-        self.workdaylabel.place(x=1000, y=10, height=25)
-        self.w_orkdayentry = int()
-        self.workdayentry = Entry(self.lf2, textvariable=self.w_orkdayentry, font=(self.f1, 10))
-        self.workdayentry.place(x=1200, y=10, height=25, width=100)
 
         self.stafflabel =Label(self.lf2, text="STAFF NAME", bd=2, bg="black", fg="white", font=(self.f1, 15), relief=GROOVE)
         self.stafflabel.place(x=100, y=100, height=25)
