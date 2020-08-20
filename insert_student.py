@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import  messagebox
 from tkinter.ttk import Combobox
 import sqlite3
+from tkcalendar import DateEntry
 from PIL import Image, ImageTk
 
 
@@ -47,7 +48,28 @@ class InsertStudent(Toplevel):
         Pattern = re.compile("^[0-9]*$")
         return Pattern.match(s)
 
-        # ===========================================================to get gr number=========================================================
+# ===========================================================to check whether exam is started or not=========================================================
+
+    def checkExam(self):
+
+        try:
+            sqliteConnection = sqlite3.connect('sinfo.db')
+            cursor = sqliteConnection.cursor()
+            print("Connected to SQLite")
+
+            exams = """SELECT data FROM exams;"""
+            cursor.execute(exams)
+            return cursor.fetchall()
+
+        except sqlite3.Error as error:
+            print("Failed to insert Python variable into sqlite table", error)
+        finally:
+            if (sqliteConnection):
+                sqliteConnection.close()
+                print("The SQLite connection is closed")
+
+
+# ===========================================================to get gr number=========================================================
 
     def getGrno(self):
         try:
@@ -95,7 +117,6 @@ class InsertStudent(Toplevel):
         self.std.set("")
         self.medium.set("Select Medium")
         self.stream.set("Select Stream")
-        self.cbd2()
         # self.div.set("")
         self.fname.set("")
         self.mname.set("")
@@ -107,10 +128,14 @@ class InsertStudent(Toplevel):
         self.poaddentry.delete(1.0, END)
         self.pophno.set("")
         self.fee.set("")
+        self.caste.set("")
+        self.dobentry.set_date(self.today_date)
+        self.bloodg.set("Select Blood Group")
+        self.category.set("Select Category")
 
         # ============================================================to insert value in database========================================================
 
-    def insertVaribleIntoTable(self, rollno, std, fname, mname, lname, address, phnos, phnop, email, poadd, pophno, fee):
+    def insertVaribleIntoTable(self, rollno, std, fname, mname, lname, address, phnos, phnop, email, poadd, pophno, fee, dob, category, bloodg, caste, jdate, ayear):
 
         try:
 
@@ -119,20 +144,20 @@ class InsertStudent(Toplevel):
             print("Connected to SQLite")
 
             sqlite_insert = """INSERT INTO master
-                                   (rollno, standard, fname, mname, lname, address, student_phno, parents_phno, email, parent_office_address, parents_office_phno, fee) 
-                                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"""
+                                   (rollno, standard, fname, mname, lname, address, student_phno, parents_phno, email, parent_office_address, parents_office_phno, fee, date_of_birth, category, blood_group, cast, joining_date, ayear) 
+                                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"""
 
-            data_tuple = (rollno, std, fname, mname, lname, address, phnos, phnop, email, poadd, pophno, fee)
+            data_tuple = (rollno, std, fname, mname, lname, address, phnos, phnop, email, poadd, pophno, fee, dob, category, bloodg, caste, jdate, ayear)
             cursor.execute(sqlite_insert, data_tuple)
             sqliteConnection.commit()
             print("Python Variables inserted successfully into detail table")
             messagebox.showinfo('Successfully done', 'Entry is done in database')
 
             text = Label(self,text="GR no.")
-            text.place(x=300, y=5, height=25)
+            text.place(x=900, y=185, height=25)
             self.grno = int(self.getGrno()[0][0])
             text = Label(self,text=self.grno)
-            text.place(x=400, y=5, height=25)
+            text.place(x=1000, y=185, height=25)
 
             self.grn = "Your Gr number is " + str(self.grno)
             messagebox.showinfo('GR number', self.grn)
@@ -149,9 +174,9 @@ class InsertStudent(Toplevel):
                     self.getRollno(self.std.get() + "~" + self.medium.get() + "~" + self.stream.get())[0][0])
 
             text = Label(self,text="Roll no.")
-            text.place(x=300, y=35, height=25)
+            text.place(x=900, y=220, height=25)
             self.roll = Label(self,text=self.rno)
-            self.roll.place(x=400, y=35, height=25)
+            self.roll.place(x=1000, y=220, height=25)
 
             self.rn = "Your Roll number is " + (self.rno)
             messagebox.showinfo('Roll number', self.rn)
@@ -173,9 +198,181 @@ class InsertStudent(Toplevel):
 
     def submitvalue(self):
 
+        self.dob = str(self.dobentry.get_date())
         self.address = self.addressentry.get(1.0, END)
         self.poadd = self.poaddentry.get(1.0, END)
-        if (self.validNumber(self.phnop.get()) and self.validNumber(self.phnos.get()) and self.validNumber(
+        exam = self.checkExam()
+        counter = 0
+
+        try:
+            for x in exam:
+                if (x[0].split("_")[1].split("-")[0] == self.std.get()):
+                    counter = 1
+                    break
+            if (counter != 1):
+                pass
+            else:
+                raise ValueError
+        except:
+            messagebox.showerror("School Software", "exam is started for your standard so now you cannot enter")
+            self.stdentry.focus_set()
+            return
+
+        try:
+            if (len(self.address) != 1):
+                pass
+            else:
+                raise ValueError
+        except:
+            messagebox.showerror("School Software", "Please enter address")
+            return
+
+        try:
+            if (len(self.poadd) != 1):
+                pass
+            else:
+                raise ValueError
+        except:
+            messagebox.showerror("School Software", "Please enter parent office address")
+            return
+
+        try:
+            if self.category.get() != "Select Category":
+                pass
+            else:
+                raise ValueError
+        except:
+            messagebox.showerror("School Software", "Please select category")
+            return
+
+        try:
+            if self.caste.get() != "":
+                pass
+            else:
+                raise ValueError
+        except:
+            messagebox.showerror("School Software", "Please enter caste")
+            self.casteentry.focus_set()
+            return
+
+        try:
+            if self.dobentry.get_date() != self.today_date:
+                pass
+            else:
+                raise ValueError
+        except:
+            messagebox.showerror("School Software", "Please select date of birth")
+            return
+
+        try:
+            if self.bloodg.get() != "Select Blood Group":
+                pass
+            else:
+                raise ValueError
+        except:
+            messagebox.showerror("School Software", "Please select blood group")
+            return
+
+        try:
+            if ((self.std.get() != "") and (int(self.std.get()) >= 1) and (int(self.std.get()) <= 12)):
+                pass
+            else:
+                raise ValueError
+        except:
+            messagebox.showerror("School Software", "Please enter valid standard")
+            self.stdentry.focus_set()
+            return
+
+        try:
+            if ((self.validFee(self.fee.get())) and (self.fee.get() != "")):
+                pass
+            else:
+                raise ValueError
+        except:
+            messagebox.showerror("School Software", "Please enter valid fee")
+            self.feesentry.focus_set()
+            return
+
+        try:
+            if ((self.validName(self.fname.get())) and (self.fname.get() != "")):
+                pass
+            else:
+                raise ValueError
+        except:
+            messagebox.showerror("School Software", "Please enter valid first name")
+            self.fnameentry.focus_set()
+            return
+
+        try:
+            if ((self.validName(self.mname.get())) and (self.mname.get() != "")):
+                pass
+            else:
+                raise ValueError
+        except:
+            messagebox.showerror("School Software", "Please enter valid middle name")
+            self.mnameentry.focus_set()
+            return
+
+        try:
+            if ((self.validName(self.lname.get())) and (self.lname.get() != "")):
+                pass
+            else:
+                raise ValueError
+        except:
+            messagebox.showerror("School Software", "Please enter valid last name")
+            self.lnameentry.focus_set()
+            return
+
+        try:
+            if (self.medium.get() != "Select Medium"):
+                pass
+            else:
+                raise ValueError
+        except:
+            messagebox.showerror('Error', 'please select medium but select medium after entering standard')
+            return
+
+        try:
+            if ((self.validNumber(self.phnos.get())) and (len(self.phnos.get()) == 10)):
+                pass
+            else:
+                raise ValueError
+        except:
+            messagebox.showerror("School Software", "Please enter valid student phone number")
+            self.phnosentry.focus_set()
+            return
+
+        try:
+            if ((self.validNumber(self.phnop.get())) and (len(self.phnop.get()) == 10)):
+                pass
+            else:
+                raise ValueError
+        except:
+            messagebox.showerror("School Software", "Please enter valid parent phone number")
+            self.phnopentry.focus_set()
+            return
+
+        try:
+            if ((self.validNumber(self.pophno.get())) and (len(self.pophno.get()) == 10)):
+                pass
+            else:
+                raise ValueError
+        except:
+            messagebox.showerror("School Software", "Please enter valid parent office phone number")
+            self.pophnoentry.focus_set()
+            return
+
+        try:
+            if (self.validEmail(self.email.get())):
+                pass
+            else:
+                raise ValueError
+        except:
+            messagebox.showerror("School Software", "Please enter valid email address")
+            self.emailentry.focus_set()
+            return
+
+        """if (self.validNumber(self.phnop.get()) and self.validNumber(self.phnos.get()) and self.validNumber(
                 self.pophno.get()) and (len(self.phnos.get()) == 10) and (len(self.phnop.get()) == 10) and (
                 len(self.pophno.get()) == 10)):
 
@@ -187,172 +384,195 @@ class InsertStudent(Toplevel):
 
                     if (((self.std.get() != "") and (int(self.std.get()) >= 1) and (
                             int(self.std.get()) <= 12)) and (
-                            (self.fee.get() != "") and self.validFee(self.fee.get()))):
+                            (self.fee.get() != "") and self.validFee(self.fee.get()))):"""
 
-                        if (int(self.std.get()) < 11):
-                            text = Label(self,text="Roll no.")
-                            text.place(x=300, y=35, height=25)
-                            self.rno = self.getRollno(self.std.get() + "~" + self.medium.get())
-                            print(self.rno)
-                            if (self.rno[0][0] == None or len(self.rno) == 0):
-                                self.rno = str(1)
-                            else:
-                                print(self.rno)
-                                self.rno = str(
-                                    self.getRollno(self.std.get() + "~" + self.medium.get())[0][0] + 1)
-                            self.roll = Label(self,text=self.rno)
-                            self.roll.place(x=400, y=35, height=25)
-                            self.insertVaribleIntoTable(self.rno, self.std.get() + "~" + self.medium.get(),
-                                                        self.fname.get(), self.mname.get(), self.lname.get(),
-                                                        self.address, self.phnos.get(), self.phnop.get(),
-                                                        self.email.get(), self.poadd, self.pophno.get(),
-                                                        self.fee.get())
-                            self.setValue()
-                            self.stdentry.focus_set()
-                            text = Label(self,text="GR no.")
-                            text.place(x=300, y=5, height=25)
-                            self.grno = self.getGrno()
-                            if (len(self.grno) == 0):
-                                self.grno = 1
-                            else:
-                                self.grno = self.getGrno()[0][0] + 1
-                            text = Label(self,text=self.grno)
-                            text.place(x=400, y=5, height=25)
-                            text = Label(self,text="Roll no.")
-                            text.place(x=300, y=35, height=25)
-                            self.roll = Label(self,text=self.rno)
-                            self.roll.place(x=400, y=35, height=25)
-                            print("done")
+        if (int(self.std.get()) < 11):
 
-                        else:
-                            text = Label(self,text="Select Stream : ")
-                            text.place(x=300, y=125, height=25)
-                            self.cb2()
-                            self.cbp2()
+            text = Label(self,text="Roll no.")
+            text.place(x=900, y=220, height=25)
 
-                            if (self.stream.get() == "Select Stream"):
-                                messagebox.showinfo('Error', 'Please select stream')
+            self.rno = self.getRollno(self.std.get() + "~" + self.medium.get())
+            print(self.rno)
 
-                            else:
+            if (self.rno[0][0] == None or len(self.rno) == 0):
+                self.rno = str(1)
+            else:
+                print(self.rno)
+                self.rno = str(self.getRollno(self.std.get() + "~" + self.medium.get())[0][0] + 1)
 
-                                text = Label(self,text="Roll no.")
-                                text.place(x=300, y=35, height=25)
-                                self.rno = self.getRollno(
-                                    self.std.get() + "~" + self.medium.get() + "~" + self.stream.get())
-                                print(self.rno)
-                                if (len(self.rno) == 0 or self.rno[0][0] == None):
-                                    self.rno = str(1)
-                                else:
-                                    print(self.rno)
-                                    self.rno = str(self.getRollno(
-                                        self.std.get() + "~" + self.medium.get() + "~" + self.stream.get())[0][
-                                                       0] + 1)
-                                self.roll = Label(self,text=self.rno)
-                                self.roll.place(x=400, y=35, height=25)
-                                self.insertVaribleIntoTable(self.rno,
-                                                            self.std.get() + "~" + self.medium.get() + "~" + self.stream.get(),
-                                                            self.fname.get(), self.mname.get(),
-                                                            self.lname.get(),
-                                                            self.address, self.phnos.get(), self.phnop.get(),
-                                                            self.email.get(), self.poadd, self.pophno.get(),
-                                                            self.fee.get())
-                                self.setValue()
-                                self.stdentry.focus_set()
-                                text = Label(self,text="GR no.")
-                                text.place(x=300, y=5, height=25)
-                                self.grno = self.getGrno()
-                                if (len(self.grno) == 0):
-                                    self.grno = 1
-                                else:
-                                    self.grno = self.getGrno()[0][0] + 1
-                                text = Label(self,text=self.grno)
-                                text.place(x=400, y=5, height=25)
-                                text = Label(self,text="Roll no.")
-                                text.place(x=300, y=35, height=25)
-                                self.roll = Label(self,text=self.rno)
-                                self.roll.place(x=400, y=35, height=25)
-                                print("done")
+            self.roll = Label(self,text=self.rno)
+            self.roll.place(x=1000, y=220, height=25)
 
-                    else:
+            self.insertVaribleIntoTable(self.rno, self.std.get() + "~" + self.medium.get(),
+                                        self.fname.get(), self.mname.get(), self.lname.get(),
+                                        self.address, self.phnos.get(), self.phnop.get(),
+                                        self.email.get(), self.poadd, self.pophno.get(),
+                                        self.fee.get(), self.dob, self.category.get(), self.bloodg.get(), self.caste.get(), str(self.today_date), str(self.ayear.get()))
 
-                        """if ((self.rno.get() == "") or (not(self.validRollno(self.rno.get())))):
+            self.setValue()
+            self.stdentry.focus_set()
+
+            text = Label(self,text="GR no.")
+            text.place(x=900, y=185, height=25)
+
+            self.grno = self.getGrno()
+
+            if (len(self.grno) == 0):
+                self.grno = 1
+            else:
+                self.grno = self.getGrno()[0][0] + 1
+
+            text = Label(self,text=self.grno)
+            text.place(x=1000, y=185, height=25)
+
+            text = Label(self,text="Roll no.")
+            text.place(x=900, y=220, height=25)
+
+            self.roll = Label(self,text=self.rno)
+            self.roll.place(x=1000, y=220, height=25)
+            print("done")
+
+        else:
+
+            if (self.stream.get() == "Select Stream"):
+                messagebox.showerror('Error', 'Please select stream')
+
+            else:
+
+                text = Label(self,text="Roll no.")
+                text.place(x=900, y=220, height=25)
+                self.rno = self.getRollno(self.std.get() + "~" + self.medium.get() + "~" + self.stream.get())
+                print(self.rno)
+
+                if (len(self.rno) == 0 or self.rno[0][0] == None):
+                    self.rno = str(1)
+                else:
+                    print(self.rno)
+                    self.rno = str(self.getRollno(self.std.get() + "~" + self.medium.get() + "~" + self.stream.get())[0][0] + 1)
+
+                self.roll = Label(self,text=self.rno)
+                self.roll.place(x=1000, y=220, height=25)
+
+                self.insertVaribleIntoTable(self.rno,
+                                            self.std.get() + "~" + self.medium.get() + "~" + self.stream.get(),
+                                            self.fname.get(), self.mname.get(),
+                                            self.lname.get(),
+                                            self.address, self.phnos.get(), self.phnop.get(),
+                                            self.email.get(), self.poadd, self.pophno.get(),
+                                            self.fee.get(), self.dob, self.category.get(), self.bloodg.get(), self.caste.get(), str(self.today_date), str(self.ayear.get()))
+                self.setValue()
+                self.stdentry.focus_set()
+                print(self.ayear)
+                print(type(self.ayear))
+
+                text = Label(self,text="GR no.")
+                text.place(x=900, y=185, height=25)
+
+                self.grno = self.getGrno()
+
+                if (len(self.grno) == 0):
+                    self.grno = 1
+                else:
+                    self.grno = self.getGrno()[0][0] + 1
+
+                text = Label(self,text=self.grno)
+                text.place(x=1000, y=185, height=25)
+
+                text = Label(self,text="Roll no.")
+                text.place(x=900, y=220, height=25)
+
+                self.roll = Label(self,text=self.rno)
+                self.roll.place(x=1000, y=220, height=25)
+                print("done")
+
+                """else:
+
+                        if ((self.rno.get() == "") or (not(self.validRollno(self.rno.get())))):
                             self.rnoentry.focus_set()
                             tkinter.messagebox.showinfo('Error', 'Please enter valid Roll number')
 
                         elif (self.div.get() == ""):
                             self.diventry.focus_set()
-                            tkinter.messagebox.showinfo('Error', 'Please enter Division')"""
+                            tkinter.messagebox.showinfo('Error', 'Please enter Division')
 
                         if ((self.std.get() == "") or (int(self.std.get()) < 1) or (int(self.std.get()) > 12)):
-                            self.stdentry.focus_set()
+
                             print(self.std.get())
                             print(type(self.std.get()))
-                            messagebox.showinfo('Error', 'Please enter valid standard')
+                            messagebox.showerror('Error', 'Please enter valid standard')
+                            self.stdentry.focus_set()
 
                         elif ((not (self.validFee(self.fee.get()))) or (self.fee.get() == "")):
+
+                            messagebox.showerror('Error', 'Please enter valid fees')
                             self.feesentry.focus_set()
-                            messagebox.showinfo('Error', 'Please enter valid fees')
 
                 else:
 
                     if ((not (self.validName(self.fname.get()))) or (self.fname.get() == "")):
+
+                        messagebox.showerror('Error', 'Invalid first name')
                         self.fnameentry.focus_set()
-                        messagebox.showinfo('Error', 'Invalid first name')
 
                     elif ((not (self.validName(self.mname.get()))) or (self.mname.get() == "")):
+
+                        messagebox.showerror('Error', 'Invalid middle name')
                         self.mnameentry.focus_set()
-                        messagebox.showinfo('Error', 'Invalid middle name')
 
                     elif ((not (self.validName(self.lname.get()))) or (self.lname.get() == "")):
+
+                        messagebox.showerror('Error', 'Invalid last name')
                         self.lnameentry.focus_set()
-                        messagebox.showinfo('Error', 'Invalid last name')
 
             else:
 
                 if (self.medium.get() == "Select Medium"):
 
-                    messagebox.showinfo('Error', 'please select medium')
+                    messagebox.showerror('Error', 'please select medium but select medium after entering standard')
 
                 else:
 
+                    messagebox.showerror('Error', 'Invalid email address')
                     self.emailentry.focus_set()
-                    messagebox.showinfo('Error', 'Invalid email address')
 
         else:
 
             if ((not (self.validNumber(self.phnop.get()))) or (len(self.phnop.get()) != 10)):
 
-                self.phnopentry.focus_set()
                 messagebox.showinfo('Error', 'Invalid parent mobile number')
+                self.phnopentry.focus_set()
 
             elif ((not (self.validNumber(self.phnos.get()))) or (len(self.phnos.get()) != 10)):
 
+                messagebox.showerror('Error', 'Invalid student mobile number')
                 self.phnosentry.focus_set()
-                messagebox.showinfo('Error', 'Invalid student mobile number')
 
             elif ((not (self.validNumber(self.pophno.get()))) or (len(self.pophno.get()) != 10)):
 
-                self.pophnoentry.focus_set()
-                messagebox.showinfo('Error', 'Invalid parent office mobile number')
+                messagebox.showerror('Error', 'Invalid parent office mobile number')
+                self.pophnoentry.focus_set()"""
 
         # ====================================================================================================================
 
-    def cb2(self):
-        text = Label(self.lf2,text="Select Stream : ")
+    # ====================================================================================================================
+
+    def streamselect(self, event):
+
+        text = Label(self.lf2, text="Select Stream : ")
         text.place(x=500, y=170, height=25)
-        self.streamchoosen = Combobox(self.lf2, state="readonly", textvariable=self.stream)
 
-        # ====================================================================================================================
+        if (int(self.std.get()) < 11):
 
-    def cbp2(self):
+            self.streamchoosen = Combobox(self.lf2, state="disable", textvariable=self.stream)
+
+        else:
+
+            self.streamchoosen = Combobox(self.lf2, state="readonly", textvariable=self.stream)
+
         self.streamchoosen.place(x=640, y=170, height=25, width=200)
 
         self.streamchoosen['values'] = ["Sci", "Com"]
 
-        # ====================================================================================================================
-
-    def cbd2(self):
-        self.streamchoosen.destroy()
     # ====================================================================================================================
 
     def __init__(self, root, main_root):
@@ -371,7 +591,7 @@ class InsertStudent(Toplevel):
         self.bgclr2 = "#e7d95a"
         self.f1 = "Arial Bold"
         self.f2 = "times new roman"
-        self.title("INSERT NEW STUDENT")
+        self.title("WINDOW10")
         self.config(background=self.bgclr1)
         self.geometry("1350x700+0+0")
         self.resizable(False, False)
@@ -382,6 +602,12 @@ class InsertStudent(Toplevel):
         self.medium.set("Select Medium")
         self.stream = StringVar()
         self.stream.set("Select Stream")
+        self.caste = StringVar()
+        self.category = StringVar()
+        self.category.set("Select Category")
+        self.bloodg = StringVar()
+        self.bloodg.set("Select Blood Group")
+        self.dob = StringVar()
         # self.div = StringVar()
         self.fname = StringVar()
         self.mname = StringVar()
@@ -393,6 +619,8 @@ class InsertStudent(Toplevel):
         self.poadd = StringVar()
         self.pophno = StringVar()
         self.fee = StringVar()
+        self.ayear = IntVar()
+
 
         ##===================================================frame 1====================================================
         imagel = Image.open("left-arrow.png")
@@ -413,8 +641,8 @@ class InsertStudent(Toplevel):
 
         # ===========================================================Entry Fields======================================
 
-        text = Label(self.lf2,text="GR no.")
-        text.place(x=500, y=90, height=25)
+        """text = Label(self.lf2,text="GR no.")
+        text.place(x=900, y=150, height=25)"""
         """self.grno = self.getGrno()
         if (len(self.grno) == 0):
             self.grno = 1
@@ -434,12 +662,47 @@ class InsertStudent(Toplevel):
         self.mediumchoosen.place(x=640, y=130, height=25, width=200)
 
         self.mediumchoosen['values'] = ["Guj", "Eng"]
+        self.mediumchoosen.bind("<<ComboboxSelected>>", self.streamselect)
 
         # self.cb2()
 
         text = Label(self.lf2,text="Select Stream : ")
         text.place(x=500, y=170, height=25)
-        self.streamchoosen = Combobox(self.lf2, state="readonly", textvariable=self.stream)
+        self.streamchoosen = Combobox(self.lf2, state="disable", textvariable=self.stream)
+        self.streamchoosen.place(x=640, y=170, height=25, width=200)
+
+        self.streamchoosen['values'] = ["Sci", "Com"]
+
+        text = Label(self.lf2,text="Date of birth : ")
+        text.place(x=500, y=200, height=25)
+        self.dobentry = DateEntry(self.lf2, date_pattern='dd/mm/yyyy', state="readonly")
+        self.dobentry.place(x=640, y=200, height=25, width=150)
+        self.today_date = self.dobentry.get_date()
+
+        text = Label(self.lf2,text="Select Category : ")
+        text.place(x=500, y=230, height=25)
+        self.categorychoosen = Combobox(self.lf2, state="readonly", textvariable=self.category)
+        self.categorychoosen.place(x=640, y=230, height=25, width=200)
+
+        self.categorychoosen['values'] = ["ST", "SC", "OBC", "OPEN", "Other"]
+
+        text = Label(self.lf2,text="Select Blood group : ")
+        text.place(x=500, y=260, height=25)
+        self.bloodgchoosen = Combobox(self.lf2, state="readonly", textvariable=self.bloodg)
+        self.bloodgchoosen.place(x=640, y=260, height=25, width=200)
+
+        self.bloodgchoosen['values'] = ["A+", "B+", "A-", "B-", "AB+", "O+", "O-"]
+
+        text = Label(self.lf2,text="Caste : ")
+        text.place(x=500, y=290, height=25)
+        self.casteentry = Entry(self.lf2, textvariable=self.caste)
+        self.casteentry.place(x=640, y=290, height=25, width=150)
+
+        text = Label(self.lf2, text="Academic year")
+        text.place(x=500, y=320, height=25)
+        self.ayearentry = Checkbutton(self.lf2, text="Admission in current year", variable=self.ayear, onvalue = 1,
+                                      offvalue = 0, height=5, width=20)
+        self.ayearentry.place(x=640, y=320, height=25, width=160)
 
         text = Label(self.lf2,text="Std.")
         text.place(x=10, y=10, height=25)

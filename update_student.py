@@ -2,6 +2,8 @@ from tkinter import *
 from tkinter import ttk, messagebox
 from tkinter.ttk import Combobox
 import sqlite3
+from tkcalendar import DateEntry
+import datetime
 from PIL import Image, ImageTk
 
 
@@ -29,9 +31,14 @@ class UpdateStudent(Toplevel):
         self.stds.set("Select Standard")
         self.rno = StringVar()
         self.rno.set("Select Roll number")
+        self.caste = StringVar()
+        self.category = StringVar()
+        self.bloodg = StringVar()
+        self.dob = StringVar()
         self.grno = StringVar()
         self.rollno = StringVar()
         self.std = StringVar()
+        # self.div = StringVar()
         self.fname = StringVar()
         self.mname = StringVar()
         self.lname = StringVar()
@@ -43,6 +50,16 @@ class UpdateStudent(Toplevel):
         self.pophno = StringVar()
         self.fee = StringVar()
         print(self.stds.get())
+
+        text = Label(self.lf2, text="Select Standard : ", bd=2, bg="black", fg="White", font=(self.f1, 15),
+                     relief=GROOVE)
+        text.place(x=50, y=10, height=25)
+        self.stdchoosen = Combobox(self.lf2, state="readonly", textvariable=self.stds, font=(self.f1, 10))
+        self.stdchoosen.place(x=250, y=10, height=25, width=200)
+
+        self.stdchoosen['values'] = self.getStd()
+
+        self.stdchoosen.bind("<<ComboboxSelected>>", self.nextStep)
 
     # ========================================================validation function============================================================
 
@@ -72,15 +89,17 @@ class UpdateStudent(Toplevel):
 
     # ========================================================to Update record============================================================
 
-    def UpdateVaribleIntoTable(self, fname, mname, lname, address, phnos, phnop, email, poadd, pophno, fees, grno):
+    def UpdateVaribleIntoTable(self, fname, mname, lname, address, phnos, phnop, email, poadd, pophno, fees, dob,
+                               category, bloodg, caste, grno):
         try:
             sqliteConnection = sqlite3.connect('sinfo.db')
             cursor = sqliteConnection.cursor()
             print("Connected to SQLite")
 
-            sqlite_update = """UPDATE master SET fname = ?, mname = ?, lname = ?, address = ?, student_phno = ?, parents_phno = ?, email = ?, parent_office_address = ?, parents_office_phno = ?, fee = ? WHERE grno = ?;"""
+            sqlite_update = """UPDATE master SET fname = ?, mname = ?, lname = ?, address = ?, student_phno = ?, parents_phno = ?, email = ?, parent_office_address = ?, parents_office_phno = ?, fee = ?, date_of_birth = ?, category = ?, blood_group = ?, cast = ? WHERE grno = ?;"""
 
-            data_tuple = (fname, mname, lname, address, phnos, phnop, email, poadd, pophno, fees, grno)
+            data_tuple = (
+            fname, mname, lname, address, phnos, phnop, email, poadd, pophno, fees, dob, category, bloodg, caste, grno)
             cursor.execute(sqlite_update, data_tuple)
             sqliteConnection.commit()
             print("Python Variables Updated successfully into detail table")
@@ -99,9 +118,166 @@ class UpdateStudent(Toplevel):
     # ==========================================================to check validation==========================================================
 
     def submitvalue(self):
+
+        self.dob = str(self.dobentry.get_date())
         self.address = self.addressentry.get(1.0, END)
         self.poadd = self.poaddentry.get(1.0, END)
-        if (self.validNumber(self.phnop.get()) and self.validNumber(self.phnos.get()) and self.validNumber(
+
+        try:
+            if (len(self.address) != 1):
+                pass
+            else:
+                raise ValueError
+        except:
+            messagebox.showerror("School Software", "Please enter address")
+            return
+
+        try:
+            if (len(self.poadd) != 1):
+                pass
+            else:
+                raise ValueError
+        except:
+            messagebox.showerror("School Software", "Please enter parent office address")
+            return
+
+        """try:
+            if self.category.get() != "Select Category":
+                pass
+            else:
+                raise ValueError
+        except:
+            messagebox.showerror("School Software", "Please select category")
+            return"""
+
+        try:
+            if self.caste.get() != "":
+                pass
+            else:
+                raise ValueError
+        except:
+            messagebox.showerror("School Software", "Please enter caste")
+            self.casteentry.focus_set()
+            return
+
+        """try:
+            if self.dobentry.get_date() != self.today_date:
+                pass
+            else:
+                raise ValueError
+        except:
+            messagebox.showerror("School Software", "Please select date of birth")
+            return"""
+
+        """try:
+            if self.bloodg.get() != "Select Blood Group":
+                pass
+            else:
+                raise ValueError
+        except:
+            messagebox.showerror("School Software", "Please select blood group")
+            return"""
+
+        """try:
+            if ((self.std.get() != "") and (int(self.std.get()) >= 1) and (int(self.std.get()) <= 12)):
+                pass
+            else:
+                raise ValueError
+        except:
+            messagebox.showerror("School Software", "Please enter valid standard")
+            self.stdentry.focus_set()
+            return"""
+
+        try:
+            if ((self.validFee(self.fee.get())) and (self.fee.get() != "")):
+                pass
+            else:
+                raise ValueError
+        except:
+            messagebox.showerror("School Software", "Please enter valid fee")
+            self.feesentry.focus_set()
+            return
+
+        try:
+            if ((self.validName(self.fname.get())) and (self.fname.get() != "")):
+                pass
+            else:
+                raise ValueError
+        except:
+            messagebox.showerror("School Software", "Please enter valid first name")
+            self.fnameentry.focus_set()
+            return
+
+        try:
+            if ((self.validName(self.mname.get())) and (self.mname.get() != "")):
+                pass
+            else:
+                raise ValueError
+        except:
+            messagebox.showerror("School Software", "Please enter valid middle name")
+            self.mnameentry.focus_set()
+            return
+
+        try:
+            if ((self.validName(self.lname.get())) and (self.lname.get() != "")):
+                pass
+            else:
+                raise ValueError
+        except:
+            messagebox.showerror("School Software", "Please enter valid last name")
+            self.lnameentry.focus_set()
+            return
+
+        """try:
+            if (self.medium.get() != "Select Medium"):
+                pass
+            else:
+                raise ValueError
+        except:
+            messagebox.showerror('Error', 'please select medium but select medium after entering standard')
+            return"""
+
+        try:
+            if ((self.validNumber(self.phnos.get())) and (len(self.phnos.get()) == 10)):
+                pass
+            else:
+                raise ValueError
+        except:
+            messagebox.showerror("School Software", "Please enter valid student phone number")
+            self.phnosentry.focus_set()
+            return
+
+        try:
+            if ((self.validNumber(self.phnop.get())) and (len(self.phnop.get()) == 10)):
+                pass
+            else:
+                raise ValueError
+        except:
+            messagebox.showerror("School Software", "Please enter valid parent phone number")
+            self.phnopentry.focus_set()
+            return
+
+        try:
+            if ((self.validNumber(self.pophno.get())) and (len(self.pophno.get()) == 10)):
+                pass
+            else:
+                raise ValueError
+        except:
+            messagebox.showerror("School Software", "Please enter valid parent office phone number")
+            self.pophnoentry.focus_set()
+            return
+
+        try:
+            if (self.validEmail(self.email.get())):
+                pass
+            else:
+                raise ValueError
+        except:
+            messagebox.showerror("School Software", "Please enter valid email address")
+            self.emailentry.focus_set()
+            return
+
+        """if (self.validNumber(self.phnop.get()) and self.validNumber(self.phnos.get()) and self.validNumber(
                 self.pophno.get()) and (len(self.phnos.get()) == 10) and (len(self.phnop.get()) == 10) and (
                 len(self.pophno.get()) == 10)):
 
@@ -111,18 +287,19 @@ class UpdateStudent(Toplevel):
                         self.lname.get()) and (self.fname.get() != "") and (self.mname.get() != "") and (
                         self.lname.get() != "")):
 
-                    if ((self.fee.get() != "") and self.validFee(self.fee.get())):
+                    if ((self.fee.get() != "") and self.validFee(self.fee.get())):"""
 
-                        self.grn = str(self.getGrn(self.stds.get(), self.rnochoosen.get())[0][0])
-                        self.UpdateVaribleIntoTable(self.fname.get(), self.mname.get(), self.lname.get(), self.address,
-                                                    self.phnos.get(), self.phnop.get(), self.email.get(), self.poadd,
-                                                    self.pophno.get(), self.fee.get(), self.grn)
-                        self.setValue()
-                        print("done")
+        self.grn = str(self.getGrn(self.stds.get(), self.rnochoosen.get())[0][0])
+        self.UpdateVaribleIntoTable(self.fname.get(), self.mname.get(), self.lname.get(), self.address,
+                                    self.phnos.get(), self.phnop.get(), self.email.get(), self.poadd,
+                                    self.pophno.get(), self.fee.get(), self.dob, self.category.get(), self.bloodg.get(),
+                                    self.caste.get(), self.grn)
+        self.setValue()
+        print("done")
 
-                    else:
+        """else:
 
-                        """if ((self.rno.get() == "") or (not(self.validRollno(self.rno.get())))):
+                        if ((self.rno.get() == "") or (not(self.validRollno(self.rno.get())))):
 
                             self.rnoentry.focus_set()
 
@@ -133,13 +310,13 @@ class UpdateStudent(Toplevel):
 
                             self.diventry.focus_set()
 
-                            messagebox.showinfo('Error', 'Please enter Division')"""
+                            messagebox.showinfo('Error', 'Please enter Division')
 
-                        """if ((self.stds.get() == "") or (self.stds.get() < "1") or (self.stds.get() > "12")):
+                        if ((self.stds.get() == "") or (self.stds.get() < "1") or (self.stds.get() > "12")):
 
                             self.stdentry.focus_set()
 
-                            messagebox.showinfo('Error', 'Please enter valid standard')"""
+                            messagebox.showinfo('Error', 'Please enter valid standard')
 
                         if ((not (self.validFee(self.fee.get()))) or (self.fee.get() == "")):
                             self.feesentry.focus_set()
@@ -190,7 +367,7 @@ class UpdateStudent(Toplevel):
             elif ((not (self.validNumber(self.pophno.get()))) or (len(self.pophno.get()) != 10)):
 
                 self.pophnoentry.focus_set()
-                messagebox.showinfo('Error', 'Invalid parent office mobile number')
+                messagebox.showinfo('Error', 'Invalid parent office mobile number')"""
 
     # ============================================================to set all field as null========================================================
 
@@ -316,7 +493,7 @@ class UpdateStudent(Toplevel):
 
         if (self.stds.get() == "Select Standard"):
 
-            messagebox.showinfo('Error', 'Please select standard')
+            messagebox.showerror('Error', 'Please select standard')
 
         else:
 
@@ -338,13 +515,14 @@ class UpdateStudent(Toplevel):
 
         if (self.rnochoosen.get() == "Select Roll number"):
 
-            messagebox.showinfo('Error', 'Please select roll number')
+            messagebox.showerror('Error', 'Please select roll number')
 
         else:
             self.row = self.getRow(self.stds.get(), self.rnochoosen.get())
             self.grno = (self.row[0][0])
             self.rollno = (self.row[0][1])
             self.std = (self.row[0][2])
+            # self.div = (self.row[0][2].split("-")[1])
             self.fname.set(self.row[0][4])
             self.mname.set(self.row[0][5])
             self.lname.set(self.row[0][6])
@@ -355,6 +533,11 @@ class UpdateStudent(Toplevel):
             self.poadd = (self.row[0][11])
             self.pophno.set(self.row[0][12])
             self.fee.set(self.row[0][13])
+            self.dob = (self.row[0][16])
+            print(self.dob)
+            self.category.set(self.row[0][17])
+            self.bloodg.set(self.row[0][18])
+            self.caste.set(self.row[0][19])
             print(self.row[0][0])
 
             text = Label(self.lf2,text="GRno" ,bd=2, bg="black", fg="White", font=(self.f1, 15),
@@ -378,6 +561,35 @@ class UpdateStudent(Toplevel):
                                  relief=GROOVE)
             self.stdentry.place(x=250, y=50, height=25)
             self.stdentry.focus_set()
+
+            text = Label(self.lf2,text="Date of birth" ,bd=2, bg="black", fg="White", font=(self.f1, 15),
+                                 relief=GROOVE)
+            text.place(x=550, y=300, height=25)
+            self.dobentry = DateEntry(self.lf2, date_pattern='yyyy/mm/dd', state="readonly", font=(self.f1,10))
+            self.dobentry.place(x=800, y=300, height=25, width=150)
+            self.dobentry.set_date((datetime.datetime.strptime(self.dob, "%Y-%m-%d").date()))
+
+            text = Label(self.lf2, text="Category" ,bd=2, bg="black", fg="White", font=(self.f1, 15),
+                                 relief=GROOVE)
+            text.place(x=550, y=330, height=25)
+            self.categorychoosen = Combobox(self.lf2, state="readonly", textvariable=self.category, font=(self.f1,10))
+            self.categorychoosen.place(x=800, y=330, height=25, width=200)
+
+            self.categorychoosen['values'] = ["ST", "SC", "OBC", "OPEN", "Other"]
+
+            text = Label(self.lf2, text="Blood group" ,bd=2, bg="black", fg="White", font=(self.f1, 15),
+                                 relief=GROOVE)
+            text.place(x=550, y=360, height=25)
+            self.bloodgchoosen = Combobox(self.lf2, state="readonly", textvariable=self.bloodg, font=(self.f1,10))
+            self.bloodgchoosen.place(x=800, y=360, height=25, width=200)
+
+            self.bloodgchoosen['values'] = ["A+", "B+", "A-", "B-", "AB+", "O+", "O-"]
+
+            text = Label(self.lf2, text="caste" ,bd=2, bg="black", fg="White", font=(self.f1, 15),
+                                 relief=GROOVE)
+            text.place(x=550, y=390, height=25)
+            self.casteentry = Entry(self.lf2, textvariable=self.caste, font=(self.f1,10))
+            self.casteentry.place(x=800, y=390, height=25, width=150)
 
             """text = Label(self.lf2,text="Div.")
             text.place(x=5, y=65, height=25)
@@ -472,6 +684,10 @@ class UpdateStudent(Toplevel):
             self.poaddentry.destroy()
             self.pophnoentry.destroy()
             self.feesentry.destroy()
+            self.casteentry.destroy()
+            self.categorychoosen.destroy()
+            self.dobentry.destroy()
+            self.bloodgchoosen.destroy()
             self.btn3.destroy()
             self.start()
 
@@ -514,15 +730,7 @@ class UpdateStudent(Toplevel):
 
         self.start()
 
-        text = Label(self.lf2,text="Select Standard : " ,bd=2, bg="black", fg="White", font=(self.f1, 15),
-                                 relief=GROOVE)
-        text.place(x=50, y=10, height=25)
-        self.stdchoosen = Combobox(self.lf2, state="readonly", textvariable=self.stds, font=(self.f1,10))
-        self.stdchoosen.place(x=250, y=10, height=25, width=200)
 
-        self.stdchoosen['values'] = self.getStd()
-
-        self.stdchoosen.bind("<<ComboboxSelected>>", self.nextStep)
 
         # Create a Button
         """self.btn = Button(self, text='Next', bd='5', command=self.nextStep)

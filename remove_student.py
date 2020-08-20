@@ -46,11 +46,38 @@ class RemoveStudent(Toplevel):
                 sqliteConnection.close()
                 print("The SQLite connection is closed")
 
+# ===========================================================to check whether exam is started or not=========================================================
+
+    def checkExam(self):
+
+        try:
+            sqliteConnection = sqlite3.connect('sinfo.db')
+            cursor = sqliteConnection.cursor()
+            print("Connected to SQLite")
+
+            exams = """SELECT data FROM exams;"""
+            cursor.execute(exams)
+            return cursor.fetchall()
+
+        except sqlite3.Error as error:
+            print("Failed to insert Python variable into sqlite table", error)
+        finally:
+            if (sqliteConnection):
+                sqliteConnection.close()
+                print("The SQLite connection is closed")
+
+# ========================================================Starting method============================================================
+
     def start(self):
+        self.delete = 0
         self.stds = StringVar()
         self.stds.set("Select Standard")
         self.rno = StringVar()
         self.rno.set("Select Roll number")
+        self.caste = StringVar()
+        self.category = StringVar()
+        self.bloodg = StringVar()
+        self.dob = StringVar()
         self.grno = StringVar()
         self.rollno = StringVar()
         self.std = StringVar()
@@ -66,6 +93,16 @@ class RemoveStudent(Toplevel):
         self.pophno = StringVar()
         self.fee = StringVar()
         print(self.stds.get())
+
+        text = Label(self.lf2, text="Select Standard : ", bd=2, bg="black", fg="White", font=(self.f1, 15),
+                     relief=GROOVE)
+        text.place(x=50, y=10, height=25)
+        self.stdchoosen = Combobox(self.lf2, state="readonly", textvariable=self.stds)
+        self.stdchoosen.place(x=250, y=10, height=25, width=200)
+
+        self.stdchoosen['values'] = self.getStd()
+
+        self.stdchoosen.bind("<<ComboboxSelected>>", self.nextStep)
 
     # ========================================================to get standard============================================================
 
@@ -194,9 +231,12 @@ class RemoveStudent(Toplevel):
 
         if (self.stds.get() == "Select Standard"):
 
-            messagebox.showinfo('Error', 'Please select standard')
+            messagebox.showerror('Error', 'Please select standard')
 
         else:
+
+            if (self.delete != 0):
+                self.clearValue()
 
             text = Label(self.lf2,text="Select Rollno : ",bd=2, bg="black", fg="White", font=(self.f1, 15),
                                  relief=GROOVE)
@@ -216,9 +256,10 @@ class RemoveStudent(Toplevel):
 
         if (self.rno.get() == "Select Roll number"):
 
-            messagebox.showinfo('Error', 'Please select roll number')
+            messagebox.showerror('Error', 'Please select roll number')
 
         else:
+            self.delete = 1
             self.row = self.getRow(self.stds.get(), self.rno.get())
             self.grno = (self.row[0][0])
             self.rollno = (self.row[0][1])
@@ -234,6 +275,10 @@ class RemoveStudent(Toplevel):
             self.poadd = (self.row[0][11])
             self.pophno = (self.row[0][12])
             self.fee = (self.row[0][13])
+            self.dob = (self.row[0][16])
+            self.category = (self.row[0][17])
+            self.bloodg = (self.row[0][18])
+            self.caste = (self.row[0][19])
             print(self.row[0][0])
 
             text = Label(self.lf2,text="GRno",bd=2, bg="black", fg="White", font=(self.f1, 15),
@@ -250,10 +295,38 @@ class RemoveStudent(Toplevel):
                                  relief=GROOVE)
             self.rollnotext.place(x=800, y=90, height=25)
 
-            text = Label(self.lf2,text="Std.",bd=2, bg="black", fg="White", font=(self.f1, 15),
+            text = Label(self.lf2, text="Date of birth", bd=2, bg="black", fg="White", font=(self.f1, 15),
+                         relief=GROOVE)
+            text.place(x=550, y=290, height=25)
+            self.dobtext = Label(self.lf2, text=self.dob, bd=2, bg="black", fg="White", font=(self.f1, 15),
+                                    relief=GROOVE)
+            self.dobtext.place(x=800, y=290, height=25)
+
+            text = Label(self.lf2, text="Category", bd=2, bg="black", fg="White", font=(self.f1, 15),
+                         relief=GROOVE)
+            text.place(x=550, y=330, height=25)
+            self.categorytext = Label(self.lf2, text=self.category, bd=2, bg="black", fg="White", font=(self.f1, 15),
+                                    relief=GROOVE)
+            self.categorytext.place(x=800, y=330, height=25)
+
+            text = Label(self.lf2, text="Blood Group", bd=2, bg="black", fg="White", font=(self.f1, 15),
+                         relief=GROOVE)
+            text.place(x=550, y=370, height=25)
+            self.bloodgtext = Label(self.lf2, text=self.bloodg, bd=2, bg="black", fg="White", font=(self.f1, 15),
+                                    relief=GROOVE)
+            self.bloodgtext.place(x=800, y=370, height=25)
+
+            text = Label(self.lf2, text="Caste", bd=2, bg="black", fg="White", font=(self.f1, 15),
+                         relief=GROOVE)
+            text.place(x=550, y=410, height=25)
+            self.castetext = Label(self.lf2, text=self.caste, bd=2, bg="black", fg="White", font=(self.f1, 15),
+                                    relief=GROOVE)
+            self.castetext.place(x=800, y=410, height=25)
+
+            text = Label(self.lf2,text="Std.", bd=2, bg="black", fg="White", font=(self.f1, 15),
                                  relief=GROOVE)
             text.place(x=50, y=50, height=25)
-            self.stdtext = Label(self.lf2,text=self.std,bd=2, bg="black", fg="White", font=(self.f1, 15),
+            self.stdtext = Label(self.lf2, text=self.std, bd=2, bg="black", fg="White", font=(self.f1, 15),
                                  relief=GROOVE)
             self.stdtext.place(x=250, y=50, height=25)
 
@@ -330,7 +403,7 @@ class RemoveStudent(Toplevel):
             text.place(x=550, y=250, height=25)
             self.feetext = Label(self.lf2,text=self.fee,bd=2, bg="black", fg="White", font=(self.f1, 15),
                                  relief=GROOVE)
-            self.feetext.place(x=550, y=250, height=25)
+            self.feetext.place(x=800, y=250, height=25)
 
             # Create a Button
             self.btn3 = Button(self.lf2, text='Delete', bd='5', font=(self.f2, 15), command=self.lastStep)
@@ -340,8 +413,34 @@ class RemoveStudent(Toplevel):
     # ========================================================Last Step============================================================
 
     def lastStep(self):
+
+        self.delete = 0
+        exam = self.checkExam()
+        counter = 0
+
+        try:
+            for x in exam:
+                if (x[0].split("_")[1].split("-")[0] == self.std.split("~")[0].split("-")[0]):
+                    counter = 1
+                    break
+            if (counter != 1):
+                pass
+            else:
+                raise ValueError
+        except:
+            messagebox.showerror("School Software", "exam is started for your standard so now you cannot leave")
+            self.clearValue()
+            return
+
+
         self.grn = self.getGrn(self.stds.get(), self.rno.get())
         self.deleteFromTable(self.grn[0])
+        self.clearValue()
+
+# ========================================================clear all values============================================================
+
+    def clearValue(self):
+
         self.rnochoosen.destroy()
         self.grnotext.destroy()
         self.rollnotext.destroy()
@@ -356,6 +455,10 @@ class RemoveStudent(Toplevel):
         self.poaddtext.destroy()
         self.pophnotext.destroy()
         self.feetext.destroy()
+        self.dobtext.destroy()
+        self.bloodgtext.destroy()
+        self.categorytext.destroy()
+        self.castetext.destroy()
         self.btn3.destroy()
         self.start()
 
@@ -397,14 +500,6 @@ class RemoveStudent(Toplevel):
 
         self.start()
 
-        text = Label(self.lf2,text="Select Standard : ",bd=2, bg="black", fg="White", font=(self.f1, 15),
-                                 relief=GROOVE)
-        text.place(x=50, y=10, height=25)
-        self.stdchoosen = Combobox(self.lf2, state="readonly", textvariable=self.stds)
-        self.stdchoosen.place(x=250, y=10, height=25, width=200)
 
-        self.stdchoosen['values'] = self.getStd()
-
-        self.stdchoosen.bind("<<ComboboxSelected>>", self.nextStep)
         self.protocol("WM_DELETE_WINDOW", self.c_w)
         self.mainloop()
