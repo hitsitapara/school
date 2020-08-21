@@ -124,6 +124,9 @@ class start:
             os.makedirs("C:\\Reports\\Attendence\\Student")
             os.makedirs("C:\\Reports\\Exams")
             os.mkdir("C:\\Fees")
+            os.mkdir("C:\\Reports\\View\\Student")
+            os.mkdir("C:\\Reports\\View\\Staff")
+
         except:
             pass
         rowcounter = "select count(*) from staff"

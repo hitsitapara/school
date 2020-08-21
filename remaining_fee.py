@@ -101,21 +101,27 @@ class Remaining_fee(Toplevel):
         self.config(background=self.bgclr1)
         self.geometry("1350x700+0+0")
         self.resizable(False, False)
-
+        ##===============================================frame 1========================================================
         imagel = Image.open("left-arrow.png")
-        imagel = imagel.resize((50, 50))
-
+        imagel = imagel.resize((60, 15))
         imgl = ImageTk.PhotoImage(imagel)
 
-        bb = Button(self, image = imgl, bd=5, font=(self.f1, 20), bg=self.bgclr2, command=self.backf)
-        bb.pack()
+        self.lf1 = LabelFrame(self, text="NAME", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
+        self.lf1.place(x=0, y=0, height=150, width=1350)
 
-        fee_gen_btn = Button(self, text="Generate Report", bd=5, font=(self.f1,15), bg=self.bgclr2, command=self.gen_report)
-        fee_gen_btn.place(x = 500, y = 600)
-        label = Label(self, text="Standard")
+        bb = Button(self.lf1, image=imgl, bd=5, font=(self.f1, 20), command=self.backf)
+        bb.place(x=10, y=10)
+        ##=============================================frame 2==========================================================
+        self.lf2 = LabelFrame(self, text="Remaining Fee", bd=2, bg="black", fg="white", font=(self.f1, 20),
+                              relief=GROOVE)
+        self.lf2.place(x=0, y=150, height=550, width=1350)
+
+        fee_gen_btn = Button(self.lf2, text="Generate Report", bd=5, font=(self.f2,15), command=self.gen_report)
+        fee_gen_btn.place(x = 500, y = 450)
+        label = Label(self.lf2, text="Standard")
         label.place(x=100, y=90, height=20)
         self.combo_var = StringVar()
-        self.cb = Combobox(self, state="readonly",textvariable=self.combo_var,
+        self.cb = Combobox(self.lf2, state="readonly",textvariable=self.combo_var,
                                 font=("Arial Bold", 10))
         self.cb.place(x=355, y=90, height=20, width=200)
         query = "Select distinct standard from master"

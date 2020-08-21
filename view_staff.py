@@ -144,7 +144,7 @@ class ViewStaff(Toplevel):
         pdf.drawString(200, 840, "Staff-Info")
         pdf.setFont("Courier-Bold", 15)
         pdf.drawString(30, 815, "Staff Name : {} {} {}".format(self.update_query_tuple[1], self.update_query_tuple[2], self.update_query_tuple[3]))
-        pdf.drawString(30, 790, "Emp No. : {}".format(self.select_user_combo.get()))
+        pdf.drawString(30, 790, "Emp No. : {}".format(self.select_user_combo.get()[1]))
         pdf.drawString(30, 765, "Date : {}".format(date.today()))
         pdf.setFont("Courier-Bold", 12)
         pdf.drawString(30, 680, "Salary : {}".format(self.update_query_tuple[4]))
