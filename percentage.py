@@ -51,21 +51,52 @@ class Percentage(Toplevel):
             self.all_details_student = self.conn.execute(query).fetchall()
 
             return_value = True
+
         else:
             messagebox.showerror("School Software",
                                  "Mark Entry of All Students for Exam '{}' is not Done.".format(self.cb1.get()))
             self.cb1.set("Select")
             return_value = False
+
+        if self.roll_from_master[0] < int(self.rank_var.get()):
+            messagebox.showerror("School Software",
+                                 "Total {} Students Appeared for Exam : {}.\nYou want give Rank to The {} Students.\nWhich is Impossible.\nPlease Correct It.".format(self.roll_from_master[0], self.cb1.get(), self.rank_var.get()))
+            self.cb1.set("Select")
+            self.rank.focus_set()
+            return_value = False
+        
         return return_value
         
     def selected_exam(self,event):
+        
+        if self.examname_var.get() == "":
+            messagebox.showerror("School Software", "Please Enter Exam Title..")
+            self.examname.focus_set()
+            return
+
+        if self.rank.get() == "":
+            messagebox.showerror("School Software", "Please Enter Rank..")
+            self.rank.focus_set()
+            return
+        try:
+            r = int(self.rank.get())
+            if r < 1:
+                messagebox.showerror("School Software", "Please Enter Valid Rank. Rank Should Be Positive Number.")
+                self.rank.focus_set()
+                return
+        except:
+            messagebox.showerror("School Software", "Please Enter Valid Rank. Rank Should Be Positive Number.")
+            self.rank.focus_set()
+            return
+        
         get_return_value = self.get_data_for_preview_and_result()
         if not get_return_value:
             return
+
         self.preview_btn = Button(self, text="See Preview", command=self.preview)
-        self.preview_btn.place(x=550, y=350, height=25)
+        self.preview_btn.place(x=550, y=600, height=25)
         self.generate_btn = Button(self, text="Generate Result", command=self.generate_result)
-        self.generate_btn.place(x=750, y=350, height=25)
+        self.generate_btn.place(x=750, y=600, height=25)
 
     def preview(self):
         pdf = canvas.Canvas("C:\\Reports\\Exams\\preview_{}.pdf".format(self.cb1.get()))
@@ -79,7 +110,7 @@ class Percentage(Toplevel):
         pdf.setFont("Courier-Bold", 15)
         heading = self.cb1.get().split("_")
 
-        pdf.drawString(215, 885, "Preview Report : {}".format(heading[0]))
+        pdf.drawString(50, 890, "Preview Report : {}".format(self.examname_var.get()))
         pdf.drawString(50, 870, "Standard : {}".format(heading[1]))
         pdf.drawString(430, 870, "Date : {}".format(heading[2]))
 
@@ -109,7 +140,7 @@ class Percentage(Toplevel):
             for j in range(1, length_rows):
                 pdf.drawString(side, top, "{}".format(self.all_details_marks[i][j]))
                 side += diff
-            top -= 700
+            top -= 15
             side = 50
 
         pdf.save()
@@ -120,6 +151,7 @@ class Percentage(Toplevel):
     def generate_result(self):
         m = messagebox.askyesnocancel("School Software", "Before Generating Result Please Ensure that you have Entered Correct Marks for all Students, After Generating Result you can't Update Marks.\nFor Mark Details Please See Preview.\nAre You really Want to Generate Result of Exam : '{}' ?".format(self.cb1.get()))
         if m == True:
+
             os.makedirs("C:\\Results\\{}".format(self.cb1.get()))
             get_return_value = self.get_data_for_preview_and_result()
             if get_return_value:
@@ -160,9 +192,12 @@ class Percentage(Toplevel):
                 self.conn.commit()
                 self.combo_maintain()
                 messagebox.showinfo("School Software","Your Result for Exam '{}' is Generated Succesfully !".format(self.cb1.get()))
+
                 self.preview_btn.destroy()
                 self.generate_btn.destroy()
                 self.cb1.set("Select")
+                self.examname_var.set('')
+                self.rank_var.set('')
             else:
                 return
         elif m == False:
@@ -182,7 +217,7 @@ class Percentage(Toplevel):
         self.ranks.sort()
         self.ranks.reverse()
         self.rank_list = []
-        for i in range(1):
+        for i in range(int(self.rank.get())):
             self.rank_list.append(round(self.ranks[i], 2))
         print(self.rank_list)
     
@@ -209,7 +244,7 @@ class Percentage(Toplevel):
         pdf.setFont("Courier-Bold", 15)
         heading = self.cb1.get().split("_")
 
-        pdf.drawString(215, 885, "Exam Report : {}".format(heading[0]))
+        pdf.drawString(50, 890, "Exam Report : {}".format(self.examname_var.get()))
         pdf.drawString(50, 870, "Standard : {}".format(heading[1]))
         pdf.drawString(430, 870, "Date : {}".format(heading[2]))
 
@@ -241,7 +276,7 @@ class Percentage(Toplevel):
             for j in range(1, length_rows):
                 pdf.drawString(side, top, "{}".format(self.all_details_marks[i][j]))
                 side += diff
-            top -= 700
+            top -= 15
             side = 50
         pdf.save()
     
@@ -280,7 +315,7 @@ class Percentage(Toplevel):
             pdf.drawString(225, 800, "SCHOOL NAME")
 
             pdf.setFont("Courier-Bold", 25)
-            pdf.drawString(250, 750, "EXAM NAME")
+            pdf.drawString(250, 750, str(self.examname_var.get()))
 
             pdf.setFont("Courier-Bold", 10)
             pdf.drawString(15, 580, "Sr No.")
@@ -386,7 +421,6 @@ class Percentage(Toplevel):
                 pdf.drawString(450, 155, "Result : FAIL")
 
             try:
-                print(round(self.all_details_marks[i][-1]))
                 rank = self.rank_list.index(round(self.all_details_marks[i][-1]))
                 pdf.drawString(60, 140, "Rank : {}".format(str(rank + 1)))
 
@@ -433,6 +467,21 @@ class Percentage(Toplevel):
         self.lf2 = LabelFrame(self, text="Percentage", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
         self.lf2.place(x=0, y=150, height=550, width=1350)
 
+
+        #=======================CHanges==================================
+
+        exam_label = Label(self.lf2,text="Exam Name")
+        rank_label = Label(self.lf2,text="Enter Total Number Of Ranks, Which You want to give")
+        self.examname_var = StringVar()
+        self.rank_var = StringVar()
+        self.examname = Entry(self.lf2, textvariable=self.examname_var)
+        self.rank = Entry(self.lf2, textvariable=self.rank_var)
+        exam_label.place(x=200, y=200)
+        rank_label.place(x=200, y=300)
+        self.examname.place(x=700, y=200)
+        self.rank.place(x=700, y=300)
+
+        #=======================CHanges==================================
 
         self.combo_var = StringVar()
         self.cb1 = Combobox(self.lf2, state="readonly", textvariable=self.combo_var, font=("Arial Bold", 15))
