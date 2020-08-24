@@ -106,7 +106,7 @@ class Delete_Exam(Toplevel):
         ##======================================================frame 2=================================================
         self.lf2 = LabelFrame(self, text="DELETE EXAM WINDOW", bd=2, bg="black", fg="white", font=(self.f1, 20),
                               relief=GROOVE)
-        self.lf2.place(x=0, y=150, height=600, width=1350)
+        self.lf2.place(x=0, y=150, height=550, width=1350)
         self.combo_get_exam_var = StringVar()
         self.combo_get_exam = Combobox(self.lf2, state="readonly", textvariable=self.combo_get_exam_var, font=("Arial Bold", 15))
         self.combo_get_exam.place(x=220, y=420)

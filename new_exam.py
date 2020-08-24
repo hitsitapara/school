@@ -299,7 +299,7 @@ class r1(Toplevel):
         ##=====================================================frame 2================================================
         self.lf2 = LabelFrame(self, text="CREATE EXAM", bd=2, bg="black", fg="white", font=(self.f1, 20),
                               relief=GROOVE)
-        self.lf2.place(x=0, y=150, height=600, width=675)
+        self.lf2.place(x=0, y=150, height=550, width=675)
 
         label = Label(self.lf2, text="Exam Name")
         label.place(x=100, y=20, height=20)
@@ -349,9 +349,9 @@ class r1(Toplevel):
         self.done_btn.config(state="disabled")
 
         ##===================================================== frame 3===============================================
-        self.lf3 = LabelFrame(self, text="ATTENDANCE PREVIEW", bd=2, bg="black", fg="white", font=(self.f1, 20),
+        self.lf3 = LabelFrame(self, text="Marks Entry & Results", bd=2, bg="black", fg="white", font=(self.f1, 20),
                               relief=GROOVE)
-        self.lf3.place(x=675, y=150, height=600, width=675)
+        self.lf3.place(x=675, y=150, height=550, width=675)
 
         mark_btn = Button(self.lf3, text="MARK ENTRY", command=self.marks_entry)
         mark_btn.place(x=300, y=50, height=25)

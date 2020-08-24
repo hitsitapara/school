@@ -211,7 +211,7 @@ class Update_Mark(Toplevel):
         bb.place(x=10, y=10)
 
         ##===================================================frame 2====================================================
-        self.lf2 = LabelFrame(self, text="MARK'S ENTRY", bd=2, bg="black", fg="white", font=(self.f1, 20),
+        self.lf2 = LabelFrame(self, text="UPDATE MARK'S ", bd=2, bg="black", fg="white", font=(self.f1, 20),
                               relief=GROOVE)
         self.lf2.place(x=0, y=150, height=550, width=1350)
 

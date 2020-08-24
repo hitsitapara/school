@@ -86,7 +86,7 @@ class Main1(Toplevel):
         bb.place(x=10, y=10)
         ##===============================================frame 2========================================================
         self.lf2 = LabelFrame(self, text="Buttons", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
-        self.lf2.place(x=0, y=150, height=600, width=1350)
+        self.lf2.place(x=0, y=150, height=550, width=1350)
 
         atimg = ImageTk.PhotoImage(file="attendance.png")
         atbutton = Button(self.lf2, image=atimg, bd=5, bg=self.bgclr2, relief=FLAT, command=self.at)

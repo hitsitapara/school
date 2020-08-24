@@ -59,7 +59,7 @@ class Reports(Toplevel):
         self.bgclr2 = "#e7d95a"
         self.f1 = "Arial Bold"
         self.f2 = "times new roman"
-        self.title("WINDOW10")
+        self.title("REPORTS")
         self.config(background=self.bgclr1)
         self.geometry("1350x700+0+0")
         self.resizable(False, False)
@@ -75,7 +75,7 @@ class Reports(Toplevel):
         bb = Button(self.lf1, image=imgl, bd=5, font=(self.f1, 20), command=self.backf)
         bb.place(x=10, y=10)
         ##=============================================frame 2==========================================================
-        self.lf2 = LabelFrame(self, text="ATTENDANCE WINDOW", bd=2, bg="black", fg="white", font=(self.f1, 20),
+        self.lf2 = LabelFrame(self, text="REPORT'S", bd=2, bg="black", fg="white", font=(self.f1, 20),
                               relief=GROOVE)
         self.lf2.place(x=0, y=150, height=550, width=1350)
 

@@ -298,7 +298,7 @@ class fee1(Toplevel):
         ##=============================================frame 2==========================================================
         self.lf2 = LabelFrame(self, text="PAY FEE", bd=2, bg="black", fg="white", font=(self.f1, 20),
                               relief=GROOVE)
-        self.lf2.place(x=0, y=150, height=600, width=675)
+        self.lf2.place(x=0, y=150, height=550, width=675)
 
         self.classlabel = Label(self.lf2, text="STANDARD", bd=2, bg="black", fg="white", font=(self.f1, 15),
                                 relief=GROOVE)
@@ -329,7 +329,7 @@ class fee1(Toplevel):
         ##======================================================frame 3=================================================
         self.lf3 = LabelFrame(self, text="FEES PREVIEW", bd=2, bg="black", fg="white", font=(self.f1, 20),
                               relief=GROOVE)
-        self.lf3.place(x=675, y=150, height=600, width=675)
+        self.lf3.place(x=675, y=150, height=550, width=675)
 
         self.protocol("WM_DELETE_WINDOW", self.c_w)
         self.mainloop()

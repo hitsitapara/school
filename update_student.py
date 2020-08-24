@@ -725,8 +725,8 @@ class UpdateStudent(Toplevel):
         bb = Button(self.lf1, image=imgl, bd=5, font=(self.f1, 20), bg="white", command=self.backf)
         bb.place(x=10, y=10)
         ##===============================================frame 2========================================================
-        self.lf2 = LabelFrame(self, text="Buttons", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
-        self.lf2.place(x=0, y=150, height=600, width=1350)
+        self.lf2 = LabelFrame(self, text="UPDATE STUDENT", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
+        self.lf2.place(x=0, y=150, height=550, width=1350)
 
         self.start()
 

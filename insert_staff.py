@@ -191,7 +191,7 @@ class Registration(Toplevel):
         ##=============================================frame 2==========================================================
         self.lf2 = LabelFrame(self, text="Staff Entry", bd=2, bg="black", fg="white", font=(self.f1, 20),
                               relief=GROOVE)
-        self.lf2.place(x=0, y=150, height=600, width=1350)
+        self.lf2.place(x=0, y=150, height=550, width=1350)
 
         rowcounter = "select count(*) from staff;"
         rc = self.conn.execute(rowcounter).fetchone()

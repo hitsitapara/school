@@ -116,6 +116,8 @@ class start:
         except:
             messagebox.showerror("School Software", "There is some error in connection of Database")
         try:
+            os.mkdir("C:\\Reports\\View\\Student")
+            os.mkdir("C:\\Reports\\View\\Staff")
             os.makedirs("C:\\Reports\\LC")
             os.makedirs("C:\\Reports\\Fees")
             os.makedirs("C:\\Reports\\Salary")
@@ -124,8 +126,6 @@ class start:
             os.makedirs("C:\\Reports\\Attendence\\Student")
             os.makedirs("C:\\Reports\\Exams")
             os.mkdir("C:\\Fees")
-            os.mkdir("C:\\Reports\\View\\Student")
-            os.mkdir("C:\\Reports\\View\\Staff")
 
         except:
             pass
