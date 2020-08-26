@@ -19,27 +19,12 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b6fa978f-a5ca-418e-8aaf-ca0ddae5d7a9" name="Default Changelist" comment="GUI of view students">
-      <change afterPath="$PROJECT_DIR$/fee_set.py" afterDir="false" />
+    <list default="true" id="b6fa978f-a5ca-418e-8aaf-ca0ddae5d7a9" name="Default Changelist" comment="fee table and frame name">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/change_password.py" beforeDir="false" afterPath="$PROJECT_DIR$/change_password.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/delete_exam.py" beforeDir="false" afterPath="$PROJECT_DIR$/delete_exam.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fee.py" beforeDir="false" afterPath="$PROJECT_DIR$/fee.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insert_staff.py" beforeDir="false" afterPath="$PROJECT_DIR$/insert_staff.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insert_student.py" beforeDir="false" afterPath="$PROJECT_DIR$/insert_student.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/new_exam.py" beforeDir="false" afterPath="$PROJECT_DIR$/new_exam.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/percentage.py" beforeDir="false" afterPath="$PROJECT_DIR$/percentage.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/remove_staff.py" beforeDir="false" afterPath="$PROJECT_DIR$/remove_staff.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/remove_student.py" beforeDir="false" afterPath="$PROJECT_DIR$/remove_student.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reports.py" beforeDir="false" afterPath="$PROJECT_DIR$/reports.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/salaryofstaff.py" beforeDir="false" afterPath="$PROJECT_DIR$/salaryofstaff.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sinfo.db" beforeDir="false" afterPath="$PROJECT_DIR$/sinfo.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/staff.py" beforeDir="false" afterPath="$PROJECT_DIR$/staff.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/start.py" beforeDir="false" afterPath="$PROJECT_DIR$/start.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student.py" beforeDir="false" afterPath="$PROJECT_DIR$/student.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/update_mark.py" beforeDir="false" afterPath="$PROJECT_DIR$/update_mark.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/update_student.py" beforeDir="false" afterPath="$PROJECT_DIR$/update_student.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +61,7 @@
       <recent name="C:\Users\Mr\Desktop\school" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.fee_set">
+  <component name="RunManager" selected="Python.start">
     <configuration name="demo" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="school" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -213,8 +198,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.fee_set" />
         <item itemvalue="Python.start" />
+        <item itemvalue="Python.fee_set" />
         <item itemvalue="Python.remaining_fee" />
         <item itemvalue="Python.view_student" />
         <item itemvalue="Python.reports" />
@@ -512,7 +497,14 @@
       <option name="project" value="LOCAL" />
       <updated>1597985488393</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="fee table and frame name">
+      <created>1598244497773</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1598244497773</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -566,7 +558,8 @@
     <MESSAGE value="preview of attendance" />
     <MESSAGE value="preview of attendance &amp; name of window" />
     <MESSAGE value="GUI of view students" />
-    <option name="LAST_COMMIT_MESSAGE" value="GUI of view students" />
+    <MESSAGE value="fee table and frame name" />
+    <option name="LAST_COMMIT_MESSAGE" value="fee table and frame name" />
   </component>
   <component name="WindowStateProjectService">
     <state x="137" y="17" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1594270784796">
@@ -585,38 +578,38 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="462" y="104" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1594270783279" />
-    <state width="1344" height="143" key="GridCell.Tab.0.bottom" timestamp="1598244254810">
+    <state width="1344" height="143" key="GridCell.Tab.0.bottom" timestamp="1598411243637">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1344" height="143" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1598244254810" />
-    <state width="1344" height="143" key="GridCell.Tab.0.center" timestamp="1598244254809">
+    <state width="1344" height="143" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1598411243637" />
+    <state width="1344" height="143" key="GridCell.Tab.0.center" timestamp="1598411243637">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1344" height="143" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1598244254809" />
-    <state width="1344" height="143" key="GridCell.Tab.0.left" timestamp="1598244254809">
+    <state width="1344" height="143" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1598411243637" />
+    <state width="1344" height="143" key="GridCell.Tab.0.left" timestamp="1598411243622">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1344" height="143" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1598244254809" />
-    <state width="1344" height="143" key="GridCell.Tab.0.right" timestamp="1598244254809">
+    <state width="1344" height="143" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1598411243622" />
+    <state width="1344" height="143" key="GridCell.Tab.0.right" timestamp="1598411243637">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1344" height="143" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1598244254809" />
-    <state width="1344" height="217" key="GridCell.Tab.1.bottom" timestamp="1598244017168">
+    <state width="1344" height="143" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1598411243637" />
+    <state width="1344" height="217" key="GridCell.Tab.1.bottom" timestamp="1598244539869">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1344" height="217" key="GridCell.Tab.1.bottom/0.0.1366.728@0.0.1366.728" timestamp="1598244017168" />
-    <state width="1344" height="217" key="GridCell.Tab.1.center" timestamp="1598244017167">
+    <state width="1344" height="217" key="GridCell.Tab.1.bottom/0.0.1366.728@0.0.1366.728" timestamp="1598244539869" />
+    <state width="1344" height="217" key="GridCell.Tab.1.center" timestamp="1598244539869">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1344" height="217" key="GridCell.Tab.1.center/0.0.1366.728@0.0.1366.728" timestamp="1598244017167" />
-    <state width="1344" height="217" key="GridCell.Tab.1.left" timestamp="1598244017167">
+    <state width="1344" height="217" key="GridCell.Tab.1.center/0.0.1366.728@0.0.1366.728" timestamp="1598244539869" />
+    <state width="1344" height="217" key="GridCell.Tab.1.left" timestamp="1598244539868">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1344" height="217" key="GridCell.Tab.1.left/0.0.1366.728@0.0.1366.728" timestamp="1598244017167" />
-    <state width="1344" height="217" key="GridCell.Tab.1.right" timestamp="1598244017167">
+    <state width="1344" height="217" key="GridCell.Tab.1.left/0.0.1366.728@0.0.1366.728" timestamp="1598244539868" />
+    <state width="1344" height="217" key="GridCell.Tab.1.right" timestamp="1598244539869">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1344" height="217" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1598244017167" />
+    <state width="1344" height="217" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1598244539869" />
     <state x="0" y="0" key="MergeDialog" timestamp="1596208201030">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -629,18 +622,18 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="184" y="0" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1594270369717" />
-    <state x="275" y="95" key="Vcs.Push.Dialog.v2" timestamp="1597985493534">
+    <state x="275" y="95" key="Vcs.Push.Dialog.v2" timestamp="1598244502402">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="275" y="95" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1597985493534" />
+    <state x="275" y="95" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1598244502402" />
     <state x="292" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1597634924910">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="292" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1366.728@0.0.1366.728" timestamp="1597634924910" />
-    <state x="492" y="276" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1598237375493">
+    <state x="492" y="276" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1598410621239">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="492" y="276" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.728@0.0.1366.728" timestamp="1598237375493" />
+    <state x="492" y="276" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.728@0.0.1366.728" timestamp="1598410621239" />
     <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1597894527739">
       <screen x="0" y="0" width="1366" height="728" />
     </state>

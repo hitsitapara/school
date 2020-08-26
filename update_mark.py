@@ -137,6 +137,7 @@ class Update_Mark(Toplevel):
         self.combo_roll = Combobox(self.lf2, state="readonly", textvariable=self.roll_var, font=("Arial Bold", 10))
         self.combo_roll.place(x=900, y=10)
         self.combo_roll.bind("<<ComboboxSelected>>", self.set_exist_values)
+        self.combo_roll.set("Select")
         self.rollno_maintain()
         top = 75
         side = 300

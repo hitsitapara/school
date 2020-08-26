@@ -109,7 +109,7 @@ class Delete_Exam(Toplevel):
         self.lf2.place(x=0, y=150, height=550, width=1350)
         self.combo_get_exam_var = StringVar()
         self.combo_get_exam = Combobox(self.lf2, state="readonly", textvariable=self.combo_get_exam_var, font=("Arial Bold", 15))
-        self.combo_get_exam.place(x=220, y=420)
+        self.combo_get_exam.place(x=300, y=100)
         query = "select data from exams"
         j_data = self.conn.execute(query).fetchone()
         data = json.loads(j_data[0])
@@ -122,7 +122,7 @@ class Delete_Exam(Toplevel):
         self.combo_get_exam.bind("<<ComboboxSelected>>", self.get_exam_details)
         self.protocol("WM_DELETE_WINDOW", self.c_w)
         self.reset_btn = Button(self.lf2, text="RESET", command=self.reset)
-        self.reset_btn.place(x=50,y=50)
+        self.reset_btn.place(x=200,y=450)
         self.reset_btn = Button(self.lf2, text="DELETE", command=self.del_exam)
-        self.reset_btn.place(x=150, y=50)
+        self.reset_btn.place(x=500, y=450)
         self.mainloop()

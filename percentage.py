@@ -93,10 +93,10 @@ class Percentage(Toplevel):
         if not get_return_value:
             return
 
-        self.preview_btn = Button(self, text="See Preview", command=self.preview)
-        self.preview_btn.place(x=550, y=600, height=25)
-        self.generate_btn = Button(self, text="Generate Result", command=self.generate_result)
-        self.generate_btn.place(x=750, y=600, height=25)
+        self.preview_btn = Button(self.lf2, text="See Preview", command=self.preview)
+        self.preview_btn.place(x=300, y=450, height=25)
+        self.generate_btn = Button(self.lf2, text="Generate Result", command=self.generate_result)
+        self.generate_btn.place(x=600, y=450, height=25)
 
     def preview(self):
         pdf = canvas.Canvas("C:\\Reports\\Exams\\preview_{}.pdf".format(self.cb1.get()))
