@@ -6,7 +6,6 @@ from tkcalendar import DateEntry
 import json
 from datetime import date, timedelta
 import datetime
-from student_attendance_report import StudentAttendanceReport
 
 
 class Attedance1(Toplevel):
@@ -21,10 +20,6 @@ class Attedance1(Toplevel):
             self.main_root.destroy()
         else:
             return
-
-    def stud_atten_report_method(self):
-        self.withdraw()
-        StudentAttendanceReport(self,self.main_root)
 
     def rollno(self, event=""):
         if self.rollcounter == 0:
@@ -261,18 +256,14 @@ class Attedance1(Toplevel):
         self.c_lassbox.set("CLASS")
 
         self.addbutton = Button(self.lf2, text="ADD", font=(self.f2, 15), bd=5, command=self.addat)
-        self.addbutton.place(x=50, y=400, height=30)
+        self.addbutton.place(x=50, y=450, height=30,)
 
         self.removebutton = Button(self.lf2, text="REMOVE", font=(self.f2, 15), bd=5, command=self.rem)
-        self.removebutton.place(x=200, y=400, height=30)
+        self.removebutton.place(x=200, y=450, height=30)
 
         self.submitbutton = Button(self.lf2, text="SUBMIT", font=(self.f2, 15), bd=5, command=self.submit)
-        self.submitbutton.place(x=350, y=400, height=30)
+        self.submitbutton.place(x=400, y=450, height=30)
         self.submitbutton.config(state="disabled")
-
-        self.stud_atten_report_btn = Button(self.lf2, text="STUDENT ATTENDANCE REPORT", bd=5, font=(self.f2, 15),
-                                            command=self.stud_atten_report_method)
-        self.stud_atten_report_btn.place(x=150, y=450)
 
         #==============================================frame 3=========================================================
         self.lf3 = LabelFrame(self, text="ATTENDANCE PREVIEW", bd=2, bg="black", fg="white", font=(self.f1, 20),

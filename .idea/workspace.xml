@@ -21,8 +21,11 @@
   <component name="ChangeListManager">
     <list default="true" id="b6fa978f-a5ca-418e-8aaf-ca0ddae5d7a9" name="Default Changelist" comment="changes in gui">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/attendance.py" beforeDir="false" afterPath="$PROJECT_DIR$/attendance.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/attendancestaff.py" beforeDir="false" afterPath="$PROJECT_DIR$/attendancestaff.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/division.py" beforeDir="false" afterPath="$PROJECT_DIR$/division.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sinfo.db" beforeDir="false" afterPath="$PROJECT_DIR$/sinfo.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/student.py" beforeDir="false" afterPath="$PROJECT_DIR$/student.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +62,7 @@
       <recent name="C:\Users\Mr\Desktop\school" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.attendance">
+  <component name="RunManager" selected="Python.start">
     <configuration name="attendance" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="school" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -94,6 +97,27 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/demo.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="division" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="school" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/division.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -165,42 +189,21 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="view_student" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="school" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/view_student.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <list>
       <item itemvalue="Python.demo" />
       <item itemvalue="Python.start" />
-      <item itemvalue="Python.view_student" />
       <item itemvalue="Python.remaining_fee" />
       <item itemvalue="Python.fee_set" />
       <item itemvalue="Python.attendance" />
+      <item itemvalue="Python.division" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.attendance" />
         <item itemvalue="Python.start" />
+        <item itemvalue="Python.division" />
+        <item itemvalue="Python.attendance" />
         <item itemvalue="Python.fee_set" />
         <item itemvalue="Python.remaining_fee" />
-        <item itemvalue="Python.view_student" />
       </list>
     </recent_temporary>
   </component>
@@ -509,7 +512,14 @@
       <option name="project" value="LOCAL" />
       <updated>1598411556822</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="changes in gui">
+      <created>1598413428912</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1598413428912</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -583,22 +593,22 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="462" y="104" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1594270783279" />
-    <state width="1344" height="143" key="GridCell.Tab.0.bottom" timestamp="1598411830464">
+    <state width="1344" height="143" key="GridCell.Tab.0.bottom" timestamp="1598414740057">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1344" height="143" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1598411830464" />
-    <state width="1344" height="143" key="GridCell.Tab.0.center" timestamp="1598411830464">
+    <state width="1344" height="143" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1598414740042" />
+    <state width="1344" height="143" key="GridCell.Tab.0.center" timestamp="1598414740042">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1344" height="143" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1598411830464" />
-    <state width="1344" height="143" key="GridCell.Tab.0.left" timestamp="1598411830464">
+    <state width="1344" height="143" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1598414740042" />
+    <state width="1344" height="143" key="GridCell.Tab.0.left" timestamp="1598414740042">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1344" height="143" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1598411830464" />
-    <state width="1344" height="143" key="GridCell.Tab.0.right" timestamp="1598411830464">
+    <state width="1344" height="143" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1598414740042" />
+    <state width="1344" height="143" key="GridCell.Tab.0.right" timestamp="1598414740042">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1344" height="143" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1598411830464" />
+    <state width="1344" height="143" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1598414740042" />
     <state width="1344" height="217" key="GridCell.Tab.1.bottom" timestamp="1598244539869">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -627,18 +637,18 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="184" y="0" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1594270369717" />
-    <state x="275" y="95" key="Vcs.Push.Dialog.v2" timestamp="1598411568504">
+    <state x="275" y="95" key="Vcs.Push.Dialog.v2" timestamp="1598413432233">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="275" y="95" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1598411568504" />
+    <state x="275" y="95" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1598413432233" />
     <state x="292" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1597634924910">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="292" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1366.728@0.0.1366.728" timestamp="1597634924910" />
-    <state x="492" y="276" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1598410621239">
+    <state x="492" y="276" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1598413704289">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="492" y="276" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.728@0.0.1366.728" timestamp="1598410621239" />
+    <state x="492" y="276" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.728@0.0.1366.728" timestamp="1598413704289" />
     <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1597894527739">
       <screen x="0" y="0" width="1366" height="728" />
     </state>

@@ -110,15 +110,15 @@ class Division(Toplevel):
             self.divisionbutton.config(state="normal")
 
     def division(self, event=""):
-        m = messagebox.askyesnocancel("School Software","Are you wantsave changes", parent=self)
+        m = messagebox.askyesnocancel("School Software","Are you want save changes", parent=self)
         if m == True:
             self.conn.commit()
             self.destroy()
-            self.__init__(self, self.main_root)
+            Division(self, self.main_root)
         elif m == False:
             self.conn.rollback()
             self.destroy()
-            self.__init__(self, self.main_root)
+            Division(self, self.main_root)
         elif m == None:
             return
 
@@ -177,7 +177,7 @@ class Division(Toplevel):
 
         self.c_lassbox = StringVar()
         self.classbox = ttk.Combobox(self.lf2, state="readonly", textvariable=self.c_lassbox, font=(self.f1, 10))
-        self.classbox.place(x=50, y=150, height=25, width=100)
+        self.classbox.place(x=50, y=150, height=25)
         self.classbox['values'] = self.cals
         self.classbox.bind("<<ComboboxSelected>>", self.rollno)
         self.c_lassbox.set("CLASS")
@@ -202,6 +202,3 @@ class Division(Toplevel):
 
         self.mainloop()
 
-root = Tk()
-Division(root, root)
-root.mainloop()

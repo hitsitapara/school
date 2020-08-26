@@ -38,7 +38,7 @@ class Main1(Toplevel):
         self.withdraw()
         r1(self, self.main_root)
 
-    def im(self, event=""):
+    def re(self, event=""):
         self.withdraw()
         Reports(self, self.main_root)
 
@@ -104,9 +104,9 @@ class Main1(Toplevel):
         rbutton = Button(self.lf2, image=rimg, bd=5, bg=self.bgclr2, relief=FLAT, command=self.result)
         rbutton.place(x=50, y=300, height=175, width=350)
 
-        imimg = ImageTk.PhotoImage(file="internal.jpeg")
-        imbutton = Button(self.lf2, image=imimg, bd=5, bg=self.bgclr2, relief=FLAT, command=self.im)
-        imbutton.place(x=500, y=300, height=175, width=350)
+        reimg = ImageTk.PhotoImage(file="report.jpg")
+        rebutton = Button(self.lf2, image=reimg, bd=5, bg=self.bgclr2, relief=FLAT, command=self.re)
+        rebutton.place(x=500, y=300, height=175, width=350)
 
         stimg = ImageTk.PhotoImage(file="staff.png")
         stbutton = Button(self.lf2, image=stimg, bd=5, bg=self.bgclr2, relief=FLAT, command=self.stinfo)

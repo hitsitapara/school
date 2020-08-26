@@ -5,7 +5,7 @@ from PIL import Image, ImageTk
 from insert_student import InsertStudent
 from update_student import UpdateStudent
 from remove_student import RemoveStudent
-
+from division import Division
 
 class NewStudent(Toplevel):
 
@@ -34,6 +34,10 @@ class NewStudent(Toplevel):
     def remove_student_method(self):
         self.withdraw()
         RemoveStudent(self, self.main_root)
+
+    def division(self):
+        self.withdraw()
+        Division(self, self.main_root)
 
     def __init__(self, root, main_root):
         self.main_root = main_root
@@ -70,11 +74,14 @@ class NewStudent(Toplevel):
         self.lf2.place(x=0, y=150, height=550, width=1350)
 
         insert_student = Button(self.lf2, text='Insert New Student', bd=5, font=(self.f2, 15), command=self.insert_student_method)
-        insert_student.place(x=150, y=250, height=30, width=250)
+        insert_student.place(x=200, y=200, height=30, width=250)
         update_student = Button(self.lf2,text="Update Student",  bd=5, font=(self.f2, 15), command=self.update_student_method)
-        update_student.place(x=550, y=250, height=30, width=250)
+        update_student.place(x=700, y=200, height=30, width=250)
         remove_student = Button(self.lf2, text="Remove Student", bd=5, font=(self.f2, 15), command=self.remove_student_method)
-        remove_student.place(x=950, y=250, height=30, width=250)
+        remove_student.place(x=200, y=400, height=30, width=250)
+
+        divisionButton = Button(self.lf2, text="Division", bd=5, font=(self.lf2, 15), command=self.division)
+        divisionButton.place(x=700, y=400, height=30, width=250)
 
         self.protocol("WM_DELETE_WINDOW", self.c_w)
         self.mainloop()
