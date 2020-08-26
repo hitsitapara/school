@@ -29,14 +29,14 @@ class Attendancestaff(Toplevel):
             self.cal.focus_set()
             return
 
-        year , month, day = str(self.cal.get_date()).split("-")
+        year, month, day = str(self.cal.get_date()).split("-")
         date_name = datetime.date(int(year), int(month), int(day))
         day_name = date_name.strftime("%A")
         try:
             if day_name == "Sunday":
                 raise ValueError
         except:
-            m= messagebox.showerror("School Software","You can not enter Sunday Attendance")
+            m= messagebox.showerror("School Software", "You can not enter Sunday Attendance", parent=self)
             self.cal.focus_set()
             return
 

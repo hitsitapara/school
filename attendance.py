@@ -26,15 +26,6 @@ class Attedance1(Toplevel):
         self.withdraw()
         StudentAttendanceReport(self,self.main_root)
 
-    def calselect(self):
-        if (self.calcount == 0):
-            self.cal.place(x=300, y=10)
-            self.calcount = 1
-        else:
-            self.cal.place_forget()
-            self.calcount = 0
-            self.calselect()
-
     def rollno(self, event=""):
         if self.rollcounter == 0:
             self.rolllabel = Label(self.lf2, text="ROLL NO", bd=2, bg="black", fg="white", font=(self.f1, 15),
@@ -66,7 +57,7 @@ class Attedance1(Toplevel):
     def addat(self, event=""):
 
         try:
-            if self.cal.get_date() > date.today() :
+            if self.cal.get_date() > date.today():
                 raise ValueError
         except:
             m = messagebox.showerror("School Software", "You can not enter future attendance", parent=self)
@@ -80,7 +71,7 @@ class Attedance1(Toplevel):
             if day_name == "Sunday":
                 raise ValueError
         except:
-            m = messagebox.showerror("School Software", "You can not enter Sunday Attendance")
+            m = messagebox.showerror("School Software", "You can not enter Sunday Attendance", parent=self)
             self.cal.focus_set()
             return
 
@@ -121,7 +112,7 @@ class Attedance1(Toplevel):
         self.submitbutton.config(state="normal")
         self.classbox.config(state="disabled")
 
-    def rem(self,event=""):
+    def rem(self, event=""):
         try:
             if(self.classbox.get() == "CLASS"):
                 raise ValueError
@@ -186,25 +177,24 @@ class Attedance1(Toplevel):
 
     def attendance(self):
         self.txt.config(state="normal")
-        self.txt.delete(1.0,END)
-        self.txt.insert(END,"\n")
-        self.txt.insert(END,"\t\t\t    Atendance")
+        self.txt.delete(1.0, END)
+        self.txt.insert(END, "\n")
+        self.txt.insert(END, "\t\t\t    Atendance")
         date = str(self.cal.get_date()).split('-')
-        self.txt.insert(END,"\n\n\t\t\t Date : " + date[2] +'-'+date[1]+'-'+date[0])
-        self.txt.insert(END,"\n\t\t\t Standard : " + self.classbox.get())
-        self.txt.insert(END,"\n\n\t\t\t Absent Details")
-        self.txt.insert(END,"\n\n\t\t Roll number\t\t\t Name")
+        self.txt.insert(END, "\n\n\t\t\t Date : " + date[2] + '-' + date[1] + '-' + date[0])
+        self.txt.insert(END, "\n\t\t\t Standard : " + self.classbox.get())
+        self.txt.insert(END, "\n\n\t\t\t Absent Details")
+        self.txt.insert(END, "\n\n\t\t Roll number\t\t\t Name")
         for item in self.abnum:
-            self.txt.insert(END,"\n\t\t " + str(item[0])+"\t\t\t "+ str(item[1])+" "+str(item[2])+" "+str(item[3]))
+            self.txt.insert(END, "\n\t\t " + str(item[0]) + "\t\t\t " + str(item[1]) + " " + str(item[2]) + " " + str(item[3]))
         self.txt.config(state="disabled")
-
 
     def __init__(self, root, main_root):
 
         try:
             self.conn = sqlite3.connect('sinfo.db')
         except:
-            m = messagebox.showerror("School Software","Couldn't Connect With Database !", parent=self)
+            m = messagebox.showerror("School Software", "Couldn't Connect With Database !", parent=self)
 
         self.main_root = main_root
         self.root = root
@@ -267,7 +257,7 @@ class Attedance1(Toplevel):
         self.classbox = ttk.Combobox(self.lf2, state="readonly", textvariable=self.c_lassbox, font=(self.f1, 10))
         self.classbox.place(x=50, y=150, height=25, width=100)
         self.classbox['values'] = self.cals
-        self.classbox.bind("<<ComboboxSelected>>",self.rollno)
+        self.classbox.bind("<<ComboboxSelected>>", self.rollno)
         self.c_lassbox.set("CLASS")
 
         self.addbutton = Button(self.lf2, text="ADD", font=(self.f2, 15), bd=5, command=self.addat)
@@ -284,7 +274,7 @@ class Attedance1(Toplevel):
                                             command=self.stud_atten_report_method)
         self.stud_atten_report_btn.place(x=150, y=450)
 
-##======================================================frame 3=========================================================
+        #==============================================frame 3=========================================================
         self.lf3 = LabelFrame(self, text="ATTENDANCE PREVIEW", bd=2, bg="black", fg="white", font=(self.f1, 20),
                               relief=GROOVE)
         self.lf3.place(x=675, y=150, height=550, width=675)
