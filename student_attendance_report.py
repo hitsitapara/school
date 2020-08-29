@@ -30,7 +30,6 @@ class StudentAttendanceReport(Toplevel):
         self.rnolabel.place(x=600, y=250, height=25)
 
         query1 = "select rollno from master where standard = '"+str(self.std_combo.get())+"'"
-        print(query1)
         roll_list=self.conn.execute(query1).fetchall()
         x = set(roll_list)
         self.rollno = []
@@ -40,14 +39,9 @@ class StudentAttendanceReport(Toplevel):
         self.combo_roll_var = StringVar()
         self.roll_combo = ttk.Combobox(self.lf2,values=self.rollno, textvariable=self.combo_roll_var ,height=20,state="readonly")
         self.roll_combo.place(x=900,y=250, height=25)
-        self.roll_combo.bind("<<ComboboxSelected>>",self.report_method)
         self.combo_roll_var.set("Select")
 
-    def report_method(self,event=""):
-        self.report_button = Button(self.lf2,text='Generate Report', bd=5, font=(self.f2, 15), command=self.generate_report_method)
-        self.report_button.place(x=550,y=450)
-
-    def generate_report_method(self):
+    def generate_report_method(self, event=""):
         try:
             if self.from_cal.get_date() == self.to_cal.get_date():
                 raise ValueError
@@ -68,6 +62,20 @@ class StudentAttendanceReport(Toplevel):
         except:
             m = messagebox.showerror("School Software","You can not genrate feature report", parent=self)
             self.to_cal.focus_set()
+            return
+        try:
+            if self.std_combo.get() == "Select":
+                raise ValueError
+        except:
+            m = messagebox.showerror("School Software","Please select standard", parent=self)
+            return
+        try:
+            if self.roll_combo.get =="Select":
+                raise ValueError
+        except:
+            m = messagebox.showerror("School Software", "Please select standard", parent=self)
+            return
+
         query1 = "select abday,grno,fname,mname,lname from master where rollno = ? and standard = ?"
         self.data = self.conn.execute(query1,(self.roll_combo.get(),self.std_combo.get())).fetchone()
         self.returned_none = False
@@ -76,6 +84,95 @@ class StudentAttendanceReport(Toplevel):
         else:
             self.returned_none = True
         self.report_pdf()
+
+    def generate_report_all_method(self, event=""):
+        try:
+            if self.from_cal.get_date() == self.to_cal.get_date():
+                raise ValueError
+        except:
+            m = messagebox.showerror("School Software", "You cannot genrate report because both date same ", parent=self)
+            self.from_cal.focus_set()
+            return
+        try:
+            if self.from_cal.get_date() > date.today():
+                raise ValueError
+        except:
+            m = messagebox.showerror("School Software","You can not genrate feature report", parent=self)
+            self.from_cal.focus_set()
+            return
+        try:
+            if self.to_cal.get_date() > date.today():
+                raise ValueError
+        except:
+            m = messagebox.showerror("School Software","You can not genrate feature report", parent=self)
+            self.to_cal.focus_set()
+            return
+        try:
+            if self.std_combo.get() == "Select":
+                raise ValueError
+        except:
+            m = messagebox.showerror("School Software","Please select standard", parent=self)
+            return
+        query1 = "select rollno, abday,fname,mname,lname from master where standard = ?"
+        self.data = self.conn.execute(query1, (self.std_combo.get(),)).fetchall()
+        self.abday_all_list = []
+        for item in self.data:
+            if item[1] != None:
+                self.abday_all_list.append(json.loads(item[1]))
+            else:
+                self.abday_all_list.append("-")
+
+        self.report_all_pdf()
+
+    def report_all_pdf(self):
+        pdf = canvas.Canvas("C:\\Reports\\Attendence\\Student\\report_all_{}_{}_to_{}.pdf".format(self.std_combo.get(),
+                                                                       self.from_cal.get_date(),self.to_cal.get_date()))
+        pdf.setPageSize((600, 900))
+        pdf.setFont("Courier-Bold", 20)
+        pdf.drawString(200, 880, "Attendence Report")
+        pdf.setFont("Courier-Bold", 15)
+        pdf.drawString(30, 800, "Roll no ")
+        pdf.drawString(300, 800, "Absent Dates")
+        pdf.drawString(30, 860, "Standard : {}".format(self.std_combo.get()))
+        pdf.drawString(30, 840, "From Date : {}".format(self.from_cal.get_date()))
+        pdf.drawString(300, 840, "To Date : {}".format(self.to_cal.get_date()))
+        pdf.line(30, 820, 580, 820)
+        pdf.line(30, 780, 580, 780)
+        top = 740
+        line = False
+        total_length = len(self.data)
+        for i in range(total_length):
+            x = len(self.abday_all_list[i])
+            for j in range(x):
+                if top < 30:
+                    pdf.showPage()
+                    top = 830
+                    pdf.setFont("Courier-Bold", 15)
+                    pdf.drawString(30, 865, "Roll no ")
+                    pdf.drawString(300, 865, "Absent Dates")
+                    pdf.line(30, 880, 580, 880)
+                    pdf.line(30, 860, 580, 860)
+                if j == 0:
+                    emp = "{}-{} {} {}".format(self.data[i][0], self.data[i][2], self.data[i][3],self.data[i][4])
+                    pdf.drawString(50, top, emp)
+                if self.abday_all_list[i][j] == '-':
+                    line = True
+                    pdf.drawString(320, top, "-")
+                    top -= 15
+                else:
+
+                    if str(self.from_cal.get_date()) <= str(self.abday_all_list[i][j]) and str(self.to_cal.get_date()) >= str(
+                        self.abday_all_list[i][j]):
+                        line = True
+                        pdf.drawString(320, top, str(self.abday_all_list[i][j]))
+                        top -= 15
+            if line:
+                pdf.line(50, top, 560, top)
+                top -= 15
+
+        pdf.save()
+        webbrowser.open("C:\\Reports\\Attendence\\Student\\report_all_{}_{}_to_{}.pdf".format(self.std_combo.get(),self.from_cal.get_date(),
+                                                                                         self.to_cal.get_date()))
 
     def report_pdf(self):
 
@@ -116,13 +213,12 @@ class StudentAttendanceReport(Toplevel):
                 pdf.drawString(50, top, str(sr))
                 pdf.drawString(320, top, str(i))
                 
-                top -= 750
+                top -= 15
                 sr += 1
         else:
             pdf.drawString(50, 500, "There is No Absent Days Recorded for This Student !")
 
         pdf.save()
-        print("succesfull")
         webbrowser.open("C:\\Reports\\Attendence\\Student\\report_{}_{}_{}_to_{}.pdf".format(self.std_combo.get() , self.roll_combo.get(), self.from_cal.get_date(), self.to_cal.get_date()))
 
     def __init__(self, root, main_root):
@@ -189,6 +285,13 @@ class StudentAttendanceReport(Toplevel):
         self.std_combo.place(x=300,y=250, height=25)
         self.std_combo.bind("<<ComboboxSelected>>",self.std_combo_method)
         self.combo_std_var.set("Select")
+
+        self.report_button = Button(self.lf2, text='Generate Report', bd=5, font=(self.f2, 15),
+                                    command=self.generate_report_method)
+        self.report_button.place(x=300, y=450)
+        self.report_button = Button(self.lf2, text='Generate Report For All Student', bd=5, font=(self.f2, 15),
+                                    command=self.generate_report_all_method)
+        self.report_button.place(x=700, y=450)
 
         self.protocol("WM_DELETE_WINDOW", self.c_w)
         self.mainloop()

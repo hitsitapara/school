@@ -113,9 +113,9 @@ class Attendancestaff(Toplevel):
                 self.conn.execute(query1, (p, self.empno))
                 self.conn.commit()
         m = messagebox.showinfo("School Software", "Successfuly enter absent date", parent=self)
-        self.destroy()
-        self.__init__(self, self.main_root)
-
+        self.submitbutton.config(state="disabled")
+        self.abname = []
+        self.staffbox.focus_set()
 
     def attendance(self):
         self.txt.config(state="normal")

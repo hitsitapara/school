@@ -50,8 +50,9 @@ class Staffatreport(Toplevel):
         a = self.conn.execute(query).fetchall()
         self.abdate_all = []
         for item in a:
-            fetched_list = json.loads(item[0])
-            self.abdate_all.append(fetched_list)
+            if item[0] != None:
+                fetched_list = json.loads(item[0])
+                self.abdate_all.append(fetched_list)
         self.staff_pdf_report_all()
 
     def spreport(self, event=""):
@@ -88,7 +89,6 @@ class Staffatreport(Toplevel):
             a = self.conn.execute(query, (self.empno[0], )).fetchone()
             print(type(a[0]))
             self.abdate = json.loads(a[0])
-
             self.staff_pdf_report()
 
     def staff_pdf_report_all(self):
@@ -244,7 +244,7 @@ class Staffatreport(Toplevel):
         xscrollbar.pack(side=BOTTOM, fill=X)
         xscrollbar.config(command=self.staffbox.xview)
 
-        self.reportbutton = Button(self.lf2, text="Genrate For All Report", bd=5, font=(self.f2, 15), command=self.atreport)
+        self.reportbutton = Button(self.lf2, text="Genrate Report For All", bd=5, font=(self.f2, 15), command=self.atreport)
         self.reportbutton.place(x=800, y=450, height=25)
 
         self.spreportbutton = Button(self.lf2, text="Genrate Report", bd=5, font=(self.f2, 15), command=self.spreport)
