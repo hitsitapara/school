@@ -114,11 +114,11 @@ class Division(Toplevel):
         if m == True:
             self.conn.commit()
             self.destroy()
-            Division(self, self.main_root)
+            Division(self.root, self.main_root)
         elif m == False:
             self.conn.rollback()
             self.destroy()
-            Division(self, self.main_root)
+            Division(self.root, self.main_root)
         elif m == None:
             return
 
