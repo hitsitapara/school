@@ -3,6 +3,7 @@ from tkinter import ttk, messagebox
 from tkinter.ttk import Combobox
 import sqlite3
 from PIL import Image, ImageTk
+import json
 
 
 class RemoveStudent(Toplevel):
@@ -420,9 +421,10 @@ class RemoveStudent(Toplevel):
 
         try:
             for x in exam:
-                if (x[0].split("_")[1].split("-")[0] == self.std.split("~")[0].split("-")[0]):
-                    counter = 1
-                    break
+                for y in json.loads(x[0]):
+                    if (y.split("_")[1].split("-")[0] == self.std.split("~")[0].split("-")[0]):
+                        counter = 1
+                        break
             if (counter != 1):
                 pass
             else:

@@ -4,6 +4,7 @@ from tkinter.ttk import Combobox
 import sqlite3
 from tkcalendar import DateEntry
 from PIL import Image, ImageTk
+import json
 
 
 class InsertStudent(Toplevel):
@@ -206,9 +207,10 @@ class InsertStudent(Toplevel):
 
         try:
             for x in exam:
-                if (x[0].split("_")[1].split("-")[0] == self.std.get()):
-                    counter = 1
-                    break
+                for y in json.loads(x[0]):
+                    if (y.split("_")[1].split("-")[0] == self.std.get()):
+                        counter = 1
+                        break
             if (counter != 1):
                 pass
             else:
