@@ -26,7 +26,7 @@ class StudentAttendanceReport(Toplevel):
 
     def std_combo_method(self,event=""):
 
-        self.rnolabel = Label(self.lf2, text="ROll Number", bd=2, bg="black", fg="White", font=(self.f1, 15), relief=GROOVE)
+        self.rnolabel = Label(self.lf2, text="Roll Number", bd=2, bg="black", fg="White", font=(self.f1, 15), relief=GROOVE)
         self.rnolabel.place(x=600, y=250, height=25)
 
         query1 = "select rollno from master where standard = '"+str(self.std_combo.get())+"'"
@@ -70,10 +70,10 @@ class StudentAttendanceReport(Toplevel):
             m = messagebox.showerror("School Software","Please select standard", parent=self)
             return
         try:
-            if self.roll_combo.get =="Select":
+            if self.roll_combo.get() == "Select":
                 raise ValueError
         except:
-            m = messagebox.showerror("School Software", "Please select standard", parent=self)
+            m = messagebox.showerror("School Software", "Please select roll number", parent=self)
             return
 
         query1 = "select abday,grno,fname,mname,lname from master where rollno = ? and standard = ?"
@@ -83,6 +83,10 @@ class StudentAttendanceReport(Toplevel):
             self.abday_list = json.loads(self.data[0])
         else:
             self.returned_none = True
+            
+        print(type(self.from_cal.get_date()))
+        print(type(self.to_cal.get_date()))
+        print(type(self.abday_list[0]))
         self.report_pdf()
 
     def generate_report_all_method(self, event=""):
@@ -160,6 +164,7 @@ class StudentAttendanceReport(Toplevel):
                     pdf.drawString(320, top, "-")
                     top -= 15
                 else:
+                    
 
                     if str(self.from_cal.get_date()) <= str(self.abday_all_list[i][j]) and str(self.to_cal.get_date()) >= str(
                         self.abday_all_list[i][j]):

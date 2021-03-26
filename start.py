@@ -21,90 +21,109 @@ class start:
             return
 
     def login_method(self):
-
-        c = 0
+        
+        try:
+            if self.usernameentry.get() == "":
+                raise ValueError
+        except:
+            print("inside except")
+            m = messagebox.showerror("School Software","Please enter username")
+            self.usernameentry.focus_set()
+            return
+            
+        try: 
+            if self.passwordentry.get() == "":
+                raise ValueError
+        except:
+            m = messagebox.showerror("School Software","Please enter password")
+            self.passwordentry.focus_set()
+            return
+ 
         self.query1 = "select empno from staff;"
         self.list1 = self.conn.execute(self.query1).fetchall()
-        self.query2 = "select password from staff where empno="+str(self.usernameentry.get())
-        self.tuple2 = self.conn.execute(self.query2).fetchone()
-        self.query3 = "select authority from staff where empno="+str(self.usernameentry.get())
-        self. tuple3 = self.conn.execute(self.query3).fetchone()
-        authority = self.tuple3[0].split("-")
         user = self.usernameentry.get()
+        username_list = []
         for i in self.list1:
-
-            if user == str(i[0]):
-                c = 1
-                if str(self.passwordentry.get()) == str(self.tuple2[0]):
-                    c = 2
-                    if self.adminvar.get() == 1:
-                        c = 3
-                        if str(authority[0]) == "admin":
-                            query4 = "update staff set currentuser = 0"
-                            self.conn.execute(query4)
-                            query5 = "update staff set currentuser = 1 where empno=" + str(self.usernameentry.get())
-                            self.conn.execute(query5)
-                            self.conn.commit()
-                            self.usernamevar.set("")
-                            self.passwordvar.set("")
-                            self.adminvar.set(0)
-                            Main1(self.root, self.main_root)
-                            self.root.withdraw()
-
-                        else:
-                            messagebox.showerror("School Software","You are not appoint as admin so login as staff member")
-                            return
+            username_list.append(i[0])
+        
+        if int(user) in username_list:
+            self.query2 = "select password from staff where empno="+str(self.usernameentry.get())
+            self.tuple2 = self.conn.execute(self.query2).fetchone()
+            if str(self.passwordentry.get()) == str(self.tuple2[0]):
+                if self.adminvar.get() == 1:
+                    query3 = "select authority from staff where empno="+str(self.usernameentry.get())
+                    authority = self.conn.execute(query3).fetchone()
+                    if authority[0] == 'admin':
+                        pass             
                     else:
-                        c = 3
-                        query4 = "update staff set currentuser = 0"
-                        self.conn.execute(query4)
-                        query5 = "update staff set currentuser = 1 where empno="+str(self.usernameentry.get())
-                        self.conn.execute(query5)
-                        self.conn.commit()
-                        self.usernamevar.set("")
-                        self.passwordvar.set("")
-                        self.adminvar.set(0)
-                        self.root.withdraw()
-                        Main1(self.root,self.main_root)
-
-        if c == 0:
+                        m = messagebox.showerror("School Software","You are not appoint as admin so login as staff member")
+                        return       
+                query4 = "update staff set currentuser = 0"
+                self.conn.execute(query4)
+                query5 = "update staff set currentuser = 1 where empno=" + str(self.usernameentry.get())
+                self.conn.execute(query5)
+                self.conn.commit()
+                self.usernamevar.set("")
+                self.passwordvar.set("")
+                self.adminvar.set(0)
+                self.root.withdraw()
+                Main1(self.root, self.main_root)
+                
+            else:
+                messagebox.showerror("School Software", "Password do not match!Enter valid Password")
+                self.passwordvar.set("")
+                self.passwordentry.focus_set()
+        else:
             messagebox.showerror("School Software", "User not Found!Enter valid Username")
             self.usernamevar.set("")
             self.usernameentry.focus_set()
-
-        if c == 1:
-            messagebox.showerror("School Software", "Password do not match!Enter valid Password")
-            self.passwordvar.set("")
-            self.passwordentry.focus_set()
+     
 
     def change_password_method(self):
-        c = 0
+        
+        try:
+            if self.usernameentry.get() == "":
+                raise ValueError
+        except:
+            print("inside except")
+            m = messagebox.showerror("School Software","Please enter username")
+            self.usernameentry.focus_set()
+            return
+            
+        try: 
+            if self.passwordentry.get() == "":
+                raise ValueError
+        except:
+            m = messagebox.showerror("School Software","Please enter current password")
+            self.passwordentry.focus_set()
+            return
+        
         self.query1 = "select empno from staff;"
         self.list1 = self.conn.execute(self.query1).fetchall()
-        self.query2 = "select password from staff where empno=" + str(self.usernameentry.get())
-        self.tuple2 = self.conn.execute(self.query2).fetchone()
         user = self.usernameentry.get()
+        username_list = []
         for i in self.list1:
-            if user == str(i[0]):
-                c = 1
-                if str(self.passwordentry.get()) == str(self.tuple2[0]):
-                    c = 2
-                    query1 = "update staff set currentuser=1 where empno= "+str(self.usernameentry.get())
-                    self.conn.execute(query1)
-                    self.conn.commit()
-                    self.passwordvar.set("")
-                    ChangePassword(self.root,self.main_root)
-                    self.root.withdraw()
-
-        if c == 0:
+            username_list.append(i[0])
+        
+        if int(user) in username_list:
+            self.query2 = "select password from staff where empno="+str(self.usernameentry.get())
+            self.tuple2 = self.conn.execute(self.query2).fetchone()
+            if str(self.passwordentry.get()) == str(self.tuple2[0]):
+                query1 = "update staff set currentuser=1 where empno= "+str(self.usernameentry.get())
+                self.conn.execute(query1)
+                self.conn.commit()
+                self.passwordvar.set("")
+                self.root.withdraw()
+                ChangePassword(self.root,self.main_root)
+            else:
+                messagebox.showerror("School Software", "Password do not match!Enter valid Password")
+                self.passwordvar.set("")
+                self.passwordentry.focus_set()
+        else:
             messagebox.showerror("School Software", "User not Found!Enter valid Username")
             self.usernamevar.set("")
             self.usernameentry.focus_set()
-
-        if c == 1:
-            messagebox.showerror("School Software", "User not Found!Enter valid Password")
-            self.passwordvar.set("")
-            self.passwordentry.focus_set()
+                    
 
     def __init__(self, root, main_root):
 

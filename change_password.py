@@ -21,6 +21,23 @@ class ChangePassword(Toplevel):
             return
 
     def change_method(self):
+        
+        try:
+            if self.new_password_entry.get() == "":
+                raise ValueError
+        except:
+            m = messagebox.showerror("School Software", "Please enter password ", parent=self)
+            self.new_password_entry.focus()
+            return
+        
+        try:
+            if self.re_password_entry.get() == "":
+                raise ValueError
+        except:
+            m = messagebox.showerror("School Software", "Please enter re password ", parent=self)
+            self.re_password_entry.focus()
+            return
+            
         if self.new_password_entry.get() == self.re_password_entry.get():
             query = "update staff set password= '"+str(self.new_password_entry.get())+"' where currentuser=1"
             self.conn.execute(query)
