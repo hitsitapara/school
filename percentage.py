@@ -219,7 +219,6 @@ class Percentage(Toplevel):
         self.rank_list = []
         for i in range(int(self.rank.get())):
             self.rank_list.append(round(self.ranks[i], 2))
-        print(self.rank_list)
     
     def combo_maintain(self):
         query = "select data from exams"

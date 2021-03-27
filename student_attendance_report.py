@@ -4,7 +4,7 @@ import sqlite3
 from PIL import Image, ImageTk
 from tkcalendar import DateEntry
 import json
-from datetime import date, timedelta
+from datetime import date, datetime
 from reportlab.pdfgen import canvas
 import webbrowser
 
@@ -79,14 +79,17 @@ class StudentAttendanceReport(Toplevel):
         query1 = "select abday,grno,fname,mname,lname from master where rollno = ? and standard = ?"
         self.data = self.conn.execute(query1,(self.roll_combo.get(),self.std_combo.get())).fetchone()
         self.returned_none = False
+        self.abday_list = []
         if self.data[0] is not None:
-            self.abday_list = json.loads(self.data[0])
+            self.absent_day = json.loads(self.data[0])
+            for item in self.absent_day:
+                date_time_str = item
+                date_time_obj = datetime.strptime(date_time_str, '%Y-%m-%d')
+                if self.from_cal.get_date() <= date_time_obj.date() and self.to_cal.get_date() >= date_time_obj.date() :
+                    self.abday_list.append(date_time_obj.date())
         else:
             self.returned_none = True
-            
-        print(type(self.from_cal.get_date()))
-        print(type(self.to_cal.get_date()))
-        print(type(self.abday_list[0]))
+
         self.report_pdf()
 
     def generate_report_all_method(self, event=""):
@@ -120,11 +123,24 @@ class StudentAttendanceReport(Toplevel):
         query1 = "select rollno, abday,fname,mname,lname from master where standard = ?"
         self.data = self.conn.execute(query1, (self.std_combo.get(),)).fetchall()
         self.abday_all_list = []
+        temp = []
         for item in self.data:
             if item[1] != None:
-                self.abday_all_list.append(json.loads(item[1]))
+                temp.append(json.loads(item[1]))            
             else:
                 self.abday_all_list.append("-")
+                
+        for item in temp:
+            temp1 = []
+            for i in  range(len(item)):
+                date_time_str = item[i]
+                date_time_obj = datetime.strptime(date_time_str, '%Y-%m-%d')
+                if self.from_cal.get_date() <= date_time_obj.date() and self.to_cal.get_date() >= date_time_obj.date():
+                    temp1.append(date_time_obj.date())
+            if temp1 == []:
+                self.abday_all_list.append("-")
+            else:         
+                self.abday_all_list.append(temp1)
 
         self.report_all_pdf()
 
@@ -165,12 +181,9 @@ class StudentAttendanceReport(Toplevel):
                     top -= 15
                 else:
                     
-
-                    if str(self.from_cal.get_date()) <= str(self.abday_all_list[i][j]) and str(self.to_cal.get_date()) >= str(
-                        self.abday_all_list[i][j]):
-                        line = True
-                        pdf.drawString(320, top, str(self.abday_all_list[i][j]))
-                        top -= 15
+                    line = True
+                    pdf.drawString(320, top, str(self.abday_all_list[i][j]))
+                    top -= 15
             if line:
                 pdf.line(50, top, 560, top)
                 top -= 15
@@ -203,20 +216,20 @@ class StudentAttendanceReport(Toplevel):
         pdf.line(120, 670, 120 , 30)
         top = 620
         sr = 1
-
-        if not self.returned_none:
+        if (not self.returned_none) and (self.abday_list != []):
             for i in self.abday_list:
-                if top<30:
-                    pdf.showPage()
-                    top = 830
-                    pdf.setFont("Courier-Bold", 15)
-                    pdf.drawString(40, 855, "Sr No.")
-                    pdf.drawString(300, 855, "Absent Dates")
-                    pdf.line(35, 870, 550 , 870)
-                    pdf.line(35, 850, 550 , 850)
-                    pdf.line(120, 870, 120 , 30)
-                pdf.drawString(50, top, str(sr))
-                pdf.drawString(320, top, str(i))
+                if self.from_cal.get_date() <= i and self.to_cal.get_date() >= i :
+                    if top<30:
+                        pdf.showPage()
+                        top = 830
+                        pdf.setFont("Courier-Bold", 15)
+                        pdf.drawString(40, 855, "Sr No.")
+                        pdf.drawString(300, 855, "Absent Dates")
+                        pdf.line(35, 870, 550 , 870)
+                        pdf.line(35, 850, 550 , 850)
+                        pdf.line(120, 870, 120 , 30)
+                    pdf.drawString(50, top, str(sr))
+                    pdf.drawString(320, top, str(i))
                 
                 top -= 15
                 sr += 1
@@ -242,7 +255,7 @@ class StudentAttendanceReport(Toplevel):
         self.bgclr2 = "#e7d95a"
         self.f1 = "Arial Bold"
         self.f2 = "times new roman"
-        self.title("ATTENDANCE REPORT")
+        self.title("STUDENT ATTENDANCE REPORT")
         self.config(background=self.bgclr1)
         self.geometry("1350x700+0+0")
         self.resizable(False, False)

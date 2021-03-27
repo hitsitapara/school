@@ -87,7 +87,6 @@ class Staffatreport(Toplevel):
             self.empno = self.staffinfo[y[0]]
             query = """ select abdate from staff where empno= ? """
             a = self.conn.execute(query, (self.empno[0], )).fetchone()
-            print(type(a[0]))
             self.abdate = json.loads(a[0])
             self.staff_pdf_report()
 
@@ -127,8 +126,6 @@ class Staffatreport(Toplevel):
             if line:
                 pdf.line(50, top , 560 ,top)
                 top -= 200
-
-        print("Successful")
         pdf.save()
         webbrowser.open("C:\\Reports\\Attendence\\Staff\\report_all_{}_to_{}.pdf".format(self.fromcal.get_date(), self.tocal.get_date()))
 
@@ -153,7 +150,6 @@ class Staffatreport(Toplevel):
         side_sr = 55
         side_date = 320
         top = 600
-        print(type(self.fromcal.get_date()))
         for i in self.abdate:
             if top<30:
                 pdf.showPage()
@@ -166,7 +162,6 @@ class Staffatreport(Toplevel):
                     sr += 1
 
         pdf.save()
-        print("succesfull")
         webbrowser.open("C:\\Reports\\Attendence\\Staff\\report_{}_{}_to_{}.pdf".format(self.empno[0], self.fromcal.get_date(), self.tocal.get_date()))
 
     def __init__(self, root, main_root):

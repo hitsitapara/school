@@ -28,11 +28,8 @@ class Registration(Toplevel):
         self.answer = messagebox.askyesnocancel("School Software","Do you really want to submit the form")
 
         if self.answer == True :
-            print(type(self.addressentry.get(1.0,END)))
-            print(self.addressentry.get(1.0,END))
             try:
                 a = self.firstnameentry.get().isalpha()
-                print(a)
                 if a:
                     pass
                 else:
@@ -43,7 +40,6 @@ class Registration(Toplevel):
                 return
             try:
                 a = self.middlenameentry.get().isalpha()
-                print(a)
                 if a:
                     pass
                 else:
@@ -54,7 +50,6 @@ class Registration(Toplevel):
                 return
             try:
                 a = self.lastnameentry.get().isalpha()
-                print(a)
                 if a:
                     pass
                 else:
@@ -124,8 +119,6 @@ class Registration(Toplevel):
             self.adminvar.set(0)
             self.admin.config(state='normal')
             x = "select max(empno) from staff;"
-            y = self.conn.execute(x).fetchone()
-            print(y[0])
             messagebox.showinfo("School Software", str(y[0]) + " is your empno so log-in with this username")
             self.reset()
             rowcounter = "select count(*) from staff;"

@@ -70,10 +70,6 @@ class Salary(Toplevel):
             presentday = int(self.daygap[0]) +1 - count
             self.paysalary.append(presentday * dailysalary)
             self.totalsalary.append(float(int(self.daygap[0]) + 1) * dailysalary)
-
-        print(self.cutsalary)
-        print(self.paysalary)
-        print(self.totalsalary)
         self.salary_pdf()
         self.salary_report_admin()
 

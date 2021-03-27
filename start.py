@@ -26,7 +26,6 @@ class start:
             if self.usernameentry.get() == "":
                 raise ValueError
         except:
-            print("inside except")
             m = messagebox.showerror("School Software","Please enter username")
             self.usernameentry.focus_set()
             return
@@ -85,7 +84,6 @@ class start:
             if self.usernameentry.get() == "":
                 raise ValueError
         except:
-            print("inside except")
             m = messagebox.showerror("School Software","Please enter username")
             self.usernameentry.focus_set()
             return
