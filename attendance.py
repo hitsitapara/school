@@ -23,7 +23,7 @@ class Attedance1(Toplevel):
 
     def rollno(self, event=""):
         if self.rollcounter == 0:
-            self.rolllabel = Label(self.lf2, text="ROLL NO", bd=2, bg="black", fg="white", font=(self.f1, 15),
+            self.rolllabel = Label(self.lf2, text="ROLL NO", bd=2, bg=self.bgclr1, fg="black", font=(self.f1, 15),
                                    relief=GROOVE)
             self.rolllabel.place(x=350, y=85, height=25)
             query1 = """ select rollno, fname, mname, lname  from master where standard = ? """
@@ -219,24 +219,24 @@ class Attedance1(Toplevel):
         imagel = imagel.resize((60, 15))
         imgl = ImageTk.PhotoImage(imagel)
 
-        self.lf1 = LabelFrame(self, text="NAME", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
+        self.lf1 = LabelFrame(self, text="NAME", bd=2, bg=self.bgclr1, fg="black", font=(self.f1, 20), relief=GROOVE)
         self.lf1.place(x=0, y=0, height=150, width=1350)
 
-        bb = Button(self.lf1, image=imgl, bd=5, font=(self.f1, 20), command=self.backf)
+        bb = Button(self.lf1, image=imgl,bg=self.bgclr2, bd=5, font=(self.f1, 20), command=self.backf)
         bb.place(x=10, y=10)
 ##=============================================frame 2==================================================================
-        self.lf2 = LabelFrame(self, text="ATTENDANCE WINDOW", bd=2, bg="black", fg="white", font=(self.f1, 20),
+        self.lf2 = LabelFrame(self, text="ATTENDANCE WINDOW", bd=2, bg=self.bgclr1, fg="black", font=(self.f1, 20),
                               relief=GROOVE)
         self.lf2.place(x=0, y=150, height=550, width=675)
 
-        self.datelabel = Label(self.lf2, text="DATE", bd=2, bg="black", fg="White", font=(self.f1, 15), relief=GROOVE)
+        self.datelabel = Label(self.lf2, text="DATE", bd=2, bg=self.bgclr1, fg="black", font=(self.f1, 15), relief=GROOVE)
         self.datelabel.place(x=50, y=10, height=25)
 
         self.cal = DateEntry(self.lf2, width=12, background='darkblue', date_pattern='dd/mm/yyyy',
                     foreground='white', borderwidth=2, state="readonly")
         self.cal.place(x=300, y=10)
 
-        self.classlabel = Label(self.lf2, text="STANDARD", bd=2, bg="black", fg="white", font=(self.f1, 15),
+        self.classlabel = Label(self.lf2, text="STANDARD", bd=2, bg=self.bgclr1, fg="black", font=(self.f1, 15),
                             relief=GROOVE)
         self.classlabel.place(x=50, y=85, height=25)
 
@@ -255,18 +255,18 @@ class Attedance1(Toplevel):
         self.classbox.bind("<<ComboboxSelected>>", self.rollno)
         self.c_lassbox.set("CLASS")
 
-        self.addbutton = Button(self.lf2, text="ADD", font=(self.f2, 15), bd=5, command=self.addat)
+        self.addbutton = Button(self.lf2, text="ADD",bg=self.bgclr2, font=(self.f2, 15), bd=5, command=self.addat)
         self.addbutton.place(x=50, y=450, height=30,)
 
-        self.removebutton = Button(self.lf2, text="REMOVE", font=(self.f2, 15), bd=5, command=self.rem)
+        self.removebutton = Button(self.lf2, text="REMOVE", bg=self.bgclr2, font=(self.f2, 15), bd=5, command=self.rem)
         self.removebutton.place(x=200, y=450, height=30)
 
-        self.submitbutton = Button(self.lf2, text="SUBMIT", font=(self.f2, 15), bd=5, command=self.submit)
+        self.submitbutton = Button(self.lf2, text="SUBMIT", bg=self.bgclr2, font=(self.f2, 15), bd=5, command=self.submit)
         self.submitbutton.place(x=400, y=450, height=30)
         self.submitbutton.config(state="disabled")
 
         #==============================================frame 3=========================================================
-        self.lf3 = LabelFrame(self, text="ATTENDANCE PREVIEW", bd=2, bg="black", fg="white", font=(self.f1, 20),
+        self.lf3 = LabelFrame(self, text="ATTENDANCE PREVIEW", bd=2, bg=self.bgclr1, fg="black", font=(self.f1, 20),
                               relief=GROOVE)
         self.lf3.place(x=675, y=150, height=550, width=675)
 

@@ -151,27 +151,27 @@ class start:
         if rc[0] == 0:
             self.root.withdraw()
             Registration(self.root, self.main_root)
-
+        
         self.bgclr1 = "#0080c0"
         self.bgclr2 = "#e7d95a"
         self.f1 = "Arial Bold"
         self.f2 = "times new roman"
         self.root.title("Start")
-        self.root.config(background=self.bgclr1)
+        self.root.config(background="black")
         self.root.geometry("1350x700+0+0")
         self.root.resizable(False, False)
 
         ##====================================================frame 1===================================================
 
-        self.lf1 = LabelFrame(self.root, text="NAME", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
+        self.lf1 = LabelFrame(self.root, text="NAME", bd=4, bg=self.bgclr1, fg="black", font=(self.f1, 20), relief=GROOVE)
         self.lf1.place(x=0, y=0, height=150, width=1350)
         ##==================================================frame 2=====================================================
-        self.lf2 = LabelFrame(self.root, text="LOG-IN WINDOW", bd=2, bg="black", fg="white", font=(self.f1, 20),
+        self.lf2 = LabelFrame(self.root, text="LOG-IN WINDOW", bd=4, bg=self.bgclr1, fg="black", font=(self.f1, 20),
                               relief=GROOVE)
         self.lf2.place(x=0, y=150, height=550, width=1350)
-        self.username = Label(self.lf2, text="Username",  bd=2, bg="black", fg="white", font=(self.f1, 15),
+        self.username = Label(self.lf2, text="Username",  bd=4, bg=self.bgclr1, fg="black", font=(self.f1, 15),
                               relief=GROOVE)
-        self.password = Label(self.lf2, text="Password",  bd=2, bg="black", fg="white", font=(self.f1, 15),
+        self.password = Label(self.lf2, text="Password",  bd=4, bg=self.bgclr1, fg="black", font=(self.f1, 15),
                               relief=GROOVE)
 
         self.usernamevar = StringVar()
@@ -186,12 +186,12 @@ class start:
         self.passwordentry.place(x=770, y=200)
 
         self.adminvar = IntVar()
-        self.admin = Checkbutton(self.lf2, text="Log-in as an admin", variable=self.adminvar
+        self.admin = Checkbutton(self.lf2,bg=self.bgclr2, text="Log-in as an admin", variable=self.adminvar
                                  )
         self.admin.place(x=300, y=275)
 
-        self.login_button = Button(self.lf2, text="Log-in", bd=5, font=(self.f2, 20), command=self.login_method)
-        self.change_password_button = Button(self.lf2, text="Change Password", bd=5, font=(self.f2, 20),
+        self.login_button = Button(self.lf2, text="Log-in",bg=self.bgclr2 , bd=5, font=(self.f2, 20), command=self.login_method)
+        self.change_password_button = Button(self.lf2, text="Change Password",bg=self.bgclr2, bd=5, font=(self.f2, 20),
                                              command=self.change_password_method)
 
         self.login_button.place(x=475, y=400)

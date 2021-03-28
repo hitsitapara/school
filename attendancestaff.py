@@ -164,7 +164,7 @@ class Attendancestaff(Toplevel):
         imagel = imagel.resize((60, 15))
         imgl = ImageTk.PhotoImage(imagel)
 
-        self.lf1 = LabelFrame(self, text="NAME", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
+        self.lf1 = LabelFrame(self, text="NAME", bd=2, bg=self.bgclr1, fg="black", font=(self.f1, 20), relief=GROOVE)
         self.lf1.place(x=0, y=0, height=150, width=1350)
 
         bb = Button(self.lf1, image=imgl, bd=5, font=(self.f1, 20), command=self.backf)
@@ -172,18 +172,18 @@ class Attendancestaff(Toplevel):
 
         ##==================================================frame 2=====================================================
 
-        self.lf2 = LabelFrame(self, text="ATTENDANCE WINDOW", bd=2, bg="black", fg="white", font=(self.f1, 20),
+        self.lf2 = LabelFrame(self, text="ATTENDANCE WINDOW", bd=2, bg=self.bgclr1, fg="black", font=(self.f1, 20),
                               relief=GROOVE)
         self.lf2.place(x=0, y=150, height=550, width=675)
 
-        self.datelabel = Label(self.lf2, text="DATE", bd=2, bg="black", fg="White", font=(self.f1, 15), relief=GROOVE)
+        self.datelabel = Label(self.lf2, text="DATE", bd=2, bg=self.bgclr1, fg="black", font=(self.f1, 15), relief=GROOVE)
         self.datelabel.place(x=50, y=10, height=25)
 
         self.cal = DateEntry(self.lf2, width=12, background='darkblue', date_pattern='dd/mm/yyyy',
                              foreground='white', borderwidth=2, state="readonly")
         self.cal.place(x=300, y=10)
 
-        self.staffnamelabel = Label(self.lf2, text="Staff Selection", bd=2, bg="black",fg='white', font=(self.f1,15),
+        self.staffnamelabel = Label(self.lf2, text="Staff Selection", bd=2, bg=self.bgclr1,fg='black', font=(self.f1,15),
                                     relief=GROOVE)
         self.staffnamelabel.place(x=50, y=85, height=25)
 
@@ -205,18 +205,18 @@ class Attendancestaff(Toplevel):
         xscrollbar.pack(side=BOTTOM, fill=X)
         xscrollbar.config(command=self.staffbox.xview)
 
-        self.addbutton = Button(self.lf2, text="ADD", font=(self.f2, 15), bd=5, command=self.addat)
+        self.addbutton = Button(self.lf2, text="ADD", bg=self.bgclr2, font=(self.f2, 15), bd=5, command=self.addat)
         self.addbutton.place(x=50, y=450, height=30)
 
-        self.removebutton = Button(self.lf2, text="REMOVE", font=(self.f2, 15), bd=5, command=self.rem)
+        self.removebutton = Button(self.lf2, text="REMOVE", bg=self.bgclr2, font=(self.f2, 15), bd=5, command=self.rem)
         self.removebutton.place(x=200, y=450, height=30)
 
-        self.submitbutton = Button(self.lf2, text="SUBMIT", font=(self.f2, 15), bd=5, command=self.submit)
+        self.submitbutton = Button(self.lf2, text="SUBMIT", bg=self.bgclr2, font=(self.f2, 15), bd=5, command=self.submit)
         self.submitbutton.place(x=350, y=450, height=30)
         self.submitbutton.config(state="disabled")
 
         ##==================================================frame 3=====================================================
-        self.lf3 = LabelFrame(self, text="ATTENDANCE PREVIEW", bd=2, bg="black", fg="white", font=(self.f1, 20),
+        self.lf3 = LabelFrame(self, text="ATTENDANCE PREVIEW", bd=2, bg=self.bgclr1, fg="black", font=(self.f1, 20),
                               relief=GROOVE)
         self.lf3.place(x=675, y=150, height=550, width=675)
 
