@@ -176,39 +176,39 @@ class Registration(Toplevel):
 
         imgl = ImageTk.PhotoImage(imagel)
 
-        self.lf1 = LabelFrame(self, text="NAME", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
+        self.lf1 = LabelFrame(self, text="NAME", bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 20), relief=GROOVE)
         self.lf1.place(x=0, y=0, height=150, width=1350)
 
-        bb = Button(self.lf1, image=imgl, bd=5, font=(self.f1, 20), command=self.backf)
+        bb = Button(self.lf1, image=imgl,bg=self.bgclr2, bd=5, font=(self.f1, 20), command=self.backf)
         bb.place(x=10, y=10)
         ##=============================================frame 2==========================================================
-        self.lf2 = LabelFrame(self, text="Staff Entry", bd=2, bg="black", fg="white", font=(self.f1, 20),
+        self.lf2 = LabelFrame(self, text="Staff Entry", bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 20),
                               relief=GROOVE)
         self.lf2.place(x=0, y=150, height=550, width=1350)
 
         rowcounter = "select count(*) from staff;"
         rc = self.conn.execute(rowcounter).fetchone()
 
-        self.firstname = Label(self.lf2,text='firstname',bd=2, bg="black", fg="white", font=(self.f1, 15),
+        self.firstname = Label(self.lf2,text='firstname',bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 15),
                                 relief=GROOVE)
-        self.middlename = Label(self.lf2,text='middlename',bd=2, bg="black", fg="white", font=(self.f1, 15),
+        self.middlename = Label(self.lf2,text='middlename',bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 15),
                                 relief=GROOVE)
-        self.lastname = Label(self.lf2,text='lastname',bd=2, bg="black", fg="white", font=(self.f1, 15),
+        self.lastname = Label(self.lf2,text='lastname',bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 15),
                                 relief=GROOVE)
-        self.salary = Label(self.lf2,text='salary',bd=2, bg="black", fg="white", font=(self.f1, 15),
+        self.salary = Label(self.lf2,text='salary',bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 15),
                                 relief=GROOVE)
-        self.phoneno = Label(self.lf2,text='phoneno',bd=2, bg="black", fg="white", font=(self.f1, 15),
+        self.phoneno = Label(self.lf2,text='phoneno',bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 15),
                                 relief=GROOVE)
-        self.address = Label(self.lf2,text='address',bd=2, bg="black", fg="white", font=(self.f1, 15),
+        self.address = Label(self.lf2,text='address',bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 15),
                                 relief=GROOVE)
-        self.email = Label(self.lf2,text='email',bd=2, bg="black", fg="white", font=(self.f1, 15),
+        self.email = Label(self.lf2,text='email',bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 15),
                                 relief=GROOVE)
-        self.password = Label(self.lf2,text='password',bd=2, bg="black", fg="white", font=(self.f1, 15),
+        self.password = Label(self.lf2,text='password',bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 15),
                                 relief=GROOVE)
-        self.dob = Label(self.lf2,text='DOB',bd=2, bg="black", fg="white", font=(self.f1, 15),relief=GROOVE)
-        self.category = Label(self.lf2,text="Category",bd=2, bg="black", fg="white", font=(self.f1, 15), relief=GROOVE)
-        self.bloodgroup = Label(self.lf2,text="Blood-group",bd=2, bg="black", fg="white", font=(self.f1, 15), relief=GROOVE)
-        self.cast = Label(self.lf2,text="Cast",bd=2, bg="black", fg="white", font=(self.f1, 15), relief=GROOVE)
+        self.dob = Label(self.lf2,text='DOB',bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 15),relief=GROOVE)
+        self.category = Label(self.lf2,text="Category",bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 15), relief=GROOVE)
+        self.bloodgroup = Label(self.lf2,text="Blood-group",bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 15), relief=GROOVE)
+        self.cast = Label(self.lf2,text="Cast",bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 15), relief=GROOVE)
 
         self.firstnamevar = StringVar()
         self.firstnameentry = Entry(self.lf2,textvariable = self.firstnamevar,font=50)
@@ -260,7 +260,7 @@ class Registration(Toplevel):
         self.castentry.place(x=903.125,y=152)
 
         self.adminvar = IntVar()
-        self.admin = Checkbutton(self.lf2, text='admin',variable=self.adminvar)
+        self.admin = Checkbutton(self.lf2, text='admin',bg=self.bgclr1, fg="black", font=(self.f2, 20), bd = 5,variable=self.adminvar)
         self.admin.place(x=175, y=402)
         self.authority_value = "abcd"
 
@@ -273,10 +273,10 @@ class Registration(Toplevel):
         else:
             self.authority_value = "staff"
 
-        self.login = Button(self.lf2,text="Register",font=60,command=self.register)
+        self.login = Button(self.lf2,text="Register",bg=self.bgclr2 , bd=5, font=(self.f2, 20),command=self.register)
         self.login.place(x=500,y=452)
 
-        self.reset_btn = Button(self.lf2, text="Reset", font=60,command=self.reset)
+        self.reset_btn = Button(self.lf2, text="Reset",bg=self.bgclr2 , bd=5, font=(self.f2, 20),command=self.reset)
         self.reset_btn.place(x=645, y=452)
 
         self.protocol("WM_DELETE_WINDOW", self.c_w)

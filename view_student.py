@@ -33,11 +33,11 @@ class ViewStudent(Toplevel):
         self.combo_roll_var.set("Select")
 
     def view_method(self,event=""):
-        self.grno_label = Label(self.lf2, text="GR no.", bd=2, bg="black", fg="white",relief=GROOVE)
+        self.grno_label = Label(self.lf2, text="GR no.", font=(self.f2, 15), bd=2, fg="black", bg=self.bgclr1,relief=GROOVE)
         self.grno_label.place(x=550, y=50, height=25)
-        self.std_label=Label(self.lf2,text='Std. :', bd=2, bg="black", fg="white",relief=GROOVE)
+        self.std_label=Label(self.lf2,text='Std. ', bd=2, font=(self.f2, 15),  fg="black", bg=self.bgclr1,relief=GROOVE)
         self.std_label.place(x=550,y=90,height=25)
-        self.rollno_label = Label(self.lf2,text='Roll no. :', bd=2, bg="black", fg="white",relief=GROOVE)
+        self.rollno_label = Label(self.lf2,text='Roll no. ', font=(self.f2, 15), bd=2,  fg="black", bg=self.bgclr1,relief=GROOVE)
         self.rollno_label.place(x=550,y=130, height=25)
 
         self.stdvar = StringVar()
@@ -54,92 +54,92 @@ class ViewStudent(Toplevel):
         self.bloodgroupvar = StringVar()
         self.castvar = StringVar()
 
-        self.firstname_label = Label(self.lf2, text="First name", bd=2, bg="black", fg="white",relief=GROOVE)
+        self.firstname_label = Label(self.lf2, text="First name", bd=2,  fg="black", font=(self.f2, 15), bg=self.bgclr1,relief=GROOVE)
         self.firstname_label.place(x=50, y=50, height=25)
-        self.firstnameentry = Entry(self.lf2, textvariable=self.firstnamevar)
+        self.firstnameentry = Entry(self.lf2, textvariable=self.firstnamevar, font=(self.f2, 15))
         self.firstnameentry.place(x=300, y=50, height=25, width=150)
 
-        self.middlename_label = Label(self.lf2, text="Middle name", bd=2, bg="black", fg="white",relief=GROOVE)
+        self.middlename_label = Label(self.lf2, text="Middle name", bd=2, font=(self.f2, 15),  fg="black", bg=self.bgclr1,relief=GROOVE)
         self.middlename_label.place(x=50, y=90, height=25)
-        self.middlenameentry = Entry(self.lf2, textvariable=self.middlenamevar, bd=2, bg="black", fg="white",relief=GROOVE)
+        self.middlenameentry = Entry(self.lf2, textvariable=self.middlenamevar, font=(self.f2, 15))
         self.middlenameentry.place(x=300, y=90, height=25, width=150)
 
-        self.lastname_label = Label(self.lf2, text="Last name", bd=2, bg="black", fg="white",relief=GROOVE)
+        self.lastname_label = Label(self.lf2, text="Last name", bd=2, font=(self.f2, 15),  fg="black", bg=self.bgclr1,relief=GROOVE)
         self.lastname_label.place(x=50, y=130, height=25)
-        self.lastnameentry = Entry(self.lf2, textvariable=self.lastnamevar)
+        self.lastnameentry = Entry(self.lf2, textvariable=self.lastnamevar, font=(self.f2, 15))
         self.lastnameentry.place(x=300, y=130, height=25, width=150)
 
-        self.address_label = Label(self.lf2, text="Address", bd=2, bg="black", fg="white",relief=GROOVE)
+        self.address_label = Label(self.lf2, text="Address", bd=2, font=(self.f2, 15),  fg="black", bg=self.bgclr1,relief=GROOVE)
         self.address_label.place(x=50, y=170, height=25)
-        self.addressentry = Text(self.lf2, width=20, height=5, padx=2, pady=2, wrap=WORD)
+        self.addressentry = Text(self.lf2, width=20, height=5, padx=2, pady=2, wrap=WORD, font=(self.f2, 15))
         self.addressentry.place(x=300, y=170, height=75, width=150)
 
-        self.studentphno_label = Label(self.lf2, text="Student ph.", bd=2, bg="black", fg="white",relief=GROOVE)
+        self.studentphno_label = Label(self.lf2, text="Student ph.", bd=2,  fg="black", font=(self.f2, 15), bg=self.bgclr1,relief=GROOVE)
         self.studentphno_label.place(x=50, y=260, height=25)
-        self.student_phno_entry = Entry(self.lf2, textvariable=self.studentphnovar)
+        self.student_phno_entry = Entry(self.lf2, textvariable=self.studentphnovar, font=(self.f2, 15))
         self.student_phno_entry.place(x=300, y=260, height=25, width=150)
 
-        self.parentphno_label = Label(self.lf2, text="Parent ph.", bd=2, bg="black", fg="white",relief=GROOVE)
+        self.parentphno_label = Label(self.lf2, text="Parent ph.", bd=2,  fg="black", font=(self.f2, 15), bg=self.bgclr1,relief=GROOVE)
         self.parentphno_label.place(x=50, y=300, height=25)
-        self.parent_phno_entry = Entry(self.lf2, textvariable=self.parentphnovar)
+        self.parent_phno_entry = Entry(self.lf2, textvariable=self.parentphnovar, font=(self.f2, 15))
         self.parent_phno_entry.place(x=300, y=300, height=25, width=150)
 
-        self.email_label = Label(self.lf2, text="Email id", bd=2, bg="black", fg="white",relief=GROOVE)
+        self.email_label = Label(self.lf2, text="Email id", bd=2,  fg="black", font=(self.f2, 15), bg=self.bgclr1,relief=GROOVE)
         self.email_label.place(x=50, y=340, height=25)
-        self.emailentry = Entry(self.lf2, textvariable=self.emailvar)
+        self.emailentry = Entry(self.lf2, textvariable=self.emailvar, font=(self.f2, 15))
         self.emailentry.place(x=300, y=340, height=25, width=150)
 
-        self.parentadd_label = Label(self.lf2, text="Parent office add.", bd=2, bg="black", fg="white",relief=GROOVE)
+        self.parentadd_label = Label(self.lf2, text="Parent office add.", bd=2, font=(self.f2, 15),  fg="black", bg=self.bgclr1,relief=GROOVE)
         self.parentadd_label.place(x=50, y=380, height=25)
-        self.parent_office_add_entry = Text(self.lf2, width=20, height=5, padx=2, pady=2, wrap=WORD)
+        self.parent_office_add_entry = Text(self.lf2, width=20, height=5, padx=2, font=(self.f2, 15), pady=2, wrap=WORD)
         self.parent_office_add_entry.place(x=300, y=380, height=75, width=150)
 
-        self.parentoffphno_label = Label(self.lf2, text="Parent office ph.", bd=2, bg="black", fg="white",relief=GROOVE)
+        self.parentoffphno_label = Label(self.lf2, text="Parent office ph.", bd=2, font=(self.f2, 15),  fg="black", bg=self.bgclr1,relief=GROOVE)
         self.parentoffphno_label.place(x=550, y=170, height=25)
-        self.parent_office_phno_entry = Entry(self.lf2)
+        self.parent_office_phno_entry = Entry(self.lf2, font=(self.f2, 15))
         self.parent_office_phno_entry.place(x=800, y=170, height=25, width=150)
 
-        self.fee_label = Label(self.lf2, text="Fees", bd=2, bg="black", fg="white",relief=GROOVE)
+        self.fee_label = Label(self.lf2, text="Fees", bd=2,  fg="black", font=(self.f2, 15), bg=self.bgclr1,relief=GROOVE)
         self.fee_label.place(x=550, y=210, height=25)
-        self.feesentry = Entry(self.lf2, textvariable=self.feevar)
+        self.feesentry = Entry(self.lf2, textvariable=self.feevar, font=(self.f2, 15))
         self.feesentry.place(x=800, y=210, height=25, width=150)
 
-        self.dob_label=Label(self.lf2,text="DOB", bd=2, bg="black", fg="white",relief=GROOVE)
+        self.dob_label=Label(self.lf2,text="DOB", bd=2,  fg="black", font=(self.f2, 15), bg=self.bgclr1,relief=GROOVE)
         self.dob_label.place(x=550,y=250,height=25)
-        self.dob_entry= Entry(self.lf2,textvariable=self.dobvar)
+        self.dob_entry= Entry(self.lf2,textvariable=self.dobvar, font=(self.f2, 15))
         self.dob_entry.place(x=800,y=250,height=25,width=150)
 
-        self.category_label = Label(self.lf2, text="Category", bd=2, bg="black", fg="white",relief=GROOVE)
+        self.category_label = Label(self.lf2, text="Category", bd=2, font=(self.f2, 15),  fg="black", bg=self.bgclr1,relief=GROOVE)
         self.category_label.place(x=550, y=290, height=25)
-        self.category_entry = Entry(self.lf2,textvariable=self.categoryvar)
+        self.category_entry = Entry(self.lf2,textvariable=self.categoryvar, font=(self.f2, 15))
         self.category_entry.place(x=800, y=290, height=25, width=150)
 
-        self.bloodgroup_label = Label(self.lf2, text="Blood Group", bd=2, bg="black", fg="white",relief=GROOVE)
+        self.bloodgroup_label = Label(self.lf2, text="Blood Group", bd=2, font=(self.f2, 15),  fg="black", bg=self.bgclr1,relief=GROOVE)
         self.bloodgroup_label.place(x=550, y=330, height=25)
-        self.bloodgroup_entry = Entry(self.lf2,textvariable=self.bloodgroupvar)
+        self.bloodgroup_entry = Entry(self.lf2,textvariable=self.bloodgroupvar, font=(self.f2, 15))
         self.bloodgroup_entry.place(x=800, y=330, height=25, width=150)
 
-        self.cast_label = Label(self.lf2, text="Cast", bd=2, bg="black", fg="white",relief=GROOVE)
+        self.cast_label = Label(self.lf2, text="Cast", bd=2,  fg="black", font=(self.f2, 15), bg=self.bgclr1,relief=GROOVE)
         self.cast_label.place(x=550, y=370, height=25)
-        self.cast_entry = Entry(self.lf2,textvariable=self.castvar)
+        self.cast_entry = Entry(self.lf2,textvariable=self.castvar, font=(self.f2, 15))
         self.cast_entry.place(x=800, y=370, height=25, width=150)
 
         query2 = "select * from master where standard = ? and rollno = ?"
         self.student_detail = self.conn.execute(query2, (self.std_combo.get(), self.roll_combo.get())).fetchone()
 
-        self.grnotext = Label(self.lf2, text=self.student_detail[0])
-        self.grnotext.place(x=800, y=50, height=25)
+        self.grnotext = Label(self.lf2, text=self.student_detail[0], font=(self.f2, 15))
+        self.grnotext.place(x=800, y=50, height=25, width=150)
 
-        self.stdtext = Label(self.lf2, text=self.student_detail[2])
-        self.stdtext.place(x=800, y=90, height=25)
+        self.stdtext = Label(self.lf2, text=self.student_detail[2], font=(self.f2, 15))
+        self.stdtext.place(x=800, y=90, height=25, width=150)
 
-        self.rollnotext = Label(self.lf2, text=self.student_detail[1])
-        self.rollnotext.place(x=800, y=130, height=25)
+        self.rollnotext = Label(self.lf2, text=self.student_detail[1], font=(self.f2, 15))
+        self.rollnotext.place(x=800, y=130, height=25, width=150)
 
         self.firstnamevar.set(self.student_detail[4])
         self.middlenamevar.set(self.student_detail[5])
         self.lastnamevar.set(self.student_detail[6])
-        self.addressentry.insert(END,self.student_detail[7])
+        self.addressentry.insert(END, self.student_detail[7])
         self.studentphnovar.set(self.student_detail[8])
         self.parentphnovar.set(self.student_detail[9])
         self.emailvar.set(self.student_detail[10])
@@ -166,10 +166,10 @@ class ViewStudent(Toplevel):
         self.bloodgroup_entry.config(state='disabled')
         self.cast_entry.config(state='disabled')
 
-        self.generate_button = Button(self.lf2,text="Generate Report",command=self.student_report_pdf_method)
+        self.generate_button = Button(self.lf2,text="Generate Report", bg=self.bgclr2, font=(self.f2, 20),command=self.student_report_pdf_method)
         self.generate_button.place(x=500,y=450)
 
-        self.cancel_button = Button(self.lf2, text="Cancel", command=self.cancel_method)
+        self.cancel_button = Button(self.lf2, text="Cancel", bg=self.bgclr2, font=(self.f2, 20), command=self.cancel_method)
         self.cancel_button.place(x=900, y=450)
 
     def student_report_pdf_method(self):
@@ -271,15 +271,15 @@ class ViewStudent(Toplevel):
         imagel = imagel.resize((60, 15))
         imgl = ImageTk.PhotoImage(imagel)
 
-        self.lf1 = LabelFrame(self, text="NAME", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
+        self.lf1 = LabelFrame(self, text="NAME", bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 20), relief=GROOVE)
         self.lf1.place(x=0, y=0, height=150, width=1350)
 
-        bb = Button(self.lf1, image=imgl, bd=5, font=(self.f1, 20), command=self.backf)
+        bb = Button(self.lf1, image=imgl, bg=self.bgclr2, bd=5, font=(self.f1, 20), command=self.backf)
         bb.place(x=10, y=10)
 
         ##==================================================frame 2=====================================================
 
-        self.lf2 = LabelFrame(self, text="VIEW STUDENT", bd=2, bg="black", fg="white", font=(self.f1, 20),
+        self.lf2 = LabelFrame(self, text="VIEW STUDENT", bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 20),
                               relief=GROOVE)
         self.lf2.place(x=0, y=150, height=550, width=1350)
 

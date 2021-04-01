@@ -187,32 +187,28 @@ class UpdateUser(Toplevel):
 
     def select_combo_method(self,event=""):
         # form lakhay ne aavse.,';
-        self.lf2 = LabelFrame(self, text="Update User", bd=2, bg="black", fg="white", font=(self.f1, 20),
-                              relief=GROOVE)
-        self.lf2.place(x=0, y=200, height=500, width=1350)
-
-        self.firstname = Label(self.lf2, text='firstname', bd=2, bg="black", fg="white", font=(self.f1, 15),
+        self.firstname = Label(self.lf2, text='firstname', bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 15),
                                relief=GROOVE)
-        self.middlename = Label(self.lf2, text='middlename', bd=2, bg="black", fg="white", font=(self.f1, 15),
+        self.middlename = Label(self.lf2, text='middlename', bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 15),
                                 relief=GROOVE)
-        self.lastname = Label(self.lf2, text='lastname', bd=2, bg="black", fg="white", font=(self.f1, 15),
+        self.lastname = Label(self.lf2, text='lastname', bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 15),
                               relief=GROOVE)
-        self.salary = Label(self.lf2, text='salary', bd=2, bg="black", fg="white", font=(self.f1, 15),
+        self.salary = Label(self.lf2, text='salary', bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 15),
                             relief=GROOVE)
-        self.phoneno = Label(self.lf2, text='phoneno', bd=2, bg="black", fg="white", font=(self.f1, 15),
+        self.phoneno = Label(self.lf2, text='phoneno', bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 15),
                              relief=GROOVE)
-        self.address = Label(self.lf2, text='address', bd=2, bg="black", fg="white", font=(self.f1, 15),
+        self.address = Label(self.lf2, text='address', bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 15),
                              relief=GROOVE)
-        self.email = Label(self.lf2, text='email', bd=2, bg="black", fg="white", font=(self.f1, 15), relief=GROOVE)
-        self.password = Label(self.lf2, text='password', bd=2, bg="black", fg="white", font=(self.f1, 15),
+        self.email = Label(self.lf2, text='email', bd=2,fg="black", bg=self.bgclr1, font=(self.f1, 15), relief=GROOVE)
+        self.password = Label(self.lf2, text='password', bd=2,fg="black", bg=self.bgclr1, font=(self.f1, 15),
                               relief=GROOVE)
-        self.dob = Label(self.lf2, text='DOB', bd=2, bg="black", fg="white", font=(self.f1, 15), relief=GROOVE)
-        self.category = Label(self.lf2, text="Category", bd=2, bg="black", fg="white", font=(self.f1, 15),
+        self.dob = Label(self.lf2, text='DOB', bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 15), relief=GROOVE)
+        self.category = Label(self.lf2, text="Category", bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 15),
                               relief=GROOVE)
-        self.bloodgroup = Label(self.lf2, text="Blood-group", bd=2, bg="black", fg="white", font=(self.f1, 15),
+        self.bloodgroup = Label(self.lf2, text="Blood-group", bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 15),
                                 relief=GROOVE)
-        self.cast = Label(self.lf2, text="Cast", bd=2, bg="black", fg="white", font=(self.f1, 15), relief=GROOVE)
-        self.subject = Label(self.lf2, text="Subjects/Post", bd=2, bg="black", fg="white", font=(self.f1, 15), relief=GROOVE)
+        self.cast = Label(self.lf2, text="Cast", bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 15), relief=GROOVE)
+        self.subject = Label(self.lf2, text="Subjects/Post", bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 15), relief=GROOVE)
 
         self.firstnamevar = StringVar()
         self.firstnameentry = Entry(self.lf2, textvariable=self.firstnamevar, font=(self.f1, 10))
@@ -230,14 +226,14 @@ class UpdateUser(Toplevel):
         self.passwordentry = Entry(self.lf2, textvariable=self.passwordvar,  show="*", font=(self.f1, 10))
         self.addressentry = Text(self.lf2, width=20, height=3,wrap=WORD)
         self.dobvar = StringVar()
-        self.dobentry = DateEntry(self.lf2, width=12, background='darkblue', date_pattern='dd/mm/yyyy',
-                                  foreground='white', borderwidth=2, state="readonly")
+        self.dobentry = DateEntry(self.lf2, state="readonly", width=12, background='darkblue', date_pattern='dd/mm/yyyy',
+                                  foreground='white', borderwidth=2)
         self.categoryvar = StringVar()
-        self.categoryentry = ttk.Combobox(self.lf2, values=['GENERAL', 'SC', 'ST', 'OBC'], state="readonly",
+        self.categoryentry = ttk.Combobox(self.lf2, state="readonly", values=['GENERAL', 'SC', 'ST', 'OBC'],
                                           textvariable=self.categoryvar, font=(self.f1, 10))
         self.categoryvar.set("SELECT CATEGORY")
         self.bloodgroupvar = StringVar()
-        self.bloodgroupentry = ttk.Combobox(self.lf2, values=['o+', 'o-', 'b+', 'b-', 'ab+', 'ab-'], state="readonly",
+        self.bloodgroupentry = ttk.Combobox(self.lf2, state="readonly", values=['o+', 'o-', 'b+', 'b-', 'ab+', 'ab-'],
                                             textvariable=self.bloodgroupvar, font=(self.f1, 10))
         self.bloodgroupvar.set("SELECT BLOOD-GROUP")
         self.castvar = StringVar()
@@ -245,41 +241,40 @@ class UpdateUser(Toplevel):
         self.subjectvar = StringVar()
         self.subjectentry = Entry(self.lf2, textvariable=self.subjectvar, font=50)
 
-        self.firstname.place(x=87.5, y=2)
-        self.firstnameentry.place(x=359.37, y=2)
-        self.middlename.place(x=87.5, y=52)
-        self.middlenameentry.place(x=359.37, y=52)
-        self.lastname.place(x=87.5, y=102)
-        self.lastnameentry.place(x=359.37, y=102)
-        self.salary.place(x=87.5, y=152)
-        self.salaryentry.place(x=359.37, y=152)
-        self.phoneno.place(x=87.5, y=202)
-        self.phonenoentry.place(x=359.37, y=202)
-        self.email.place(x=87.5, y=252)
-        self.emailentry.place(x=359.37, y=252)
-        self.password.place(x=87.5, y=302)
-        self.passwordentry.place(x=359.37, y=302)
-        self.address.place(x=87.5, y=352)
-        self.addressentry.place(x=359.37, y=352)
-        self.dob.place(x=631.25, y=2)
-        self.dobentry.place(x=903.125, y=2)
-        self.category.place(x=631.25, y=52)
-        self.categoryentry.place(x=903.125, y=52)
-        self.bloodgroup.place(x=631.25, y=102)
-        self.bloodgroupentry.place(x=903.125, y=102)
-        self.cast.place(x=631.25, y=152)
-        self.castentry.place(x=903.125, y=152)
-        self.subject.place(x=631.25, y=202)
-        self.subjectentry.place(x=903.125, y=202)
+        self.firstname.place(x=87.5, y=52)
+        self.firstnameentry.place(x=359.37, y=52)
+        self.middlename.place(x=87.5, y=102)
+        self.middlenameentry.place(x=359.37, y=102)
+        self.lastname.place(x=87.5, y=152)
+        self.lastnameentry.place(x=359.37, y=152)
+        self.salary.place(x=87.5, y=202)
+        self.salaryentry.place(x=359.37, y=202)
+        self.phoneno.place(x=87.5, y=252)
+        self.phonenoentry.place(x=359.37, y=252)
+        self.email.place(x=87.5, y=302)
+        self.emailentry.place(x=359.37, y=302)
+        self.password.place(x=87.5, y=352)
+        self.passwordentry.place(x=359.37, y=352)
+        self.address.place(x=631.25, y=352)
+        self.addressentry.place(x=903.125, y=352)
+        self.dob.place(x=631.25, y=52)
+        self.dobentry.place(x=903.125, y=52)
+        self.category.place(x=631.25, y=102)
+        self.categoryentry.place(x=903.125, y=102)
+        self.bloodgroup.place(x=631.25, y=152)
+        self.bloodgroupentry.place(x=903.125, y=152)
+        self.cast.place(x=631.25, y=202)
+        self.castentry.place(x=903.125, y=202)
+        self.subject.place(x=631.25, y=252)
+        self.subjectentry.place(x=903.125, y=252)
         self.guide = Label(self.lf2, text="(if multiple seperate it with ',' \n for ex:maths,science)", font=(self.f1, 8))
-        self.guide.place(x=903.125, y=230)
+        self.guide.place(x=903.125, y=280)
         self.guide.config(state='disabled')
 
         rowcounter = "select count(*) from staff;"
         rc = self.conn.execute(rowcounter).fetchone()
         self.adminvar = IntVar()
-        self.admin = Checkbutton(self.lf2, text='admin', variable=self.adminvar
-                                 )
+        self.admin = Checkbutton(self.lf2, bg=self.bgclr1, text='admin', variable=self.adminvar)
         self.admin.place(x=175, y=402)
         self.authority_value = "abcd"
 
@@ -306,10 +301,10 @@ class UpdateUser(Toplevel):
         self.bloodgroupvar.set(self.update_query_tuple[15])
         self.castvar.set(self.update_query_tuple[16])
 
-        self.update_button = Button(self.lf2, text="Update", command=self.update_button_method)
-        self.update_button.place(x=500, y=432)
+        self.update_button = Button(self.lf2, text="Update",bg=self.bgclr2 , bd=5, font=(self.f2, 20), command=self.update_button_method)
+        self.update_button.place(x=400, y=432)
 
-        self.reset_btn = Button(self.lf2, text="Reset",  command=self.reset)
+        self.reset_btn = Button(self.lf2, text="Reset",bg=self.bgclr2 , bd=5, font=(self.f2, 20),  command=self.reset)
         self.reset_btn.place(x=645, y=432)
 
     def __init__(self, root, main_root):
@@ -340,22 +335,24 @@ class UpdateUser(Toplevel):
         imagel = imagel.resize((60, 15))
         imgl = ImageTk.PhotoImage(imagel)
 
-        self.lf1 = LabelFrame(self, text="NAME", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
+        self.lf1 = LabelFrame(self, text="NAME", bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 20), relief=GROOVE)
         self.lf1.place(x=0, y=0, height=150, width=1350)
-        bb = Button(self.lf1, image=imgl, bd=5, font=(self.f1, 15), command=self.backf)
+        bb = Button(self.lf1, image=imgl, bg=self.bgclr2, bd=5, font=(self.f1, 15), command=self.backf)
         bb.place(x=10, y=10, height=25)
         ##==================================================frame 2=====================================================
-
+        self.lf2 = LabelFrame(self, text="Update User", bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 20),
+                              relief=GROOVE)
+        self.lf2.place(x=0, y=150, height=550, width=1350)
         query1 = "select empno from staff where currentuser=0;"
         list1 = self.conn.execute(query1).fetchall()
         my_list = []
         for i in list1:
             my_list.append(i)
 
-        self.select_user_combo = ttk.Combobox(self, values=my_list,height=10,state="read only")
+        self.select_user_combo = ttk.Combobox(self.lf2, state="readonly", values=my_list)
         self.select_user_combo.bind("<<ComboboxSelected>>",self.select_combo_method)
         self.select_user_combo.set("SELECT EMPNO")
-        self.select_user_combo.place(x=750, y=150)
+        self.select_user_combo.place(x=500, y=10)
 
         self.protocol("WM_DELETE_WINDOW", self.c_w)
         self.mainloop()

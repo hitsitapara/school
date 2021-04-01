@@ -21,7 +21,7 @@ class Updatedivision(Toplevel):
 
         if self.rollcounter == 0:
 
-            self.tolabel = Label(self.lf2, text="TO", bd=2, bg="black", fg="white", font=(self.f1, 15), relief=GROOVE)
+            self.tolabel = Label(self.lf2, text="TO", bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 15), relief=GROOVE)
             self.tolabel.place(x=50, y=225, height=25)
             self.t_oclassbox = StringVar()
             self.toclassbox = ttk.Combobox(self.lf2, state="readonly", textvariable=self.t_oclassbox,
@@ -40,7 +40,7 @@ class Updatedivision(Toplevel):
             self.toclass.sort()
             self.toclassbox['values'] = self.toclass
             self.t_oclassbox.set("Select")
-            self.rolllabel = Label(self.lf2, text="Student's", bd=2, bg="black", fg="white", font=(self.f1, 15),
+            self.rolllabel = Label(self.lf2, text="Student's", bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 15),
                                    relief=GROOVE)
             self.rolllabel.place(x=350, y=85, height=25)
             query1 = """ select rollno, fname, mname, lname  from master where standard = ? """
@@ -115,7 +115,7 @@ class Updatedivision(Toplevel):
         self.bgclr2 = "#e7d95a"
         self.f1 = "Arial Bold"
         self.f2 = "times new roman"
-        self.title("Division")
+        self.title("Update Division")
         self.config(background=self.bgclr1)
         self.geometry("1350x700+0+0")
         self.resizable(False, False)
@@ -127,19 +127,19 @@ class Updatedivision(Toplevel):
         imagel = imagel.resize((60, 15))
         imgl = ImageTk.PhotoImage(imagel)
 
-        self.lf1 = LabelFrame(self, text="NAME", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
+        self.lf1 = LabelFrame(self, text="NAME", bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 20), relief=GROOVE)
         self.lf1.place(x=0, y=0, height=150, width=1350)
 
-        bb = Button(self.lf1, image=imgl, bd=5, font=(self.f1, 20), bg="white", command=self.backf)
+        bb = Button(self.lf1, image=imgl, bd=5, font=(self.f1, 20), bg=self.bgclr2, command=self.backf)
         bb.place(x=10, y=10)
 
 
         ##====================================================frame 2===================================================
 
-        self.lf2 = LabelFrame(self, text="Division", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
+        self.lf2 = LabelFrame(self, text="Division", bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 20), relief=GROOVE)
         self.lf2.place(x=0, y=150, height=550, width=1350)
 
-        self.classlabel = Label(self.lf2, text="FROM", bd=2, bg="black", fg="white", font=(self.f1, 15),
+        self.classlabel = Label(self.lf2, text="FROM", bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 15),
                                 relief=GROOVE)
         self.classlabel.place(x=50, y=85, height=25)
 
@@ -159,8 +159,7 @@ class Updatedivision(Toplevel):
         self.fromclassbox.bind("<<ComboboxSelected>>", self.rollno)
         self.f_romclassbox.set("CLASS")
 
-        self.updatedivbutton = Button(self.lf2, text="Update ", bd=5, font=(self.f2, 15),
-                                      command=self.updatediv)
+        self.updatedivbutton = Button(self.lf2, text="Update ", bg=self.bgclr2, bd=5, font=(self.f2, 15), command=self.updatediv)
         self.updatedivbutton.place(x=1000, y=225, height=25)
 
         self.protocol("WM_DELETE_WINDOW", self.c_w)

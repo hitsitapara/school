@@ -26,7 +26,7 @@ class StudentAttendanceReport(Toplevel):
 
     def std_combo_method(self,event=""):
 
-        self.rnolabel = Label(self.lf2, text="Roll Number", bd=2, bg="black", fg="White", font=(self.f1, 15), relief=GROOVE)
+        self.rnolabel = Label(self.lf2, text="Roll Number", bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 15), relief=GROOVE)
         self.rnolabel.place(x=600, y=250, height=25)
 
         query1 = "select rollno from master where standard = '"+str(self.std_combo.get())+"'"
@@ -265,31 +265,31 @@ class StudentAttendanceReport(Toplevel):
         imagel = imagel.resize((60, 15))
         imgl = ImageTk.PhotoImage(imagel)
 
-        self.lf1 = LabelFrame(self, text="NAME", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
+        self.lf1 = LabelFrame(self, text="NAME", bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 20), relief=GROOVE)
         self.lf1.place(x=0, y=0, height=150, width=1350)
 
-        bb = Button(self.lf1, image=imgl, bd=5, font=(self.f1, 20), command=self.backf)
+        bb = Button(self.lf1, image=imgl, bg=self.bgclr2, bd=5, font=(self.f1, 20), command=self.backf)
         bb.place(x=10, y=10)
         ##=============================================frame 2==========================================================
-        self.lf2 = LabelFrame(self, text="ATTENDANCE WINDOW", bd=2, bg="black", fg="white", font=(self.f1, 20),
+        self.lf2 = LabelFrame(self, text="ATTENDANCE WINDOW", bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 20),
                               relief=GROOVE)
         self.lf2.place(x=0, y=150, height=550, width=1350)
 
-        self.from_date_label = Label(self.lf2,text='From :', bd=2, bg="black", fg="White", font=(self.f1, 15), relief=GROOVE)
+        self.from_date_label = Label(self.lf2,text='From :', bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 15), relief=GROOVE)
         self.from_date_label.place(x=100,y=100, height=25)
 
         self.from_cal = DateEntry(self.lf2, width=12, background='darkblue', date_pattern='dd/mm/yyyy',
                              foreground='white', borderwidth=2, state="readonly")
         self.from_cal.place(x=200,y=100, height=25)
 
-        self.to_date_label = Label(self.lf2, text='To :', bd=2, bg="black", fg="White", font=(self.f1, 15), relief=GROOVE)
+        self.to_date_label = Label(self.lf2, text='To :', bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 15), relief=GROOVE)
         self.to_date_label.place(x=500, y=100, height=25)
 
         self.to_cal = DateEntry(self.lf2, width=12, background='darkblue', date_pattern='dd/mm/yyyy',
                              foreground='white', borderwidth=2, state="readonly")
         self.to_cal.place(x=600, y=100, height=25)
 
-        self.stdlabel = Label(self.lf2, text="Standard", bd=2, bg="black", fg="White", font=(self.f1, 15), relief=GROOVE)
+        self.stdlabel = Label(self.lf2, text="Standard", bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 15), relief=GROOVE)
         self.stdlabel.place(x=100, y=250, height=25)
 
         query1 = "select standard from master"
@@ -304,10 +304,10 @@ class StudentAttendanceReport(Toplevel):
         self.std_combo.bind("<<ComboboxSelected>>",self.std_combo_method)
         self.combo_std_var.set("Select")
 
-        self.report_button = Button(self.lf2, text='Generate Report', bd=5, font=(self.f2, 15),
+        self.report_button = Button(self.lf2, text='Generate Report', bg=self.bgclr2, bd=5, font=(self.f2, 15),
                                     command=self.generate_report_method)
         self.report_button.place(x=300, y=450)
-        self.report_button = Button(self.lf2, text='Generate Report For All Student', bd=5, font=(self.f2, 15),
+        self.report_button = Button(self.lf2, text='Generate Report For All Student', bg=self.bgclr2, bd=5, font=(self.f2, 15),
                                     command=self.generate_report_all_method)
         self.report_button.place(x=700, y=450)
 

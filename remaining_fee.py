@@ -106,24 +106,25 @@ class Remaining_fee(Toplevel):
         imagel = imagel.resize((60, 15))
         imgl = ImageTk.PhotoImage(imagel)
 
-        self.lf1 = LabelFrame(self, text="NAME", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
+        self.lf1 = LabelFrame(self, text="NAME", bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 20), relief=GROOVE)
         self.lf1.place(x=0, y=0, height=150, width=1350)
 
-        bb = Button(self.lf1, image=imgl, bd=5, font=(self.f1, 20), command=self.backf)
+        bb = Button(self.lf1, image=imgl, bd=5, font=(self.f1, 20), bg=self.bgclr2, command=self.backf)
         bb.place(x=10, y=10)
         ##=============================================frame 2==========================================================
-        self.lf2 = LabelFrame(self, text="Remaining Fee", bd=2, bg="black", fg="white", font=(self.f1, 20),
+        self.lf2 = LabelFrame(self, text="Remaining Fee", bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 20),
                               relief=GROOVE)
         self.lf2.place(x=0, y=150, height=550, width=1350)
 
-        fee_gen_btn = Button(self.lf2, text="Generate Report", bd=5, font=(self.f2,15), command=self.gen_report)
+        fee_gen_btn = Button(self.lf2, text="Generate Report", bg=self.bgclr2, bd=5, font=(self.f2,15), command=self.gen_report)
         fee_gen_btn.place(x = 500, y = 450)
-        label = Label(self.lf2, text="Standard")
-        label.place(x=100, y=90, height=20)
+        label = Label(self.lf2, text="Standard", bg=self.bgclr1, fg="black",  bd=5, font=(self.f1, 15),
+                              relief=GROOVE)
+        label.place(x=100, y=90)
         self.combo_var = StringVar()
         self.cb = Combobox(self.lf2, state="readonly",textvariable=self.combo_var,
                                 font=("Arial Bold", 10))
-        self.cb.place(x=355, y=90, height=20, width=200)
+        self.cb.place(x=355, y=90, height=30, width=200)
         query = "Select distinct standard from master"
         self.stds = self.conn.execute(query).fetchall()
         self.cb['values'] = self.stds

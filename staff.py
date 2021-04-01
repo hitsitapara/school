@@ -78,29 +78,29 @@ class NewUser(Toplevel):
         imagel = imagel.resize((60, 15))
         imgl = ImageTk.PhotoImage(imagel)
 
-        self.lf1 = LabelFrame(self, text="NAME", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
+        self.lf1 = LabelFrame(self, text="NAME", bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 20), relief=GROOVE)
         self.lf1.place(x=0, y=0, height=150, width=1350)
 
-        bb = Button(self.lf1, image=imgl, bd=5, font=(self.f1, 20), command=self.backf)
+        bb = Button(self.lf1, image=imgl, bg=self.bgclr2, bd=5, font=(self.f1, 20), command=self.backf)
         bb.place(x=10, y=10)
 
         ##==================================================frame 2=====================================================
 
-        self.lf2 = LabelFrame(self, text="STAFF WINDOW", bd=2, bg="black", fg="white", font=(self.f1, 20),
+        self.lf2 = LabelFrame(self, text="STAFF WINDOW", bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 20),
                               relief=GROOVE)
         self.lf2.place(x=0, y=150, height=550, width=1350)
 
-        create_user = Button(self.lf2, text='Insert New Staff', font=(self.f2, 15),  command=self.create_user)
+        create_user = Button(self.lf2, text='Insert New Staff', bg=self.bgclr2, bd=5, font=(self.f2, 15),  command=self.create_user)
         create_user.place(x=100, y=250, height=30, width=200)
-        update_user = Button(self.lf2,text="Update Staff", font=(self.f2, 15),  command=self.update_user)
+        update_user = Button(self.lf2,text="Update Staff", bg=self.bgclr2, bd=5, font=(self.f2, 15),  command=self.update_user)
         update_user.place(x=400, y=250, height=30, width=200)
-        remove_user = Button(self.lf2, text="Remove Staff", font=(self.f2, 15), command=self.remove_user)
+        remove_user = Button(self.lf2, text="Remove Staff", bg=self.bgclr2, bd=5, font=(self.f2, 15), command=self.remove_user)
         remove_user.place(x=700, y=250, height=30, width=200)
-        attendance_staff = Button(self.lf2,text="Staff Attendance", font=(self.f2, 15), command=self.attendance)
+        attendance_staff = Button(self.lf2,text="Staff Attendance", bg=self.bgclr2, bd=5, font=(self.f2, 15), command=self.attendance)
         attendance_staff.place(x=1000, y=250, height=30, width=200)
-        staffat_report = Button(self.lf2, text="Staff Attedance Report", font=(self.f2, 15), command=self.atreport)
+        staffat_report = Button(self.lf2, text="Staff Attedance Report", bg=self.bgclr2, bd=5, font=(self.f2, 15), command=self.atreport)
         staffat_report.place(x=400, y=350, height=30 )
-        staffsalary = Button(self.lf2, text="Salary", font=(self.f2, 15), command=self.salarygenrate)
+        staffsalary = Button(self.lf2, text="Salary", bg=self.bgclr2, bd=5, font=(self.f2, 15), command=self.salarygenrate)
         staffsalary.place(x=800, y=350, height=30)
 
         self.protocol("WM_DELETE_WINDOW", self.c_w)

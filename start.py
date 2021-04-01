@@ -169,9 +169,9 @@ class start:
         self.lf2 = LabelFrame(self.root, text="LOG-IN WINDOW", bd=4, bg=self.bgclr1, fg="black", font=(self.f1, 20),
                               relief=GROOVE)
         self.lf2.place(x=0, y=150, height=550, width=1350)
-        self.username = Label(self.lf2, text="Username", bg=self.bgclr1, fg="black",  bd=4, font=(self.f1, 15),
+        self.username = Label(self.lf2, text="Username", bg=self.bgclr1, fg="black",  bd=5, font=(self.f1, 15),
                               relief=GROOVE)
-        self.password = Label(self.lf2, text="Password",  bd=4, bg=self.bgclr1, fg="black", font=(self.f1, 15),
+        self.password = Label(self.lf2, text="Password",  bd=5, bg=self.bgclr1, fg="black", font=(self.f1, 15),
                               relief=GROOVE)
 
         self.usernamevar = StringVar()

@@ -457,28 +457,30 @@ class Percentage(Toplevel):
         imagel = imagel.resize((60, 15))
         imgl = ImageTk.PhotoImage(imagel)
 
-        self.lf1 = LabelFrame(self, text="NAME", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
+        self.lf1 = LabelFrame(self, text="NAME", bd=2, fg="black", bg=self.bgclr1 ,font=(self.f1, 20), relief=GROOVE)
         self.lf1.place(x=0, y=0, height=150, width=1350)
 
-        bb = Button(self.lf1, image=imgl, bd=5, font=(self.f1, 20), bg="white", command=self.backf)
+        bb = Button(self.lf1, image=imgl, bd=5, font=(self.f1, 20), fg="white", bg=self.bgclr2, command=self.backf)
         bb.place(x=10, y=10)
         ##===============================================frame 2========================================================
-        self.lf2 = LabelFrame(self, text="Percentage", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
+        self.lf2 = LabelFrame(self, text="Percentage", bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 20), relief=GROOVE)
         self.lf2.place(x=0, y=150, height=550, width=1350)
 
 
         #=======================CHanges==================================
 
-        exam_label = Label(self.lf2,text="Exam Name")
-        rank_label = Label(self.lf2,text="Enter Total Number Of Ranks, Which You want to give")
+        exam_label = Label(self.lf2,text="Exam Name", bg=self.bgclr1, fg="black",  bd=5, font=(self.f1, 15),
+                              relief=GROOVE)
+        rank_label = Label(self.lf2,text="Enter Total Number Of Ranks, Which You want to give", bg=self.bgclr1, fg="black",  bd=5, font=(self.f1, 15),
+                              relief=GROOVE)
         self.examname_var = StringVar()
         self.rank_var = StringVar()
         self.examname = Entry(self.lf2, textvariable=self.examname_var)
         self.rank = Entry(self.lf2, textvariable=self.rank_var)
         exam_label.place(x=200, y=200)
         rank_label.place(x=200, y=300)
-        self.examname.place(x=700, y=200)
-        self.rank.place(x=700, y=300)
+        self.examname.place(x=850, y=200, height=30, width=200)
+        self.rank.place(x=850, y=300, height=30, width=200)
 
         #=======================CHanges==================================
 
@@ -495,7 +497,5 @@ class Percentage(Toplevel):
         self.cb1['values'] = k
         self.cb1.bind("<<ComboboxSelected>>", self.selected_exam)
         self.cb1.set("Select")
-
-
         self.protocol("WM_DELETE_WINDOW", self.c_w)
         self.mainloop()

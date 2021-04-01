@@ -22,10 +22,11 @@ class Delete_Exam(Toplevel):
     def get_exam_details(self,event):
         self.combo_get_exam.config(state="disabled")
         self.selected_entry_var = StringVar()
-        self.selected_label = Label(self, text="You have selected : ")
-        self.selected_label.place(x=200,y=300)
+        self.selected_label = Label(self, text="You have selected : ", bg=self.bgclr1, fg="black",  bd=5, font=(self.f1, 15),
+                              relief=GROOVE)
+        self.selected_label.place(x=200,y=400)
         self.selected_entry = Entry(self, state="disabled", textvariable=self.selected_entry_var)
-        self.selected_entry.place(x=400,y=300)
+        self.selected_entry.place(x=400,y=400)
         self.selected_entry_var.set(self.combo_get_exam_var.get())
 
     def del_exam(self):

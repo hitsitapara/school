@@ -88,11 +88,16 @@ class RemoveUser(Toplevel):
             return
 
     def remove_combo_method(self,event=""):
-        self.firstname = Label(self.lf2, text='firstname')
-        self.middlename = Label(self.lf2, text='middlename')
-        self.lastname = Label(self.lf2, text='lastname')
-        self.salary = Label(self.lf2, text='salary')
-        self.phoneno = Label(self.lf2, text='phoneno')
+        self.firstname = Label(self.lf2, text='firstname', bg=self.bgclr1, fg="black",  bd=5, font=(self.f1, 15),
+                              relief=GROOVE)
+        self.middlename = Label(self.lf2, text='middlename', bg=self.bgclr1, fg="black",  bd=5, font=(self.f1, 15),
+                              relief=GROOVE)
+        self.lastname = Label(self.lf2, text='lastname', bg=self.bgclr1, fg="black",  bd=5, font=(self.f1, 15),
+                              relief=GROOVE)
+        self.salary = Label(self.lf2, text='salary', bg=self.bgclr1, fg="black",  bd=5, font=(self.f1, 15),
+                              relief=GROOVE)
+        self.phoneno = Label(self.lf2, text='phoneno', bg=self.bgclr1, fg="black",  bd=5, font=(self.f1, 15),
+                              relief=GROOVE)
 
         self.firstnamevar = StringVar()
         self.firstnameentry = Entry(self.lf2, textvariable=self.firstnamevar)
@@ -106,15 +111,15 @@ class RemoveUser(Toplevel):
         self.phonenoentry = Entry(self.lf2, textvariable=self.phonenovar)
 
         self.firstname.place(x=175, y=202)
-        self.firstnameentry.place(x=970, y=202)
+        self.firstnameentry.place(x=970, y=202,height=30)
         self.middlename.place(x=175, y=252)
-        self.middlenameentry.place(x=970, y=252)
+        self.middlenameentry.place(x=970, y=252,height=30)
         self.lastname.place(x=175, y=302)
-        self.lastnameentry.place(x=970, y=302)
+        self.lastnameentry.place(x=970, y=302,height=30)
         self.salary.place(x=175, y=352)
-        self.salaryentry.place(x=970, y=352)
+        self.salaryentry.place(x=970, y=352,height=30)
         self.phoneno.place(x=175, y=402)
-        self.phonenoentry.place(x=970, y=402)
+        self.phonenoentry.place(x=970, y=402,height=30)
 
         query = "select * from staff where empno= " + str(self.remove_user_combo.get())
         staffinfo = self.conn.execute(query).fetchone()
@@ -131,7 +136,7 @@ class RemoveUser(Toplevel):
         self.salaryentry.config(state="disabled")
         self.phonenoentry.config(state="disabled")
 
-        self.remove_user_button = Button(self.lf2,text="remove",command=self.remove_button_method)
+        self.remove_user_button = Button(self.lf2,text="remove",bg=self.bgclr2 , bd=5, font=(self.f2, 15),command=self.remove_button_method)
         self.remove_user_button.place(x=550,y=450)
 
     def __init__(self, root, main_root):
@@ -160,13 +165,13 @@ class RemoveUser(Toplevel):
         imagel = imagel.resize((60, 15))
         imgl = ImageTk.PhotoImage(imagel)
 
-        self.lf1 = LabelFrame(self, text="NAME", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
+        self.lf1 = LabelFrame(self, text="NAME", bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 20), relief=GROOVE)
         self.lf1.place(x=0, y=0, height=150, width=1350)
 
-        bb = Button(self.lf1, image=imgl, bd=5, font=(self.f1, 20), bg="white", command=self.backf)
+        bb = Button(self.lf1, image=imgl, bd=5, font=(self.f1, 20), bg=self.bgclr2, command=self.backf)
         bb.place(x=10, y=10)
         ##===============================================frame 2========================================================
-        self.lf2 = LabelFrame(self, text="Remove User", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
+        self.lf2 = LabelFrame(self, text="Remove User", bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 20), relief=GROOVE)
         self.lf2.place(x=0, y=150, height=550, width=1350)
 
         query1 = "select empno from staff where currentuser=0;"
@@ -174,7 +179,7 @@ class RemoveUser(Toplevel):
         my_list = []
         for i in list1:
             my_list.append(i)
-        self.remove_user_combo = ttk.Combobox(self.lf2, values=my_list, height=10,state="read only")
+        self.remove_user_combo = ttk.Combobox(self.lf2, state="readonly",font=(self.f1, 10), values=my_list)
         self.remove_user_combo.bind("<<ComboboxSelected>>", self.remove_combo_method)
         self.remove_user_combo.set("SELECT EMPNO")
         self.remove_user_combo.pack()

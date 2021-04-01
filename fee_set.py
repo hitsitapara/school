@@ -75,6 +75,7 @@ class Feeset(Toplevel):
         self.txt.insert(END,"\n\n")
         for i in a:
             self.txt.insert(END,"\n\t\t "+str(i[0])+"\t\t " +str(i[1]))
+        self.txt.config(state="disabled")
 
     def __init__(self, root, main_root):
         try:
@@ -104,18 +105,18 @@ class Feeset(Toplevel):
 
         imgl = ImageTk.PhotoImage(imagel)
 
-        self.lf1 = LabelFrame(self, text="NAME", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
+        self.lf1 = LabelFrame(self, text="NAME", bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 20), relief=GROOVE)
         self.lf1.place(x=0, y=0, height=150, width=1350)
 
-        bb = Button(self.lf1, image=imgl, bd=5, font=(self.f1, 20), command=self.backf)
+        bb = Button(self.lf1, image=imgl, bd=5, bg=self.bgclr2, font=(self.f1, 20), command=self.backf)
         bb.place(x=10, y=10)
 
         ##=============================================frame 2==========================================================
-        self.lf2 = LabelFrame(self, text="SET FEE", bd=2, bg="black", fg="white", font=(self.f1, 20),
+        self.lf2 = LabelFrame(self, text="SET FEE", bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 20),
                               relief=GROOVE)
         self.lf2.place(x=0, y=150, height=550, width=675)
 
-        self.classlabel = Label(self.lf2, text="STANDARD", bd=2, bg="black", fg="white", font=(self.f1, 15),
+        self.classlabel = Label(self.lf2, text="STANDARD", bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 15),
                                 relief=GROOVE)
         self.classlabel.place(x=100, y=100, height=25)
 
@@ -137,7 +138,7 @@ class Feeset(Toplevel):
         self.classbox['values'] = self.cals
         self.c_lassbox.set("CLASS")
 
-        self.feelabel = Label(self.lf2, text="Fee Amount", bd=2, font=(self.f1,15), fg="white", bg='black',
+        self.feelabel = Label(self.lf2, text="Fee Amount", bd=2, font=(self.f1,15), bg=self.bgclr1, fg='black',
                               relief=GROOVE)
         self.feelabel.place(x=100, y=200, height=25)
 
@@ -145,15 +146,15 @@ class Feeset(Toplevel):
         self.feeentry = Entry(self.lf2, textvariable=self.fee_entry, font=(self.f1, 15))
         self.feeentry.place(x=300, y=200, height=25, width=200)
 
-        self.submitbutton = Button(self.lf2, text="Submit", font=(self.f2, 15), bd=5, command=self.submit)
+        self.submitbutton = Button(self.lf2, text="Submit", bg=self.bgclr2, font=(self.f2, 15), bd=5, command=self.submit)
         self.submitbutton.place(x=100, y=450, height=30)
 
-        self.resetbutton = Button(self.lf2, text="Reset", font=(self.f2, 15), bd=5, command=self.reset)
+        self.resetbutton = Button(self.lf2, text="Reset", bg=self.bgclr2, font=(self.f2, 15), bd=5, command=self.reset)
         self.resetbutton.place(x=350, y=450, height=30)
         self.classbox.focus_set()
 
         ##======================================================frame 3=================================================
-        self.lf3 = LabelFrame(self, text="FEES PREVIEW", bd=2, bg="black", fg="white", font=(self.f1, 20),
+        self.lf3 = LabelFrame(self, text="FEES PREVIEW", bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 20),
                               relief=GROOVE)
         self.lf3.place(x=675, y=150, height=550, width=675)
 

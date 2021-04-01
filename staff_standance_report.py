@@ -192,33 +192,33 @@ class Staffatreport(Toplevel):
         imagel = imagel.resize((60, 15))
         imgl = ImageTk.PhotoImage(imagel)
 
-        self.lf1 = LabelFrame(self, text="NAME", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
+        self.lf1 = LabelFrame(self, text="NAME", bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 20), relief=GROOVE)
         self.lf1.place(x=0, y=0, height=150, width=1350)
 
-        bb = Button(self.lf1, image=imgl, bd=5, font=(self.f1, 20), command=self.backf)
+        bb = Button(self.lf1, image=imgl, bd=5, bg=self.bgclr2, font=(self.f1, 20), command=self.backf)
         bb.place(x=10, y=10)
 
         ##==================================================frame 2=====================================================
 
-        self.lf2 = LabelFrame(self, text="ATTENDANCE WINDOW", bd=2, bg="black", fg="white", font=(self.f1, 20),
+        self.lf2 = LabelFrame(self, text="ATTENDANCE WINDOW", bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 20),
                               relief=GROOVE)
         self.lf2.place(x=0, y=150, height=550, width=1350)
 
-        self.fromdatelabel = Label(self.lf2, text="FROM DATE", bd=2, bg="black", fg="White", font=(self.f1, 15), relief=GROOVE)
+        self.fromdatelabel = Label(self.lf2, text="FROM DATE", bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 15), relief=GROOVE)
         self.fromdatelabel.place(x=50, y=10, height=25)
 
         self.fromcal = DateEntry(self.lf2, width=12, background='darkblue', date_pattern='dd/mm/yyyy',
                              foreground='white', borderwidth=2, state="readonly")
         self.fromcal.place(x=250, y=10, height=25)
 
-        self.todatelabel = Label(self.lf2, text="TO DATE", bd=2, bg="black", fg="White", font=(self.f1, 15), relief=GROOVE)
+        self.todatelabel = Label(self.lf2, text="TO DATE", bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 15), relief=GROOVE)
         self.todatelabel.place(x=550, y=10, height=25)
 
         self.tocal = DateEntry(self.lf2, width=12, background='darkblue', date_pattern='dd/mm/yyyy',
                              foreground='white', borderwidth=2, state="readonly")
         self.tocal.place(x=750, y=10, height=25)
 
-        self.stafflabel =Label(self.lf2, text="STAFF NAME", bd=2, bg="black", fg="white", font=(self.f1, 15), relief=GROOVE)
+        self.stafflabel =Label(self.lf2, text="STAFF NAME", bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 15), relief=GROOVE)
         self.stafflabel.place(x=100, y=100, height=25)
 
         query = """ select empno, fname, mname, lname from staff"""
@@ -239,10 +239,10 @@ class Staffatreport(Toplevel):
         xscrollbar.pack(side=BOTTOM, fill=X)
         xscrollbar.config(command=self.staffbox.xview)
 
-        self.reportbutton = Button(self.lf2, text="Genrate Report For All", bd=5, font=(self.f2, 15), command=self.atreport)
+        self.reportbutton = Button(self.lf2, text="Genrate Report For All", bg=self.bgclr2, bd=5, font=(self.f2, 15), command=self.atreport)
         self.reportbutton.place(x=800, y=450, height=25)
 
-        self.spreportbutton = Button(self.lf2, text="Genrate Report", bd=5, font=(self.f2, 15), command=self.spreport)
+        self.spreportbutton = Button(self.lf2, text="Genrate Report", bg=self.bgclr2, bd=5, font=(self.f2, 15), command=self.spreport)
         self.spreportbutton.place(x=400, y=450, height=25)
 
         self.protocol("WM_DELETE_WINDOW", self.c_w)
