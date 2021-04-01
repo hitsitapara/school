@@ -630,14 +630,14 @@ class InsertStudent(Toplevel):
 
         imgl = ImageTk.PhotoImage(imagel)
 
-        self.lf1 = LabelFrame(self, text="NAME", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
+        self.lf1 = LabelFrame(self, text="NAME", bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 20), relief=GROOVE)
         self.lf1.place(x=0, y=0, height=150, width=1350)
 
-        bb = Button(self.lf1, image=imgl, bd=5, font=(self.f1, 20), command=self.backf)
+        bb = Button(self.lf1, image=imgl, bd=5, font=(self.f1, 20), bg=self.bgclr2, command=self.backf)
         bb.place(x=10, y=10)
 
         ##=============================================frame 2==========================================================
-        self.lf2 = LabelFrame(self, text="Student Registration", bd=2, bg="black", fg="white", font=(self.f1, 20),
+        self.lf2 = LabelFrame(self, text="Student Registration", bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 20),
                               relief=GROOVE)
         self.lf2.place(x=0, y=150, height=550, width=1350)
 
@@ -658,7 +658,7 @@ class InsertStudent(Toplevel):
         self.rnoentry = Entry(self.lf2 textvariable=self.rno)
         self.rnoentry.place(x=100, y=5, height=25, width=150)"""
 
-        text = Label(self.lf2,text="Select Medium : ")
+        text = Label(self.lf2,text="Select Medium : ", bg=self.bgclr1)
         text.place(x=500, y=130, height=25)
         self.mediumchoosen = Combobox(self.lf2 ,state="readonly", textvariable=self.medium)
         self.mediumchoosen.place(x=640, y=130, height=25, width=200)
@@ -668,14 +668,14 @@ class InsertStudent(Toplevel):
 
         # self.cb2()
 
-        text = Label(self.lf2,text="Select Stream : ")
+        text = Label(self.lf2,text="Select Stream : ", bg=self.bgclr1)
         text.place(x=500, y=170, height=25)
         self.streamchoosen = Combobox(self.lf2, state="disable", textvariable=self.stream)
         self.streamchoosen.place(x=640, y=170, height=25, width=200)
 
         self.streamchoosen['values'] = ["Sci", "Com"]
 
-        text = Label(self.lf2,text="Date of birth : ")
+        text = Label(self.lf2,text="Date of birth : ", bg=self.bgclr1)
         text.place(x=500, y=200, height=25)
         self.dobentry = DateEntry(self.lf2, date_pattern='dd/mm/yyyy', state="readonly")
         self.dobentry.place(x=640, y=200, height=25, width=150)

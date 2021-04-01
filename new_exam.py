@@ -291,27 +291,33 @@ class r1(Toplevel):
         imagel = imagel.resize((60, 15))
         imgl = ImageTk.PhotoImage(imagel)
 
-        self.lf1 = LabelFrame(self, text="NAME", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
+        self.lf1 = LabelFrame(self, text="NAME", bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 20), relief=GROOVE)
         self.lf1.place(x=0, y=0, height=150, width=1350)
 
-        bb = Button(self.lf1, image=imgl, bd=5, font=(self.f1, 10), command=self.backf)
+        bb = Button(self.lf1, image=imgl, bd=5, font=(self.f1, 10), bg=self.bgclr2, command=self.backf)
         bb.place(x=10, y=10)
         ##=====================================================frame 2================================================
-        self.lf2 = LabelFrame(self, text="CREATE EXAM", bd=2, bg="black", fg="white", font=(self.f1, 20),
+        self.lf2 = LabelFrame(self, text="CREATE EXAM", bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 20),
                               relief=GROOVE)
         self.lf2.place(x=0, y=150, height=550, width=675)
 
-        label = Label(self.lf2, text="Exam Name")
+        label = Label(self.lf2, text="Exam Name", bg=self.bgclr1, fg="black",  bd=4, font=(self.f1, 10),
+                              relief=GROOVE)
         label.place(x=100, y=20, height=20)
-        label = Label(self.lf2, text="Subjects for Exam")
+        label = Label(self.lf2, text="Subjects for Exam", bg=self.bgclr1, fg="black",  bd=4, font=(self.f1, 10),
+                              relief=GROOVE)
         label.place(x=100, y=230, height=20)
-        label = Label(self.lf2, text="Marks for Subject")
+        label = Label(self.lf2, text="Marks for Subject", bg=self.bgclr1, fg="black",  bd=4, font=(self.f1, 10),
+                              relief=GROOVE)
         label.place(x=100, y=300, height=20)
-        label = Label(self.lf2, text="Internal Marks for Subject")
+        label = Label(self.lf2, text="Internal Marks for Subject", bg=self.bgclr1, fg="black",  bd=4, font=(self.f1, 10),
+                              relief=GROOVE)
         label.place(x=100, y=370, height=20)
-        label = Label(self.lf2, text="Standard")
+        label = Label(self.lf2, text="Standard", bg=self.bgclr1, fg="black",  bd=4, font=(self.f1, 10),
+                              relief=GROOVE)
         label.place(x=100, y=90, height=20)
-        label = Label(self.lf2, text="Date of Exam")
+        label = Label(self.lf2, text="Date of Exam", bg=self.bgclr1, fg="black",  bd=4, font=(self.f1, 10),
+                              relief=GROOVE)
         label.place(x=100, y=160)
         self.sub_entry_var = StringVar()
         self.mark_entry_var = StringVar()
@@ -340,27 +346,27 @@ class r1(Toplevel):
         # self.cb3['values'] = ["L.K.G", "H.K.G", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, "11~Commerce", "12~Commerce",
         #                       "11~Science", "12~Science"]
         self.cb3.set("Select")
-        add_btn = Button(self.lf2, text="ADD Another Subject", font=(self.f1, 10),
+        add_btn = Button(self.lf2, text="ADD Another Subject", bg=self.bgclr2, bd=5, font=(self.f1, 10),
                          command=self.add_sub_and_mark)
         add_btn.place(x=80, y=425, width=200)
-        self.done_btn = Button(self.lf2, width=30, text="DONE", font=(self.f1, 10),
+        self.done_btn = Button(self.lf2, width=30, text="DONE", bg=self.bgclr2, bd=5, font=(self.f1, 10),
                                command=self.done_sub)
         self.done_btn.place(x=350, y=425, width=200)
         self.done_btn.config(state="disabled")
 
         ##===================================================== frame 3===============================================
-        self.lf3 = LabelFrame(self, text="Marks Entry & Results", bd=2, bg="black", fg="white", font=(self.f1, 20),
+        self.lf3 = LabelFrame(self, text="Marks Entry & Results", bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 20),
                               relief=GROOVE)
         self.lf3.place(x=675, y=150, height=550, width=675)
 
-        mark_btn = Button(self.lf3, text="MARK ENTRY", command=self.marks_entry)
-        mark_btn.place(x=300, y=50, height=25)
-        btn = Button(self.lf3, text="Update Marks", command=self.update_marks)
-        btn.place(x=300, y=125, height=25)
-        btn = Button(self.lf3, text="Delete Exam", command=self.delete_exam)
-        btn.place(x=300, y=200, height=25)
-        btn = Button(self.lf3, text="Generate Result", command=self.calculate_percentage)
-        btn.place(x=290, y=275, height=25)
+        mark_btn = Button(self.lf3, text="MARK ENTRY", bg=self.bgclr2, bd=5, font=(self.f1, 10), command=self.marks_entry)
+        mark_btn.place(x=300, y=50, height=30)
+        btn = Button(self.lf3, text="Update Marks", bg=self.bgclr2, bd=5, font=(self.f1, 10), command=self.update_marks)
+        btn.place(x=300, y=125, height=30)
+        btn = Button(self.lf3, text="Delete Exam", bg=self.bgclr2, bd=5, font=(self.f1, 10), command=self.delete_exam)
+        btn.place(x=300, y=200, height=30)
+        btn = Button(self.lf3, text="Generate Result", bg=self.bgclr2, bd=5, font=(self.f1, 10), command=self.calculate_percentage)
+        btn.place(x=300, y=275, height=30)
 
         self.protocol("WM_DELETE_WINDOW", self.c_w)
         self.mainloop()

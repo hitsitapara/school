@@ -79,13 +79,13 @@ class Main1(Toplevel):
         imagel = imagel.resize((60, 15))
         imgl = ImageTk.PhotoImage(imagel)
 
-        self.lf1 = LabelFrame(self, text="NAME", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
+        self.lf1 = LabelFrame(self, text="NAME", bd=2, bg=self.bgclr1, fg="black", font=(self.f1, 20), relief=GROOVE)
         self.lf1.place(x=0, y=0, height=150, width=1350)
 
-        bb = Button(self.lf1, image=imgl, bd=5, font=(self.f1, 20), bg="white", command=self.backf)
+        bb = Button(self.lf1, image=imgl, bd=5, font=(self.f1, 20), bg=self.bgclr2, command=self.backf)
         bb.place(x=10, y=10)
         ##===============================================frame 2========================================================
-        self.lf2 = LabelFrame(self, text="Buttons", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
+        self.lf2 = LabelFrame(self, text="Buttons", bd=2, bg=self.bgclr1, fg="black", font=(self.f1, 20), relief=GROOVE)
         self.lf2.place(x=0, y=150, height=550, width=1350)
 
         atimg = ImageTk.PhotoImage(file="attendance.png")
@@ -114,3 +114,4 @@ class Main1(Toplevel):
 
         self.protocol("WM_DELETE_WINDOW", self.c_w)
         self.mainloop()
+        

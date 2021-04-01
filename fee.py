@@ -23,7 +23,7 @@ class fee1(Toplevel):
     def rollno(self, event=""):
 
         if self.rollcounter == 0:
-            self.rolllabel = Label(self.lf2, text="ROLL NO", bd=2, bg="black", fg="white", font=(self.f1, 15),
+            self.rolllabel = Label(self.lf2, text="ROLL NO", bd=2, bg=self.bgclr1, fg="black", font=(self.f1, 15),
                                    relief=GROOVE)
             self.rolllabel.place(x=300, y=85, height=25)
             query1 = """ select rollno, fname, mname, lname from master where standard = ?"""
@@ -50,7 +50,7 @@ class fee1(Toplevel):
         if self.feecounter == 0:
             b = self.rollbox.get()
             self.r = b.split(' ')
-            self.tfeelabel = Label(self.lf2, text="Total Fee", bd=2, bg="black", fg="white",font=(self.f1, 12),
+            self.tfeelabel = Label(self.lf2, text="Total Fee", bd=2, bg=self.bgclr1, fg="black",font=(self.f1, 12),
                                   relief=GROOVE)
             self.tfeelabel.place(x=70, y=275, height=25)
 
@@ -63,13 +63,13 @@ class fee1(Toplevel):
             self.tfeeentry.config(state="disabled")
             self.t_feeentry.set(self.feeamount)
 
-            self.pfeelabel = Label(self.lf2, text="Payment", bd=2, bg="black", fg="white", font=(self.f1, 12),
+            self.pfeelabel = Label(self.lf2, text="Payment", bd=2, bg=self.bgclr1, fg="black", font=(self.f1, 12),
                                    relief=GROOVE)
             self.pfeelabel.place(x=470, y=275, height=25)
             self.p_feeentry = StringVar()
             self.pfeeentry = Entry(self.lf2, textvariable=self.p_feeentry, font=(self.f1,10))
             self.pfeeentry.place(x=450, y=350, height=25, width=150)
-            self.rfeelabel = Label(self.lf2,text="Fee to be Paid", bd=2, bg="black", fg="white", font=(self.f1,12), relief=GROOVE)
+            self.rfeelabel = Label(self.lf2,text="Fee to be Paid", bd=2, fg="black", bg=self.bgclr1, font=(self.f1,12), relief=GROOVE)
             self.rfeelabel.place(x=250, y=275, height=25)
             self.r_feeentry = StringVar()
             self.rfeeentry = Entry(self.lf2, textvariable=self.r_feeentry, font=(self.f1,10))
@@ -289,18 +289,18 @@ class fee1(Toplevel):
 
         imgl = ImageTk.PhotoImage(imagel)
 
-        self.lf1 = LabelFrame(self, text="NAME", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
+        self.lf1 = LabelFrame(self, text="NAME", bd=2, bg=self.bgclr1, fg="BLACK", font=(self.f1, 20), relief=GROOVE)
         self.lf1.place(x=0, y=0, height=150, width=1350)
 
-        bb = Button(self.lf1, image=imgl, bd=5, font=(self.f1, 20), command=self.backf)
+        bb = Button(self.lf1, image=imgl, bd=5, font=(self.f1, 20), bg=self.bgclr2, command=self.backf)
         bb.place(x=10, y=10)
 
         ##=============================================frame 2==========================================================
-        self.lf2 = LabelFrame(self, text="PAY FEE", bd=2, bg="black", fg="white", font=(self.f1, 20),
+        self.lf2 = LabelFrame(self, text="PAY FEE", bd=2, bg=self.bgclr1, fg="BLACK", font=(self.f1, 20),
                               relief=GROOVE)
         self.lf2.place(x=0, y=150, height=550, width=675)
 
-        self.classlabel = Label(self.lf2, text="STANDARD", bd=2, bg="black", fg="white", font=(self.f1, 15),
+        self.classlabel = Label(self.lf2, text="STANDARD", bd=2, bg=self.bgclr1, fg="BLACK", font=(self.f1, 15),
                                 relief=GROOVE)
         self.classlabel.place(x=50, y=85, height=25)
 
@@ -319,15 +319,15 @@ class fee1(Toplevel):
         self.classbox.bind("<<ComboboxSelected>>", self.rollno)
         self.c_lassbox.set("CLASS")
 
-        self.paybutton = Button(self.lf2, text="PAY", font=(self.f2, 15), bd=5, command=self.pay)
+        self.paybutton = Button(self.lf2, text="PAY", font=(self.f2, 15), bg=self.bgclr2, bd=5, command=self.pay)
         self.paybutton.place(x=100, y=450, height=25)
 
-        self.resetbutton = Button(self.lf2, text="RESET", font=(self.f2, 15), bd=5, command=self.reset)
+        self.resetbutton = Button(self.lf2, text="RESET", font=(self.f2, 15), bg=self.bgclr2, bd=5, command=self.reset)
         self.resetbutton.place(x=300, y=450, height=25)
 
 
         ##======================================================frame 3=================================================
-        self.lf3 = LabelFrame(self, text="FEES PREVIEW", bd=2, bg="black", fg="white", font=(self.f1, 20),
+        self.lf3 = LabelFrame(self, text="FEES PREVIEW", bd=2, bg=self.bgclr1, fg="black", font=(self.f1, 20),
                               relief=GROOVE)
         self.lf3.place(x=675, y=150, height=550, width=675)
 

@@ -97,13 +97,13 @@ class Delete_Exam(Toplevel):
         imagel = imagel.resize((60, 15))
         imgl = ImageTk.PhotoImage(imagel)
 
-        self.lf1 = LabelFrame(self, text="NAME", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
+        self.lf1 = LabelFrame(self, text="NAME", bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 20), relief=GROOVE)
         self.lf1.place(x=0, y=0, height=150, width=1350)
 
-        bb = Button(self.lf1, image=imgl, bd=5, font=(self.f1, 20), command=self.backf)
+        bb = Button(self.lf1, image=imgl, bd=5, bg=self.bgclr2 ,font=(self.f1, 20), command=self.backf)
         bb.place(x=10, y=10)
         ##======================================================frame 2=================================================
-        self.lf2 = LabelFrame(self, text="DELETE EXAM WINDOW", bd=2, bg="black", fg="white", font=(self.f1, 20),
+        self.lf2 = LabelFrame(self, text="DELETE EXAM WINDOW", bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 20),
                               relief=GROOVE)
         self.lf2.place(x=0, y=150, height=550, width=1350)
         self.combo_get_exam_var = StringVar()
@@ -120,8 +120,8 @@ class Delete_Exam(Toplevel):
         self.combo_get_exam.set("Select")
         self.combo_get_exam.bind("<<ComboboxSelected>>", self.get_exam_details)
         self.protocol("WM_DELETE_WINDOW", self.c_w)
-        self.reset_btn = Button(self.lf2, text="RESET", command=self.reset)
+        self.reset_btn = Button(self.lf2, text="RESET",bg=self.bgclr2 , bd=5, font=(self.f2, 20), command=self.reset)
         self.reset_btn.place(x=200,y=450)
-        self.reset_btn = Button(self.lf2, text="DELETE", command=self.del_exam)
+        self.reset_btn = Button(self.lf2, text="DELETE",bg=self.bgclr2 , bd=5, font=(self.f2, 20), command=self.del_exam)
         self.reset_btn.place(x=500, y=450)
         self.mainloop()

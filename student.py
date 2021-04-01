@@ -64,24 +64,25 @@ class NewStudent(Toplevel):
         imagel = imagel.resize((60, 15))
         imgl = ImageTk.PhotoImage(imagel)
 
-        self.lf1 = LabelFrame(self, text="NAME", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
+        self.lf1 = LabelFrame(self, text="NAME", bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 20), relief=GROOVE)
         self.lf1.place(x=0, y=0, height=150, width=1350)
 
-        bb = Button(self.lf1, image=imgl, bd=5, font=(self.f1, 20), bg="white", command=self.backf)
+        bb = Button(self.lf1, image=imgl, bd=5, font=(self.f1, 20), bg=self.bgclr2, command=self.backf)
         bb.place(x=10, y=10)
         ##===============================================frame 2========================================================
-        self.lf2 = LabelFrame(self, text="Student WINDOW", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
+        self.lf2 = LabelFrame(self, text="Student WINDOW", bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 20), relief=GROOVE)
         self.lf2.place(x=0, y=150, height=550, width=1350)
 
-        insert_student = Button(self.lf2, text='Insert New Student', bd=5, font=(self.f2, 15), command=self.insert_student_method)
+        insert_student = Button(self.lf2, text='Insert New Student', bd=5, bg=self.bgclr2, font=(self.f2, 15), command=self.insert_student_method)
         insert_student.place(x=200, y=200, height=30, width=250)
-        update_student = Button(self.lf2,text="Update Student",  bd=5, font=(self.f2, 15), command=self.update_student_method)
+        update_student = Button(self.lf2,text="Update Student",  bd=5, bg=self.bgclr2, font=(self.f2, 15), command=self.update_student_method)
         update_student.place(x=700, y=200, height=30, width=250)
-        remove_student = Button(self.lf2, text="Remove Student", bd=5, font=(self.f2, 15), command=self.remove_student_method)
+        remove_student = Button(self.lf2, text="Remove Student", bd=5, bg=self.bgclr2, font=(self.f2, 15), command=self.remove_student_method)
         remove_student.place(x=200, y=400, height=30, width=250)
 
-        divisionButton = Button(self.lf2, text="Division", bd=5, font=(self.lf2, 15), command=self.division)
+        divisionButton = Button(self.lf2, text="Division", bd=5, bg=self.bgclr2, font=(self.lf2, 15), command=self.division)
         divisionButton.place(x=700, y=400, height=30, width=250)
 
         self.protocol("WM_DELETE_WINDOW", self.c_w)
         self.mainloop()
+

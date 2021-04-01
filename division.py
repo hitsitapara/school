@@ -24,7 +24,7 @@ class Division(Toplevel):
     def rollno(self, event=""):
 
         if self.rollcounter == 0:
-            self.rolllabel = Label(self.lf2, text="Student's", bd=2, bg="black", fg="white", font=(self.f1, 15),
+            self.rolllabel = Label(self.lf2, text="Student's", bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 15),
                                    relief=GROOVE)
             self.rolllabel.place(x=350, y=85, height=25)
             query1 = """ select rollno, fname, mname, lname  from master where standard = ? """
@@ -152,18 +152,18 @@ class Division(Toplevel):
         imagel = imagel.resize((60, 15))
         imgl = ImageTk.PhotoImage(imagel)
 
-        self.lf1 = LabelFrame(self, text="NAME", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
+        self.lf1 = LabelFrame(self, text="NAME", bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 20), relief=GROOVE)
         self.lf1.place(x=0, y=0, height=150, width=1350)
 
-        bb = Button(self.lf1, image=imgl, bd=5, font=(self.f1, 20), command=self.backf)
+        bb = Button(self.lf1, image=imgl, bg=self.bgclr2, bd=5, font=(self.f1, 20), command=self.backf)
         bb.place(x=10, y=10)
 
         ##====================================================frame 2===================================================
 
-        self.lf2 = LabelFrame(self, text="Division", bd=2, bg="black", fg="white", font=(self.f1, 20), relief=GROOVE)
+        self.lf2 = LabelFrame(self, text="Division", bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 20), relief=GROOVE)
         self.lf2.place(x=0, y=150, height=550, width=1350)
 
-        self.classlabel = Label(self.lf2, text="STANDARD", bd=2, bg="black", fg="white", font=(self.f1, 15),
+        self.classlabel = Label(self.lf2, text="STANDARD", bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 15),
                                 relief=GROOVE)
         self.classlabel.place(x=50, y=85, height=25)
 
@@ -182,23 +182,22 @@ class Division(Toplevel):
         self.classbox.bind("<<ComboboxSelected>>", self.rollno)
         self.c_lassbox.set("CLASS")
 
-        self.divlabel = Label(self.lf2, text="DIVISION", bd=2, bg="black", fg="white", font=(self.f1, 15), relief=GROOVE)
+        self.divlabel = Label(self.lf2, text="DIVISION", bd=2, fg="black", bg=self.bgclr1, font=(self.f1, 15), relief=GROOVE)
         self.divlabel.place(x=50, y=225, height=25)
 
         self.d_iventry = StringVar()
         self.diventry = Entry(self.lf2, textvariable=self.d_iventry, font=(self.f1, 15))
         self.diventry.place(x=50, y=300, height=25, width=100)
-        self.divisionbutton = Button(self.lf2, text="Create Division", bd=5, font=(self.f2, 15), command=self.division)
+        self.divisionbutton = Button(self.lf2, text="Create Division", bg=self.bgclr2, bd=5, font=(self.f2, 15), command=self.division)
         self.divisionbutton.place(x=1000, y=225, height=25)
         self.divisionbutton.config(state="disabled")
 
-        self.updatedivbutton = Button(self.lf2, text="Update Division", bd=5, font=(self.f2, 15), command=self.updatediv)
+        self.updatedivbutton = Button(self.lf2, text="Update Division", bg=self.bgclr2, bd=5, font=(self.f2, 15), command=self.updatediv)
         self.updatedivbutton.place(x=1000, y=350, height=25)
 
-        self.addbutton = Button(self.lf2, text="ADD", bd=5, font=(self.f2, 15), command=self.add)
+        self.addbutton = Button(self.lf2, text="ADD", bg=self.bgclr2, bd=5, font=(self.f2, 15), command=self.add)
         self.addbutton.place(x=1000, y=100, height=25)
 
         self.protocol("WM_DELETE_WINDOW", self.c_w)
 
         self.mainloop()
-
