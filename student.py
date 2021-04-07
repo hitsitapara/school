@@ -3,7 +3,7 @@ from tkinter import ttk, messagebox
 import sqlite3
 from PIL import Image, ImageTk
 from new_student import InsertStudent
-from update_student import UpdateStudent
+from UPDATE_STUDENT import UpdateStudent
 from remove_student import RemoveStudent
 from division import Division
 

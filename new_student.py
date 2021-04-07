@@ -203,6 +203,12 @@ class InsertStudent(Toplevel):
             m = messagebox.showerror("School Software","Please enter valid caste",parent=self)
             self.casteentry.focus_set()
             return
+        try:
+            if(self.dateofbirthentry.get_date() >= date.today()):
+                raise ValueError
+        except:
+            messagebox.showerror("School Software","Invalid date of birth!!")
+            return
         self.insert_value()
         
     def insert_value(self):
@@ -243,7 +249,6 @@ class InsertStudent(Toplevel):
                                      self.casteentry.get(),str(date.today()),self.academicyear_var.get()))
             self.conn.commit()
             m = messagebox.showinfo("School Software","Student data enterd succesfully",parent=self)
-        else:
             self.reset()
 
     def reset(self):
@@ -265,7 +270,7 @@ class InsertStudent(Toplevel):
         self.selectstream_var.set("Select Stream")
             
     def __init__(self, root, main_root):
-    
+        
         try:
             self.conn = sqlite3.connect('sinfo.db')
         except:
@@ -340,13 +345,13 @@ class InsertStudent(Toplevel):
         self.addressentry = Text(self.lf2,font=(self.f1,10))
         self.addressentry.place(x=300, y=280, width=200, height=60)
         
-        self.studentphnolabel = Label(self.lf2, text="Student Phone NO.", bd=2, bg=self.bgclr1, fg="black", font=(self.f1, 15),relief=GROOVE)
+        self.studentphnolabel = Label(self.lf2, text="Student Phone No.", bd=2, bg=self.bgclr1, fg="black", font=(self.f1, 15),relief=GROOVE)
         self.studentphnolabel.place(x=50, y=360)
         self.studentphno_var = StringVar()
         self.studentphnoentry = Entry(self.lf2, textvariable=self.studentphno_var, font=(self.f1,15))
         self.studentphnoentry.place(x=300, y=360, height=30, width=200)
         
-        self.parentphnolabel = Label(self.lf2, text="Parent Phone NO.", bd=2, bg=self.bgclr1, fg="black", font=(self.f1, 15),relief=GROOVE)
+        self.parentphnolabel = Label(self.lf2, text="Parent Phone No.", bd=2, bg=self.bgclr1, fg="black", font=(self.f1, 15),relief=GROOVE)
         self.parentphnolabel.place(x=50, y=410)
         self.parentphno_var = StringVar()
         self.parentphnoentry = Entry(self.lf2, textvariable=self.parentphno_var, font=(self.f1,15))
@@ -364,7 +369,7 @@ class InsertStudent(Toplevel):
         self.parentofficeaddentry = Text(self.lf2, font=(self.f1,10))
         self.parentofficeaddentry.place(x=900, y=20, height=60, width=200)
         
-        self.parentofficephnolabel = Label(self.lf2, text="Parent Office Phone NO.", bd=2, bg=self.bgclr1, fg="black", font=(self.f1, 15),relief=GROOVE)
+        self.parentofficephnolabel = Label(self.lf2, text="Parent Office Phone No.", bd=2, bg=self.bgclr1, fg="black", font=(self.f1, 15),relief=GROOVE)
         self.parentofficephnolabel.place(x=600, y=100)
         self.parentofficephno_var = StringVar()
         self.parentofficephnoentry = Entry(self.lf2, textvariable=self.parentofficephno_var, font=(self.f1,15))
